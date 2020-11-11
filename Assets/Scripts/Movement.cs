@@ -61,18 +61,18 @@ public class Movement : MonoBehaviour
         Walk(dir);
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        if (coll.onWall && Input.GetButton("Fire3") && canMove)
+        if (coll.onWall && Input.GetKey(KeyCode.UpArrow) && canMove)
         {
             if(side != coll.wallSide)
                 anim.Flip(side*-1);
             wallGrab = true;
-            wallSlide = false;
+            //wallSlide = false;
         }
 
-        if (Input.GetButtonUp("Fire3") || !coll.onWall || !canMove)
+        if (Input.GetKeyUp(KeyCode.UpArrow) || !coll.onWall || !canMove)
         {
             wallGrab = false;
-            wallSlide = false;
+            //wallSlide = false;
         }
 
         if (coll.onGround && !isDashing)
@@ -96,17 +96,17 @@ public class Movement : MonoBehaviour
             rb.gravityScale = 3;
         }
 
-        if(coll.onWall && !coll.onGround)
-        {
-            if (x != 0 && !wallGrab)
-            {
-                wallSlide = true;
-                WallSlide();
-            }
-        }
+        //if(coll.onWall && !coll.onGround)
+        //{
+        //    if (x != 0 && !wallGrab)
+        //    {
+        //        wallSlide = true;
+        //        WallSlide();
+        //    }
+        //}
 
-        if (!coll.onWall || coll.onGround)
-            wallSlide = false;
+        //if (!coll.onWall || coll.onGround)
+        //    wallSlide = false;
 
         if (Input.GetButtonDown("Jump"))
         {
