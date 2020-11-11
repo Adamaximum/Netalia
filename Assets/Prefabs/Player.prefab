@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4202762130949053705}
   - component: {fileID: 4202762130949053704}
+  - component: {fileID: 3805704381151578085}
+  - component: {fileID: 673537318618687027}
+  - component: {fileID: 4953805876232903779}
   - component: {fileID: 4202762130949053710}
   - component: {fileID: 4202762130949053708}
   - component: {fileID: 4202762130949053711}
@@ -49,6 +52,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4202762130949053710
+--- !u!114 &3805704381151578085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,6 +97,71 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4202762130949053707}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3742b6442ab149849951976812ce1c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  onGround: 0
+  onWall: 0
+  onRightWall: 0
+  onLeftWall: 0
+  wallSide: 0
+  collisionRadius: 0.25
+  bottomOffset: {x: 0, y: 0}
+  rightOffset: {x: 0, y: 0}
+  leftOffset: {x: 0, y: 0}
+--- !u!114 &673537318618687027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202762130949053707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0bd6a9ab245834cbe21bb01544260e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  speed: 10
+  jumpForce: 50
+  slideSpeed: 5
+  wallJumpLerp: 10
+  dashSpeed: 20
+  canMove: 0
+  wallGrab: 0
+  wallJumped: 0
+  wallSlide: 0
+  isDashing: 0
+  side: 1
+  dashParticle: {fileID: 0}
+  jumpParticle: {fileID: 0}
+  slideParticle: {fileID: 0}
+--- !u!114 &4953805876232903779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202762130949053707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df440ada17f9faf4d9f4f50884f456a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+--- !u!114 &4202762130949053710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202762130949053707}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 991581f65b8f821419cb84af13fb1748, type: 3}
   m_Name: 
@@ -104,6 +174,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
+  playerRB: {fileID: 0}
   alive: {fileID: 21300000, guid: bf58ae3b9325ea44e81ade0df91743b0, type: 3}
   heaven: {fileID: 21300000, guid: f598fbfce7a65cf47a8529cd11de3309, type: 3}
   hell: {fileID: 21300000, guid: ad5de8171caac2e4b9b1d7f1c55340af, type: 3}
@@ -157,12 +228,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!82 &6346106172992733229
 AudioSource:
   m_ObjectHideFlags: 0
