@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour
     public bool canMove;
     public bool wallGrab;
     public bool wallJumped;
-    public bool wallSlide;
+    //public bool wallSlide;
     public bool isDashing;
 
     [Space]
@@ -58,10 +58,25 @@ public class Movement : MonoBehaviour
         float yRaw = Input.GetAxisRaw("Vertical");
         Vector2 dir = new Vector2(x, y);
 
-        Walk(dir);
+        //Walk(dir);
+        if (!canMove)
+            return;
+
+        //if (wallGrab)
+        //    return;
+
+        if (!wallJumped)
+        {
+            rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
+        }
+
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        if (coll.onWall && Input.GetKey(KeyCode.UpArrow) && canMove)
+        if (coll.onWall && Input.GetButton("Jump") && canMove)
         {
             if(side != coll.wallSide)
                 anim.Flip(side*-1);
@@ -69,19 +84,30 @@ public class Movement : MonoBehaviour
             //wallSlide = false;
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow) || !coll.onWall || !canMove)
+        if (!coll.onWall || !canMove)
         {
             wallGrab = false;
             //wallSlide = false;
         }
 
-        if (coll.onGround && !isDashing)
+        if (Input.GetButton("Jump") && coll.onWall)
+        {
+            wallGrab = true;
+        }
+
+        if (coll.onGround)
         {
             wallJumped = false;
             GetComponent<BetterJumping>().enabled = true;
         }
-        
-        if (wallGrab && !isDashing)
+
+        if (Input.GetButton("Jump") && Input.GetAxis("Horizontal") != 0 && rb.gravityScale == 0)
+        {
+            if (coll.onWall && !coll.onGround)
+                WallJump();
+        }
+
+        if (wallGrab)
         {
             rb.gravityScale = 0;
             if(x > .2f || x < -.2f)
@@ -96,17 +122,17 @@ public class Movement : MonoBehaviour
             rb.gravityScale = 3;
         }
 
-        //if(coll.onWall && !coll.onGround)
-        //{
-        //    if (x != 0 && !wallGrab)
-        //    {
-        //        wallSlide = true;
-        //        WallSlide();
-        //    }
-        //}
+        if (coll.onWall && !coll.onGround)
+        {
+            //if (x != 0 && !wallGrab)
+            //{
+            //    wallSlide = true;
+            //    WallSlide();
+            //}
+        }
 
         //if (!coll.onWall || coll.onGround)
-        //    wallSlide = false;
+            //wallSlide = false;
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -114,8 +140,6 @@ public class Movement : MonoBehaviour
 
             if (coll.onGround)
                 Jump(Vector2.up, false);
-            if (coll.onWall && !coll.onGround)
-                WallJump();
         }
 
         if (Input.GetButtonDown("Fire1") && !hasDashed)
@@ -137,7 +161,7 @@ public class Movement : MonoBehaviour
 
         WallParticle(y);
 
-        if (wallGrab || wallSlide || !canMove)
+        if (wallGrab || !canMove)
             return;
 
         if(x > 0)
@@ -245,23 +269,23 @@ public class Movement : MonoBehaviour
         rb.velocity = new Vector2(push, -slideSpeed);
     }
 
-    private void Walk(Vector2 dir)
-    {
-        if (!canMove)
-            return;
+    //private void Walk(Vector2 dir)
+    //{
+    //    if (!canMove)
+    //        return;
 
-        if (wallGrab)
-            return;
+    //    if (wallGrab)
+    //        return;
 
-        if (!wallJumped)
-        {
-            rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
-        }
-    }
+    //    if (!wallJumped)
+    //    {
+    //        rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
+    //    }
+    //    else
+    //    {
+    //        rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
+    //    }
+    //}
 
     private void Jump(Vector2 dir, bool wall)
     {
@@ -290,7 +314,7 @@ public class Movement : MonoBehaviour
     {
         var main = slideParticle.main;
 
-        if (wallSlide || (wallGrab && vertical < 0))
+        if (wallGrab && vertical < 0)
         {
             slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
             main.startColor = Color.white;
