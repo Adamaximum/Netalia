@@ -78,10 +78,13 @@ public class Movement : MonoBehaviour
 
         if (coll.onWall && Input.GetButton("Jump") && canMove)
         {
-            if(side != coll.wallSide)
-                anim.Flip(side*-1);
-            wallGrab = true;
-            //wallSlide = false;
+            if (coll.wallSide == 1 && Input.GetAxis("Horizontal") < 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") > 0)
+            {
+                if (side != coll.wallSide)
+                    anim.Flip(side * -1);
+                wallGrab = true;
+                //wallSlide = false;
+            }
         }
 
         if (!coll.onWall || !canMove)
@@ -90,10 +93,10 @@ public class Movement : MonoBehaviour
             //wallSlide = false;
         }
 
-        if (Input.GetButton("Jump") && coll.onWall)
-        {
-            wallGrab = true;
-        }
+        //if (Input.GetButton("Jump") && coll.onWall)
+        //{
+            
+        //}
 
         if (coll.onGround)
         {
@@ -101,10 +104,13 @@ public class Movement : MonoBehaviour
             GetComponent<BetterJumping>().enabled = true;
         }
 
-        if (Input.GetButton("Jump") && Input.GetAxis("Horizontal") != 0 && rb.gravityScale == 0)
+        if (Input.GetButton("Jump") && rb.gravityScale == 0)
         {
-            if (coll.onWall && !coll.onGround)
-                WallJump();
+            if (coll.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
+            {
+                if (coll.onWall && !coll.onGround)
+                    WallJump();
+            }
         }
 
         if (wallGrab)
@@ -114,8 +120,15 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
 
             float speedModifier = y > 0 ? .5f : 1;
-
-            rb.velocity = new Vector2(rb.velocity.x, y * (speed * speedModifier));
+            if (coll.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, y * (speed * speedModifier));
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, y * (speed * speedModifier));
+            }
+            
         }
         else
         {
