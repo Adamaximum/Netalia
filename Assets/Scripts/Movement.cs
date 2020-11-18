@@ -258,8 +258,8 @@ public class Movement : MonoBehaviour
         StartCoroutine(DisableMovement(.1f));
 
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
-
-        Jump((Vector2.up / 1.5f + wallDir / 1.5f), true);
+        Vector2 jumpDir = (((Vector2.up*10f) / 1.5f) + wallDir / 1.5f);
+        Jump(jumpDir, true);
 
         wallJumped = true;
     }
