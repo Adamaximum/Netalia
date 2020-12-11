@@ -52,11 +52,13 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(rb.gravityScale);
+
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         float xRaw = Input.GetAxisRaw("Horizontal");
         float yRaw = Input.GetAxisRaw("Vertical");
-        Vector2 dir = new Vector2(x, y);
+        Vector2 dir = new Vector2(xRaw, yRaw);
 
         //Walk(dir);
         if (!canMove)
@@ -65,14 +67,7 @@ public class Movement : MonoBehaviour
         //if (wallGrab)
         //    return;
 
-        if (!wallJumped)
-        {
-            rb.velocity = new Vector2(dir.x * speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
-        }
+        
 
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
@@ -111,6 +106,17 @@ public class Movement : MonoBehaviour
                 if (coll.onWall && !coll.onGround)
                     WallJump();
             }
+        }
+
+        if (!wallJumped)
+        {
+            Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
+            rb.velocity = test;
+        }
+        else
+        {
+            //Debug.Log(rb.velocity.y);
+            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
         }
 
         if (wallGrab)
@@ -259,9 +265,13 @@ public class Movement : MonoBehaviour
 
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
         Vector2 jumpDir = (((Vector2.up*10f) / 1.5f) + wallDir / 1.5f);
-        Jump(jumpDir, true);
+        //Vector2 tempDir = new Vector2(wallDir.x, 20);
+        Jump(wallDir + Vector2.up, true);
+        //Jump(tempDir, true);
 
         wallJumped = true;
+
+        Debug.Log("WallJump");
     }
 
     private void WallSlide()
@@ -304,11 +314,14 @@ public class Movement : MonoBehaviour
     {
         slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
-
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+        Debug.Log(dir * jumpForce);
+        Debug.Log("Before = " + rb.velocity);
+        //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         rb.velocity += dir * jumpForce;
-
+        Debug.Log("After = " + rb.velocity);
         particle.Play();
+        
+        
     }
 
     IEnumerator DisableMovement(float time)
