@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     public float slideSpeed = 5;
     public float wallJumpLerp = 10;
     public float dashSpeed = 20;
+    public Vector2 wallJumpForce = new Vector2 (1.5f, 1.5f);
 
     [Space]
     [Header("Booleans")]
@@ -264,14 +265,14 @@ public class Movement : MonoBehaviour
         StartCoroutine(DisableMovement(.1f));
 
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
-        Vector2 jumpDir = (((Vector2.up*10f) / 1.5f) + wallDir / 1.5f);
+        Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + wallDir / wallJumpForce.x;
         //Vector2 tempDir = new Vector2(wallDir.x, 20);
-        Jump(wallDir + Vector2.up, true);
+        Jump(jumpDir, true);
         //Jump(tempDir, true);
 
         wallJumped = true;
 
-        Debug.Log("WallJump");
+        Debug.Log(jumpDir);
     }
 
     private void WallSlide()
@@ -315,10 +316,10 @@ public class Movement : MonoBehaviour
         slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
         Debug.Log(dir * jumpForce);
-        Debug.Log("Before = " + rb.velocity);
+        //Debug.Log("Before = " + rb.velocity);
         //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-        rb.velocity += dir * jumpForce;
-        Debug.Log("After = " + rb.velocity);
+        rb.AddForce(dir * jumpForce*50);
+        //Debug.Log("After = " + rb.velocity);
         particle.Play();
         
         
