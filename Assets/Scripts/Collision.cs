@@ -27,7 +27,7 @@ public class Collision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        groundLayer = LayerMask.GetMask("Walls");
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class Collision : MonoBehaviour
 
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
-
+        
         wallSide = onRightWall ? -1 : 1;
     }
 

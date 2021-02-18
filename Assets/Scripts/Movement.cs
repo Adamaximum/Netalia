@@ -72,7 +72,7 @@ public class Movement : MonoBehaviour
 
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        if (coll.onWall && Input.GetButton("Jump") && canMove)
+        if (coll.onWall && canMove)
         {
             if (coll.wallSide == 1 && Input.GetAxis("Horizontal") < 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") > 0)
             {
@@ -164,8 +164,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && !hasDashed)
         {
-            if(xRaw != 0 || yRaw != 0)
-                Dash(xRaw, yRaw);
+            //if(xRaw != 0 || yRaw != 0)
+                //Dash(xRaw, yRaw);
         }
 
         if (coll.onGround && !groundTouch)
@@ -208,6 +208,8 @@ public class Movement : MonoBehaviour
         jumpParticle.Play();
     }
 
+    //dash block
+  /*
     private void Dash(float x, float y)
     {
         Camera.main.transform.DOComplete();
@@ -252,6 +254,8 @@ public class Movement : MonoBehaviour
         if (coll.onGround)
             hasDashed = false;
     }
+    */
+  //end of dash code
 
     private void WallJump()
     {
@@ -321,7 +325,6 @@ public class Movement : MonoBehaviour
         rb.AddForce(dir * jumpForce*50);
         //Debug.Log("After = " + rb.velocity);
         particle.Play();
-        
         
     }
 
