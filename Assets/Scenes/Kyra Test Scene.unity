@@ -6140,6 +6140,7 @@ GameObject:
   - component: {fileID: 745669367}
   - component: {fileID: 745669366}
   - component: {fileID: 745669365}
+  - component: {fileID: 745669371}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6192,7 +6193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745669364}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3286969c5df8a1e4bb64bc92ea46495e, type: 3}
   m_Name: 
@@ -6268,6 +6269,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &745669371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745669364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2929aabbeccabba429286901e2feda76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  speed: 8
+  jumpForce: 12
+  slideSpeed: 1
+  wallJumpLerp: 10
+  dashSpeed: 40
+  wallJumpForce: {x: 2.5, y: 2.9}
+  canMove: 1
+  wallGrab: 0
+  wallJumped: 0
+  isDashing: 0
+  side: 1
+  dashParticle: {fileID: 1419627681}
+  jumpParticle: {fileID: 369439875}
+  wallJumpParticle: {fileID: 1144321668}
+  slideParticle: {fileID: 2098896833}
 --- !u!1 &749800694
 GameObject:
   m_ObjectHideFlags: 0

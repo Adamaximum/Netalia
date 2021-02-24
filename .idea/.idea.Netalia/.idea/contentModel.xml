@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\kyraz\.Rider2019.2\system\extResources" t="IncludeRecursive" />
@@ -25,6 +25,7 @@
           <e p="Collision.cs" t="Include" />
           <e p="GhostTrail.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
+          <e p="MovementTest.cs" t="Include" />
           <e p="RippleEffect" t="Include">
             <e p="RippleEffect.cs" t="Include" />
             <e p="RippleEffect.shader" t="Include" />

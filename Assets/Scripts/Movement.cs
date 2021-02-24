@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
     public ParticleSystem wallJumpParticle;
     public ParticleSystem slideParticle;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         coll = GetComponent<Collision>();
@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
         anim = GetComponentInChildren<AnimationScript>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         //Debug.Log(rb.gravityScale);
@@ -67,9 +67,7 @@ public class Movement : MonoBehaviour
 
         //if (wallGrab)
         //    return;
-
         
-
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
         if (coll.onWall && canMove)
@@ -279,6 +277,8 @@ public class Movement : MonoBehaviour
         Debug.Log(jumpDir);
     }
 
+    //old wall slide code
+  /*
     private void WallSlide()
     {
         if(coll.wallSide != side)
@@ -296,6 +296,7 @@ public class Movement : MonoBehaviour
 
         rb.velocity = new Vector2(push, -slideSpeed);
     }
+    */
 
     //private void Walk(Vector2 dir)
     //{
