@@ -70,7 +70,7 @@ public class Movement : MonoBehaviour
         
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        if (coll.onWall && canMove)
+        if (coll.onWall && Input.GetButtonDown("Jump") && canMove)
         {
             if (coll.wallSide == 1 && Input.GetAxis("Horizontal") < 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") > 0)
             {

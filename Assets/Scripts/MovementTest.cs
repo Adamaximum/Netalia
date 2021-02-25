@@ -56,6 +56,11 @@ public class MovementTest : MonoBehaviour
 
     void Update()
     {
+        //NOTES TO SELF - Kyra
+        //wallGrab bool can be edited out, redundant
+        //change to singleton for easier access
+        //separate particle effects into self-contained functions
+        
         //controller input
         FetchInputs();
 
@@ -65,18 +70,35 @@ public class MovementTest : MonoBehaviour
         //set animation state
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        DetectWallCollisions();
+        //if on wall, vertical movement only
+        SetClimbingState(DetectWallCollisions());
 
-        //
-        if (Input.GetButton("Jump") && rb.gravityScale == 0)
+        //jump controls
+        if (Input.GetButtonDown("Jump"))
         {
-            if (coll.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
-            {
-                if (coll.onWall && !coll.onGround)
-                    WallJump();
-            }
+            anim.SetTrigger("jump");
+            
+            if (coll.onWall && !coll.onGround)
+                WallJump();
+            
+            else if (!coll.onWall && coll.onGround)
+                Jump(Vector2.up, false);
         }
 
+        //move in x direction
+        HorizontalMovement();
+        
+        //reset bools and play particle effect on touchdown
+        DetectGround();
+
+        WallParticle(y);
+        
+        //set side var to check side of wall grabbed
+        CheckWallSide();
+    }
+
+    void HorizontalMovement()
+    {
         if (!wallJumped)
         {
             Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
@@ -84,17 +106,69 @@ public class MovementTest : MonoBehaviour
         }
         else
         {
-            //Debug.Log(rb.velocity.y);
             rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
         }
+    }
+    
+    void FetchInputs()
+    {
+        //note: streamline later
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
+        xRaw = Input.GetAxisRaw("Horizontal");
+        yRaw = Input.GetAxisRaw("Vertical");
+        dir = new Vector2(xRaw, yRaw);
+    }
 
-        //control movement on wall
-        if (wallGrab)
+    void DetectGround()
+    {
+        //reset wallJumped bool
+        if (coll.onGround)
         {
+            wallJumped = false;
+        }
+        
+        //touchdown visuals on ground touch
+        if (coll.onGround && !groundTouch)
+        {
+            GroundTouch();
+            groundTouch = true;
+        }
+
+        //reset groundTouch bool
+        else if(!coll.onGround && groundTouch)
+        {
+            groundTouch = false;
+        }
+    }
+    
+    bool DetectWallCollisions()
+    {
+        if (coll.onWall && canMove)
+        {
+            if (side != coll.wallSide)
+                anim.Flip(side * -1);
+
+            wallGrab = true;
+            return true;
+        }
+        else
+        {
+            wallGrab = false;
+            return false;
+        }
+    }
+
+    void SetClimbingState(bool onWall)
+    {
+        if (onWall)
+        {
+            //set new rigidbody behavior
             rb.gravityScale = 0;
             if(x > .2f || x < -.2f)
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.velocity = new Vector2(rb.velocity.x, 0);
             
+            //
             float speedModifier = y > 0 ? .5f : 1;
             if (coll.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
             {
@@ -109,93 +183,15 @@ public class MovementTest : MonoBehaviour
         {
             rb.gravityScale = 3;
         }
-
-        //jump controls
-        if (Input.GetButtonDown("Jump"))
-        {
-            anim.SetTrigger("jump");
-
-            if (coll.onGround)
-                Jump(Vector2.up, false);
-        }
-
         
-        //checking for ground touch
-        if (coll.onGround && !groundTouch)
-        {
-            GroundTouch();
-            groundTouch = true;
-        }
-
-        if(!coll.onGround && groundTouch)
-        {
-            groundTouch = false;
-        }
-
-        WallParticle(y);
-
-        
-        //setting side var to check side of wall grabbed
-        if (wallGrab || !canMove)
-            return;
-
-        if(x > 0)
-        {
-            side = 1;
-            anim.Flip(side);
-        }
-        if (x < 0)
-        {
-            side = -1;
-            anim.Flip(side);
-        }
-
-
-    }
-
-    void DetectWallCollisions()
-    {
-        //detect ground
-        if (coll.onGround)
-        {
-            wallJumped = false;
-        }
-        
-        //else, check for collision
-        else if (coll.onWall && canMove)
-        {
-            //player intends to collide
-            if (coll.wallSide == 1 && Input.GetAxis("Horizontal") < 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") > 0)
-            {
-                if (side != coll.wallSide)
-                    anim.Flip(side * -1);
-                
-                wallGrab = true;
-            }
-        }
-        else
-        {
-            wallGrab = false;
-        }
-    }
-
-    void FetchInputs()
-    {
-        //note: streamline later
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-        xRaw = Input.GetAxisRaw("Horizontal");
-        yRaw = Input.GetAxisRaw("Vertical");
-        dir = new Vector2(xRaw, yRaw);
     }
 
     void GroundTouch()
     {
-        hasDashed = false;
-        isDashing = false;
-
+        //fix sprite direction
         side = anim.sr.flipX ? -1 : 1;
 
+        //particle effect - landing
         jumpParticle.Play();
     }
     private void WallJump()
@@ -222,13 +218,33 @@ public class MovementTest : MonoBehaviour
 
     private void Jump(Vector2 dir, bool wall)
     {
+        //set particle values
         slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
         Debug.Log(dir * jumpForce);
-        //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+        
+        //begin jump
         rb.AddForce(dir * jumpForce*50);
+        
         particle.Play();
         
+    }
+
+    void CheckWallSide()
+    {
+        if (wallGrab || !canMove)
+            return;
+
+        if(x > 0)
+        {
+            side = 1;
+            anim.Flip(side);
+        }
+        if (x < 0)
+        {
+            side = -1;
+            anim.Flip(side);
+        }
     }
 
     IEnumerator DisableMovement(float time)
