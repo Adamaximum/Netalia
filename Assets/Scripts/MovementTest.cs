@@ -32,6 +32,8 @@ public class MovementTest : MonoBehaviour
 
     private bool groundTouch;
     private bool hasDashed;
+    private bool canGrabWall = true;
+    private bool checkForBoost;
 
     public int side = 1;
 
@@ -70,24 +72,58 @@ public class MovementTest : MonoBehaviour
         //set animation state
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        //if on wall, vertical movement only
-        SetClimbingState(DetectWallCollisions());
+        //check for wall
+        JoystickDirection();
+        DetectWallCollisions();
+        
+        SetClimbingState(wallGrab);
 
         //jump controls
         if (Input.GetButtonDown("Jump"))
         {
-            anim.SetTrigger("jump");
+            //can no longer check for wall boost
+            checkForBoost = false;
             
-            if (coll.onWall && !coll.onGround)
-                WallJump();
-            
+            if (wallGrab)
+            {
+                //joystick/arrow controls
+                if (xRaw == 0 && yRaw == 0)
+                {
+                    canGrabWall = false;
+                }
+                else
+                {
+                    WallJump();
+                }
+            }
             else if (!coll.onWall && coll.onGround)
                 Jump(Vector2.up, false);
         }
+        else
+        {
+            //if player hits top of wall without jumping, extra boost
+            HeightBoost();
+        }
 
-        //move in x direction
-        HorizontalMovement();
+        //test for wall stick
+        if (Input.GetAxis("WallStick") > 0 && wallGrab)
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
+        else
+        {
+            //move in x direction
+            HorizontalMovement(wallGrab);
+        }
         
+        /*
+        //extra height when detaching from top of wall
+        if (!coll.onWall && !coll.onGround)
+        {
+            rb.AddForce(Vector2.up*5, ForceMode2D.Impulse);
+        }
+        */
+
         //reset bools and play particle effect on touchdown
         DetectGround();
 
@@ -97,7 +133,27 @@ public class MovementTest : MonoBehaviour
         CheckWallSide();
     }
 
-    void HorizontalMovement()
+    //version where player sticks to wall unless Y is pressed
+    void HorizontalMovement(bool onWall)
+    {
+        if (onWall)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        else if (!wallJumped)
+        {
+            Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
+            rb.velocity = test;
+        }
+        else
+        {
+            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
+        }
+    }
+    
+    /*
+     //version where player can auto-detach
+    void HorizontalMovement(bool onWall)
     {
         if (!wallJumped)
         {
@@ -109,6 +165,7 @@ public class MovementTest : MonoBehaviour
             rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
         }
     }
+    */
     
     void FetchInputs()
     {
@@ -120,12 +177,23 @@ public class MovementTest : MonoBehaviour
         dir = new Vector2(xRaw, yRaw);
     }
 
+    void JoystickDirection()
+    {
+        if (coll.onRightWall && Input.GetAxis("Horizontal") > 0 ||
+            coll.onLeftWall && Input.GetAxis("Horizontal") < 0)
+        {
+            canGrabWall = true;
+        }
+    }
+
     void DetectGround()
     {
         //reset wallJumped bool
         if (coll.onGround)
         {
             wallJumped = false;
+            wallGrab = false;
+            canGrabWall = true;
         }
         
         //touchdown visuals on ground touch
@@ -142,20 +210,19 @@ public class MovementTest : MonoBehaviour
         }
     }
     
-    bool DetectWallCollisions()
+    void DetectWallCollisions()
     {
-        if (coll.onWall && canMove)
+        if (coll.onWall && !coll.onGround && canMove && canGrabWall)
         {
             if (side != coll.wallSide)
                 anim.Flip(side * -1);
 
             wallGrab = true;
-            return true;
+            checkForBoost = true;
         }
         else
         {
             wallGrab = false;
-            return false;
         }
     }
 
@@ -186,6 +253,18 @@ public class MovementTest : MonoBehaviour
         
     }
 
+    void HeightBoost()
+    {
+        if (!wallGrab && checkForBoost)
+        {
+            if (yRaw > 0)
+            {
+                rb.AddForce(Vector2.up*5, ForceMode2D.Impulse);
+                checkForBoost = false;
+            }
+        }
+    }
+
     void GroundTouch()
     {
         //fix sprite direction
@@ -206,16 +285,16 @@ public class MovementTest : MonoBehaviour
         StartCoroutine(DisableMovement(.1f));
 
         Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
-        Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + wallDir / wallJumpForce.x;
-        //Vector2 tempDir = new Vector2(wallDir.x, 20);
+        Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + (wallDir / wallJumpForce.x);
+        //Vector2 jumpDir = (Vector2.up) + (wallDir);
+        
         Jump(jumpDir, true);
-        //Jump(tempDir, true);
 
         wallJumped = true;
 
         Debug.Log(jumpDir);
     }
-
+    
     private void Jump(Vector2 dir, bool wall)
     {
         //set particle values
