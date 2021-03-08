@@ -1,0 +1,21 @@
+{
+"SpeakingOrder":
+[
+	"Netalia",
+	"NPC",
+	"Netalia"
+],
+
+
+"Netalia":
+[
+	"Testing 1.",
+	"Testing 3."
+],
+
+"NPC":
+[
+	"Testing 2."
+]
+
+}

@@ -115,14 +115,6 @@ public class MovementTest : MonoBehaviour
             //move in x direction
             HorizontalMovement(wallGrab);
         }
-        
-        /*
-        //extra height when detaching from top of wall
-        if (!coll.onWall && !coll.onGround)
-        {
-            rb.AddForce(Vector2.up*5, ForceMode2D.Impulse);
-        }
-        */
 
         //reset bools and play particle effect on touchdown
         DetectGround();

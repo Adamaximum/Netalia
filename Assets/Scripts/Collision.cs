@@ -7,15 +7,20 @@ public class Collision : MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
+    public LayerMask NPCLayer;
 
     [Space]
 
+    //wall collisions
     public bool onGround;
     public bool onWall;
     public bool onRightWall;
     public bool onLeftWall;
     public int wallSide;
-
+    
+    //player interaction
+    public bool interact;
+    
     [Space]
 
     [Header("Collision")]
@@ -33,6 +38,7 @@ public class Collision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
+        //check for wall collisions
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
         onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer) 
             || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
@@ -41,6 +47,9 @@ public class Collision : MonoBehaviour
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
         
         wallSide = onRightWall ? -1 : 1;
+        
+        //check for NPC or item interactions
+        interact = Physics2D.OverlapCircle(transform.position, rightOffset.x, NPCLayer);
     }
 
     void OnDrawGizmos()
