@@ -121,8 +121,8 @@ public class MovementTest : MonoBehaviour
 
         WallParticle(y);
         
-        //set side var to check side of wall grabbed
-        CheckWallSide();
+        //set sprite direction
+        FixAnim();
     }
 
     //version where player sticks to wall unless Y is pressed
@@ -301,7 +301,7 @@ public class MovementTest : MonoBehaviour
         
     }
 
-    void CheckWallSide()
+    void FixAnim()
     {
         if (wallGrab || !canMove)
             return;

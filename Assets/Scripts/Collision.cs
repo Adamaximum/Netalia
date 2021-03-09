@@ -61,5 +61,8 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position  + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        
+        //interaction sphere
+        Gizmos.DrawWireSphere(transform.position, rightOffset.x);
     }
 }
