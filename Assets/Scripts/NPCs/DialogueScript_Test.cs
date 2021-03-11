@@ -6,12 +6,17 @@ using UnityEngine.UI;
 
 public class DialogueScript_Test : MonoBehaviour
 {
-  
+   public GameObject player;
    public Collision playerColl;
   
    //keep track of speaker
    private bool dialogueRunning;
    private int speakerTurn = 0;
+   private bool textSlowRevealing;
+
+   [Space(10)]
+   [Header("Misc")]
+   public float distFromNetalia;
   
    [Space(10)]
    [Header("UI")]
@@ -28,8 +33,7 @@ public class DialogueScript_Test : MonoBehaviour
    public struct DialogueSystem
    {
        public string[] SpeakingOrder;
-       public string[] Netalia;
-       public string[] NPC;
+       public string[] SpokenLines;
    }
 
    void Awake()
@@ -37,28 +41,21 @@ public class DialogueScript_Test : MonoBehaviour
        dialogueRunning = false;
       
        //assign components, set UI as inactive
-       playerColl = GameObject.Find("Player").GetComponent<Collision>();
-       Debug.Log(playerColl);
+       player = GameObject.Find("Player");
+       playerColl = player.GetComponent<Collision>();
 
        //assign blank inspector components
-       if (LeftSpeechBubble == null)
-       {
+       if (LeftSpeechBubble == null) 
            LeftSpeechBubble = GameObject.Find("LeftCharacter");
-       }
        LeftSpeechBubble.SetActive(false);
 
-       if (RightSpeechBubble == null)
-       {
+       if (RightSpeechBubble == null) 
            RightSpeechBubble = GameObject.Find("RightCharacter");
-       }
        RightSpeechBubble.SetActive(false);
        
        if (DialogueUI == null)
-       {
            DialogueUI = GameObject.Find("DialoguePanel");
-       }
        DialogueUI.SetActive(false);
-
 
        ButtonPrompt = GameObject.Find("ButtonPrompt");
       
@@ -74,15 +71,11 @@ public class DialogueScript_Test : MonoBehaviour
        {
            ButtonPrompt.GetComponentInChildren<Text>().text = "Press Enter";
        }
-       
-       //set the NPCleft bool, depending on where Netalia is meant to stand
    }
 
   
    void Update()
    {
-       Debug.Log(playerColl.interact);
-       
        if (playerColl.interact && !dialogueRunning)
        {
            //show button prompt
@@ -91,13 +84,13 @@ public class DialogueScript_Test : MonoBehaviour
            //if button is pressed:
            if (Input.GetButtonDown("Submit"))
            {
-               //Netalia walks into position
-               //disable Netalia movement script, play idle animation
+               //MoveNetalia(player);
               
                ZoomIn();
               
                //start running dialogue
                dialogueRunning = true;
+               DialogueUI.SetActive(true);
            }
        }
        else
@@ -106,10 +99,36 @@ public class DialogueScript_Test : MonoBehaviour
            ButtonPrompt.SetActive(false);
        }
 
+       //if dialogue is over, disable this script
+       if (speakerTurn >= Dialogue.SpokenLines.Length)
+       {
+           EmptyDialogue();
+       }
+
        if (dialogueRunning)
        {
-          
+           if (Input.GetButtonDown("Submit"))
+           {
+               //find correct line # and speaker
+               //fetch correct panel to display
+               //start slow revealing text
+               //if button is pressed again, show all text at once
+
+               DisplayText(SetPanel(speakerTurn), speakerTurn);
+               CheckForNextLine(speakerTurn);
+           }
        }
+       
+   }
+
+   void MoveNetalia(GameObject net)
+   {
+       //deactivate player scripts
+       net.GetComponent<MovementTest>().enabled = false;
+       net.GetComponentInChildren<AnimationScript>().enabled = false;
+       
+       //move Netalia into place
+       distFromNetalia = gameObject.GetComponent<SpriteRenderer>().flipX ? distFromNetalia : -distFromNetalia;
        
    }
 
@@ -127,33 +146,78 @@ public class DialogueScript_Test : MonoBehaviour
        //move camera back to former spacing
    }
 
-   void Speaking(int lineNum, bool isNPCLeft)
+   GameObject SetPanel(int lineNum)
    {
+       bool isSpeakerLeft;
+       isSpeakerLeft = !gameObject.GetComponent<SpriteRenderer>().flipX && Dialogue.SpeakingOrder[lineNum] == "NPC";
+       
+       //show the correct panel
        GameObject currentPanel;
+       currentPanel = isSpeakerLeft ? LeftSpeechBubble : RightSpeechBubble;
+
+       GameObject inactivePanel;
+       inactivePanel = isSpeakerLeft ? RightSpeechBubble : LeftSpeechBubble;
        
-       //display proper panel
-       if (Dialogue.SpeakingOrder[lineNum] == "NPC" && isNPCLeft)
-       {
-           currentPanel = LeftSpeechBubble;
-       }
-       else if (Dialogue.SpeakingOrder[lineNum] == "NPC" && !isNPCLeft)
-       {
-           currentPanel = RightSpeechBubble;
-       }
-       else if (Dialogue.SpeakingOrder[lineNum] == "Netalia" && !isNPCLeft)
-       {
-           currentPanel = LeftSpeechBubble;
-       }
-       else if (Dialogue.SpeakingOrder[lineNum] == "Netalia" && isNPCLeft)
-       {
-           currentPanel = RightSpeechBubble;
-       }
-       
-       
-       
-       
+       currentPanel.SetActive(true);
+       inactivePanel.SetActive(false);
+
+       return currentPanel;
+
+       //display the appropriate text
+       //Text textBox = currentPanel.GetComponentInChildren<Text>();
+       //StartCoroutine(SlowRevealText(textBox, Dialogue.SpokenLines[lineNum]));
+
+       //update profile picture
    }
 
+   void DisplayText(GameObject panel, int lineNum)
+   {
+       Text textBox = panel.GetComponentInChildren<Text>();
 
+       if (!textSlowRevealing)
+       {
+           StartCoroutine(SlowRevealText(textBox, Dialogue.SpokenLines[lineNum]));
+       }
+       else
+       {
+           StopAllCoroutines();
+           textSlowRevealing = false;
+           textBox.text = Dialogue.SpokenLines[lineNum];
+       }
+   }
+
+   IEnumerator SlowRevealText(Text textBox, string textToReveal)
+   {
+       textSlowRevealing = true;
+       string revealedText;
+
+       for (int i = 0; i < textToReveal.Length; i++)
+       {
+           revealedText = textToReveal.Substring(0, i);
+           textBox.text = revealedText;
+           yield return new WaitForSeconds(0.1f);
+       }
+
+       textSlowRevealing = false;
+       
+       Debug.Log(textSlowRevealing);
+       yield break;
+   }
+
+   void CheckForNextLine(int lineNum)
+   {
+       string displayedText;
+       displayedText = SetPanel(lineNum).GetComponentInChildren<Text>().text;
+
+       if (displayedText == Dialogue.SpokenLines[lineNum])
+           speakerTurn++;
+   }
+
+   void EmptyDialogue()
+   {
+       DialogueUI.SetActive(false);
+
+   }
+   
 }
 
