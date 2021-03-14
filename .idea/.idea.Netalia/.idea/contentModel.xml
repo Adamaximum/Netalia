@@ -31,7 +31,9 @@
             <e p="DialogueScript_Test.cs" t="Include" />
             <e p="NetaliaTestDialogue.txt" t="Include" />
           </e>
+          <e p="PatrolEnemy.cs" t="Include" />
           <e p="ProjectileEnemy.cs" t="Include" />
+          <e p="ProjectileScript.cs" t="Include" />
           <e p="RippleEffect" t="Include">
             <e p="RippleEffect.cs" t="Include" />
             <e p="RippleEffect.shader" t="Include" />
