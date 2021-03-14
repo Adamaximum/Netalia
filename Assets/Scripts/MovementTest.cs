@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class MovementTest : MonoBehaviour
 {
-    private Collision coll;
+
     [HideInInspector]
     public Rigidbody2D rb;
     private AnimationScript anim;
@@ -48,9 +48,16 @@ public class MovementTest : MonoBehaviour
     float x, y, xRaw, yRaw;
     Vector2 dir;
 
+    //singleton
+    public static MovementTest Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
     void Start()
     {
-        coll = GetComponent<Collision>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<AnimationScript>();
     }
@@ -96,7 +103,7 @@ public class MovementTest : MonoBehaviour
                     WallJump();
                 }
             }
-            else if (!coll.onWall && coll.onGround)
+            else if (!Collision.Instance.onWall && Collision.Instance.onGround)
                 Jump(Vector2.up, false);
         }
         else
@@ -171,8 +178,8 @@ public class MovementTest : MonoBehaviour
 
     void JoystickDirection()
     {
-        if (coll.onRightWall && Input.GetAxis("Horizontal") > 0 ||
-            coll.onLeftWall && Input.GetAxis("Horizontal") < 0)
+        if (Collision.Instance.onRightWall && Input.GetAxis("Horizontal") > 0 ||
+            Collision.Instance.onLeftWall && Input.GetAxis("Horizontal") < 0)
         {
             canGrabWall = true;
         }
@@ -181,7 +188,7 @@ public class MovementTest : MonoBehaviour
     void DetectGround()
     {
         //reset wallJumped bool
-        if (coll.onGround)
+        if (Collision.Instance.onGround)
         {
             wallJumped = false;
             wallGrab = false;
@@ -189,14 +196,14 @@ public class MovementTest : MonoBehaviour
         }
         
         //touchdown visuals on ground touch
-        if (coll.onGround && !groundTouch)
+        if (Collision.Instance.onGround && !groundTouch)
         {
             GroundTouch();
             groundTouch = true;
         }
 
         //reset groundTouch bool
-        else if(!coll.onGround && groundTouch)
+        else if(!Collision.Instance.onGround && groundTouch)
         {
             groundTouch = false;
         }
@@ -204,9 +211,9 @@ public class MovementTest : MonoBehaviour
     
     void DetectWallCollisions()
     {
-        if (coll.onWall && !coll.onGround && canMove && canGrabWall)
+        if (Collision.Instance.onWall && !Collision.Instance.onGround && canMove && canGrabWall)
         {
-            if (side != coll.wallSide)
+            if (side != Collision.Instance.wallSide)
                 anim.Flip(side * -1);
 
             wallGrab = true;
@@ -229,7 +236,7 @@ public class MovementTest : MonoBehaviour
             
             //
             float speedModifier = y > 0 ? .5f : 1;
-            if (coll.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
+            if (Collision.Instance.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || Collision.Instance.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, y * (speed * speedModifier));
             }
@@ -267,7 +274,7 @@ public class MovementTest : MonoBehaviour
     }
     private void WallJump()
     {
-        if ((side == 1 && coll.onRightWall) || side == -1 && !coll.onRightWall)
+        if ((side == 1 && Collision.Instance.onRightWall) || side == -1 && !Collision.Instance.onRightWall)
         {
             side *= -1;
             anim.Flip(side);
@@ -276,7 +283,7 @@ public class MovementTest : MonoBehaviour
         StopCoroutine(DisableMovement(0));
         StartCoroutine(DisableMovement(.1f));
 
-        Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
+        Vector2 wallDir = Collision.Instance.onRightWall ? Vector2.left : Vector2.right;
         Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + (wallDir / wallJumpForce.x);
         //Vector2 jumpDir = (Vector2.up) + (wallDir);
         
@@ -347,7 +354,7 @@ public class MovementTest : MonoBehaviour
 
     int ParticleSide()
     {
-        int particleSide = coll.onRightWall ? 1 : -1;
+        int particleSide = Collision.Instance.onRightWall ? 1 : -1;
         return particleSide;
     }
 }
