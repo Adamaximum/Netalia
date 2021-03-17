@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ProjectileEnemy : MonoBehaviour
 {
-
     public GameObject projectile;
     public float bulletSpeed;
     public float fireRate;

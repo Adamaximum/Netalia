@@ -10,6 +10,7 @@ public class MovementTest : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D rb;
     private AnimationScript anim;
+    private bool canGrabWalls;
 
     [Space]
     [Header("Stats")]
@@ -32,7 +33,6 @@ public class MovementTest : MonoBehaviour
 
     private bool groundTouch;
     private bool hasDashed;
-    private bool canGrabWall = true;
     private bool checkForBoost;
 
     public int side = 1;
@@ -69,6 +69,8 @@ public class MovementTest : MonoBehaviour
         //wallGrab bool can be edited out, redundant
         //change to singleton for easier access
         //separate particle effects into self-contained functions
+        //animation controls are inefficient, reduce and simplify
+        //you're losing readability, take a weekend off to properly edit and comment this sometime
         
         //controller input
         FetchInputs();
@@ -78,53 +80,43 @@ public class MovementTest : MonoBehaviour
 
         //set animation state
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
-
+        
         //check for wall
-        JoystickDirection();
         DetectWallCollisions();
         
-        SetClimbingState(wallGrab);
-
-        //jump controls
-        if (Input.GetButtonDown("Jump"))
+        //KYRA c'mon man this is embarrassing, fix this ASAP
+        //detach from wall if wall-facing key is pressed
+        if ((Collision.Instance.onLeftWall && Input.GetButtonDown("WallDetachLeft"))
+            || (Collision.Instance.onRightWall && Input.GetButtonDown("WallDetachRight")))
         {
-            //can no longer check for wall boost
-            checkForBoost = false;
-            
-            if (wallGrab)
-            {
-                //joystick/arrow controls
-                if (xRaw == 0 && yRaw == 0)
-                {
-                    canGrabWall = false;
-                }
-                else
-                {
-                    WallJump();
-                }
-            }
-            else if (!Collision.Instance.onWall && Collision.Instance.onGround)
-                Jump(Vector2.up, false);
+            canGrabWalls = !canGrabWalls;
+            StartCoroutine(DisableMovement(.1f));
         }
         else
         {
-            //if player hits top of wall without jumping, extra boost
-            HeightBoost();
+            SetClimbingState(Collision.Instance.onWall);
         }
 
-        //test for wall stick
-        if (Input.GetAxis("WallStick") > 0 && wallGrab)
+        //jump
+        if (Collision.Instance.onGround && Input.GetButtonDown("Jump"))
         {
-            rb.velocity = new Vector2(0, 0);
+            anim.SetTrigger("jump");
+            Jump(Vector2.up, false);
         }
-        else
-        {
-            //move in x direction
-            HorizontalMovement(wallGrab);
-        }
+
+        //move in x direction
+        if (!Collision.Instance.onGround && Collision.Instance.onLeftWall && xRaw > 0)
+            WallJump(Vector2.right);
+        else if (!Collision.Instance.onGround && Collision.Instance.onRightWall && xRaw < 0 )
+            WallJump(Vector2.left);
+        
+        HorizontalMovement();
 
         //reset bools and play particle effect on touchdown
         DetectGround();
+
+        //if (Input.GetButton("Jump"))
+            //HeightBoost();
 
         WallParticle(y);
         
@@ -133,13 +125,10 @@ public class MovementTest : MonoBehaviour
     }
 
     //version where player sticks to wall unless Y is pressed
-    void HorizontalMovement(bool onWall)
+    
+    void HorizontalMovement()
     {
-        if (onWall)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-        else if (!wallJumped)
+        if (Collision.Instance.onGround)
         {
             Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
             rb.velocity = test;
@@ -149,23 +138,7 @@ public class MovementTest : MonoBehaviour
             rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
         }
     }
-    
-    /*
-     //version where player can auto-detach
-    void HorizontalMovement(bool onWall)
-    {
-        if (!wallJumped)
-        {
-            Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
-            rb.velocity = test;
-        }
-        else
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
-        }
-    }
-    */
-    
+
     void FetchInputs()
     {
         //note: streamline later
@@ -176,23 +149,13 @@ public class MovementTest : MonoBehaviour
         dir = new Vector2(xRaw, yRaw);
     }
 
-    void JoystickDirection()
-    {
-        if (Collision.Instance.onRightWall && Input.GetAxis("Horizontal") > 0 ||
-            Collision.Instance.onLeftWall && Input.GetAxis("Horizontal") < 0)
-        {
-            canGrabWall = true;
-        }
-    }
-
     void DetectGround()
     {
-        //reset wallJumped bool
         if (Collision.Instance.onGround)
         {
             wallJumped = false;
             wallGrab = false;
-            canGrabWall = true;
+            canGrabWalls = true;
         }
         
         //touchdown visuals on ground touch
@@ -211,7 +174,9 @@ public class MovementTest : MonoBehaviour
     
     void DetectWallCollisions()
     {
-        if (Collision.Instance.onWall && !Collision.Instance.onGround && canMove && canGrabWall)
+        //this is pretty much exclusively animation controls now. Can delete in V3
+        
+        if (Collision.Instance.onWall && !Collision.Instance.onGround && canMove && canGrabWalls)
         {
             if (side != Collision.Instance.wallSide)
                 anim.Flip(side * -1);
@@ -227,7 +192,9 @@ public class MovementTest : MonoBehaviour
 
     void SetClimbingState(bool onWall)
     {
-        if (onWall)
+        //create separate handler for rigidbody controls, separate out animation controls
+        
+        if (onWall && canGrabWalls)
         {
             //set new rigidbody behavior
             rb.gravityScale = 0;
@@ -249,12 +216,11 @@ public class MovementTest : MonoBehaviour
         {
             rb.gravityScale = 3;
         }
-        
     }
 
     void HeightBoost()
     {
-        if (!wallGrab && checkForBoost)
+        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost && !wallJumped)
         {
             if (yRaw > 0)
             {
@@ -272,26 +238,21 @@ public class MovementTest : MonoBehaviour
         //particle effect - landing
         jumpParticle.Play();
     }
-    private void WallJump()
+    private void WallJump(Vector2 wallDir)
     {
-        if ((side == 1 && Collision.Instance.onRightWall) || side == -1 && !Collision.Instance.onRightWall)
-        {
-            side *= -1;
-            anim.Flip(side);
-        }
+        side *= -1;
+        anim.Flip(side);
 
         StopCoroutine(DisableMovement(0));
         StartCoroutine(DisableMovement(.1f));
 
-        Vector2 wallDir = Collision.Instance.onRightWall ? Vector2.left : Vector2.right;
         Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + (wallDir / wallJumpForce.x);
         //Vector2 jumpDir = (Vector2.up) + (wallDir);
-        
+
         Jump(jumpDir, true);
 
         wallJumped = true;
 
-        Debug.Log(jumpDir);
     }
     
     private void Jump(Vector2 dir, bool wall)
@@ -299,7 +260,6 @@ public class MovementTest : MonoBehaviour
         //set particle values
         slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
-        Debug.Log(dir * jumpForce);
         
         //begin jump
         rb.AddForce(dir * jumpForce*50);

@@ -44,7 +44,6 @@ public class AnimationScript : MonoBehaviour
 
     public void Flip(int side)
     {
-
         if (move.wallGrab)
         {
             if (side == -1 && sr.flipX)
