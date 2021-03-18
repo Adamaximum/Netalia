@@ -33,6 +33,7 @@
             <e p="NetaliaTestDialogue.txt" t="Include" />
           </e>
           <e p="PatrolEnemy.cs" t="Include" />
+          <e p="PlayerAudioScript.cs" t="Include" />
           <e p="ProjectileEnemy.cs" t="Include" />
           <e p="ProjectileScript.cs" t="Include" />
           <e p="RippleEffect" t="Include">
@@ -40,6 +41,7 @@
             <e p="RippleEffect.shader" t="Include" />
           </e>
           <e p="RoomTrigger.cs" t="Include" />
+          <e p="TempResFix.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">

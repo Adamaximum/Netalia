@@ -240,6 +240,8 @@ public class MovementTest : MonoBehaviour
     }
     private void WallJump(Vector2 wallDir)
     {
+        PlayerAudioScript.Instance.JumpSound();
+        
         side *= -1;
         anim.Flip(side);
 
