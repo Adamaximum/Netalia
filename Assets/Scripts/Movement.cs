@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
     public ParticleSystem wallJumpParticle;
     public ParticleSystem slideParticle;
 
-
+    // Start is called before the first frame update
     void Start()
     {
         coll = GetComponent<Collision>();
@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
         anim = GetComponentInChildren<AnimationScript>();
     }
 
-
+    // Update is called once per frame
     void Update()
     {
         //Debug.Log(rb.gravityScale);
@@ -67,10 +67,12 @@ public class Movement : MonoBehaviour
 
         //if (wallGrab)
         //    return;
+
         
+
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
 
-        if (coll.onWall && Input.GetButtonDown("Jump") && canMove)
+        if (coll.onWall && Input.GetButton("Jump") && canMove)
         {
             if (coll.wallSide == 1 && Input.GetAxis("Horizontal") < 0 || coll.wallSide == -1 && Input.GetAxis("Horizontal") > 0)
             {
@@ -162,8 +164,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && !hasDashed)
         {
-            //if(xRaw != 0 || yRaw != 0)
-                //Dash(xRaw, yRaw);
+            if(xRaw != 0 || yRaw != 0)
+                Dash(xRaw, yRaw);
         }
 
         if (coll.onGround && !groundTouch)
@@ -206,8 +208,6 @@ public class Movement : MonoBehaviour
         jumpParticle.Play();
     }
 
-    //dash block
-  /*
     private void Dash(float x, float y)
     {
         Camera.main.transform.DOComplete();
@@ -252,8 +252,6 @@ public class Movement : MonoBehaviour
         if (coll.onGround)
             hasDashed = false;
     }
-    */
-  //end of dash code
 
     private void WallJump()
     {
@@ -277,8 +275,6 @@ public class Movement : MonoBehaviour
         Debug.Log(jumpDir);
     }
 
-    //old wall slide code
-  /*
     private void WallSlide()
     {
         if(coll.wallSide != side)
@@ -296,7 +292,6 @@ public class Movement : MonoBehaviour
 
         rb.velocity = new Vector2(push, -slideSpeed);
     }
-    */
 
     //private void Walk(Vector2 dir)
     //{
@@ -326,6 +321,7 @@ public class Movement : MonoBehaviour
         rb.AddForce(dir * jumpForce*50);
         //Debug.Log("After = " + rb.velocity);
         particle.Play();
+        
         
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Collision : MonoBehaviour
     [Header("Layers")]
     public LayerMask groundLayer;
     public LayerMask NPCLayer;
+    public LayerMask enemyLayer;
 
     [Space]
 
@@ -20,6 +22,7 @@ public class Collision : MonoBehaviour
     
     //player interaction
     public bool interact;
+    public bool hit;
     
     [Space]
 
@@ -29,7 +32,14 @@ public class Collision : MonoBehaviour
     public Vector2 bottomOffset, rightOffset, leftOffset;
     private Color debugCollisionColor = Color.red;
 
-    // Start is called before the first frame update
+    public static Collision Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
     void Start()
     {
         groundLayer = LayerMask.GetMask("Walls");
@@ -40,16 +50,24 @@ public class Collision : MonoBehaviour
     {  
         //check for wall collisions
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
-        onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer) 
-            || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
 
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+
+        if (onRightWall || onLeftWall)
+            onWall = true;
         
+        else
+            onWall = false;
+        
+
         wallSide = onRightWall ? -1 : 1;
         
         //check for NPC or item interactions
-        interact = Physics2D.OverlapCircle(transform.position, rightOffset.x, NPCLayer);
+        interact = Physics2D.OverlapCircle((Vector2)transform.position, rightOffset.x, NPCLayer);
+        
+        //enemy contact
+        hit = Physics2D.OverlapCircle((Vector2)transform.position, rightOffset.x, enemyLayer);
     }
 
     void OnDrawGizmos()
@@ -63,6 +81,6 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
         
         //interaction sphere
-        Gizmos.DrawWireSphere(transform.position, rightOffset.x);
+        Gizmos.DrawWireSphere((Vector2)transform.position, rightOffset.x);
     }
 }

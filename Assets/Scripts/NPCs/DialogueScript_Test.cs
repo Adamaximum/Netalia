@@ -149,7 +149,7 @@ public class DialogueScript_Test : MonoBehaviour
    GameObject SetPanel(int lineNum)
    {
        bool isSpeakerLeft;
-       isSpeakerLeft = !gameObject.GetComponent<SpriteRenderer>().flipX && Dialogue.SpeakingOrder[lineNum] == "NPC";
+       isSpeakerLeft = Dialogue.SpeakingOrder[lineNum] == "NPC";
        
        //show the correct panel
        GameObject currentPanel;

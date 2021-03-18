@@ -22,7 +22,9 @@
           <e p="AnimationScript.cs" t="Include" />
           <e p="BetterJumping.cs" t="Include" />
           <e p="CameraManager.cs" t="Include" />
+          <e p="CheckpointScript.cs" t="Include" />
           <e p="Collision.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="GhostTrail.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
           <e p="MovementTest.cs" t="Include" />
@@ -30,6 +32,9 @@
             <e p="DialogueScript_Test.cs" t="Include" />
             <e p="NetaliaTestDialogue.txt" t="Include" />
           </e>
+          <e p="PatrolEnemy.cs" t="Include" />
+          <e p="ProjectileEnemy.cs" t="Include" />
+          <e p="ProjectileScript.cs" t="Include" />
           <e p="RippleEffect" t="Include">
             <e p="RippleEffect.cs" t="Include" />
             <e p="RippleEffect.shader" t="Include" />
