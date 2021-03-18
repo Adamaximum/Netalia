@@ -10,23 +10,59 @@ public class PatrolEnemy : MonoBehaviour
     public float speed;
 
     private Rigidbody2D rb;
+
+    private Vector2 dir;
+    private Vector2 xBounds, yBounds;
     
     void Start()
     {
+        if (startCoords.x <= endCoords.x)
+        {
+            xBounds.x = startCoords.x;
+            xBounds.y = endCoords.x;
+        }
+        else
+        {
+            xBounds.x = endCoords.x;
+            xBounds.y = startCoords.x;
+        }
+        
+        if (startCoords.y <= endCoords.y)
+        {
+            yBounds.x = startCoords.y;
+            yBounds.y = endCoords.y;
+        }
+        else
+        {
+            yBounds.x = endCoords.y;
+            yBounds.y = startCoords.y;
+        }
+        
+        Debug.Log(xBounds);
+
+        //start moving enemy
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * (startCoords - endCoords);
+        dir = startCoords - endCoords;
+        rb.velocity = speed * dir;
     }
 
     
     void Update()
     {
-        if (gameObject.transform.position.x < startCoords.x)
-            MoveToEndCoords();
+        if (gameObject.transform.position.x < xBounds.x || gameObject.transform.position.x > xBounds.y)
+            ChangeDirection();
         
-        else if (gameObject.transform.position.x > endCoords.x)
-            MoveToStartCoords();
+        else if (gameObject.transform.position.y < yBounds.x || gameObject.transform.position.y > yBounds.y)
+            ChangeDirection();
     }
 
+    void ChangeDirection()
+    {
+        dir = dir*-1;
+        rb.velocity = dir * speed;
+    }
+
+    /*
     void MoveToStartCoords()
     {
         Vector2 dir = startCoords - endCoords;
@@ -38,5 +74,6 @@ public class PatrolEnemy : MonoBehaviour
         Vector2 dir = endCoords - startCoords;
         rb.velocity = dir * speed;
     }
+    */
 
 }
