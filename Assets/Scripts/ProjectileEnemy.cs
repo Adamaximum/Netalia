@@ -9,7 +9,7 @@ public class ProjectileEnemy : MonoBehaviour
     public float bulletSpeed;
     public float fireRate;
     private bool readyToFire = true;
-    
+
     //for bullet instantiation calculations
     private float radius;
 

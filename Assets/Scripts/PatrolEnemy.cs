@@ -14,7 +14,7 @@ public class PatrolEnemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * (startCoords - endCoords);
+        Unfreeze();
     }
 
     
@@ -37,6 +37,16 @@ public class PatrolEnemy : MonoBehaviour
     {
         Vector2 dir = endCoords - startCoords;
         rb.velocity = dir * speed;
+    }
+
+    public void Freeze()
+    {
+        rb.velocity = new Vector2(0, 0);
+    }
+
+    public void Unfreeze()
+    {
+        rb.velocity = speed * (startCoords - endCoords);
     }
 
 }
