@@ -13,6 +13,10 @@ public class Movement : MonoBehaviour
     private AnimationScript anim;
     private bool canGrabWalls;
     private bool jump;
+    
+    //get rid of these later
+    private bool climbing;
+    private bool suspendGravity;
 
     [Space]
     [Header("Stats")]
@@ -93,6 +97,7 @@ public class Movement : MonoBehaviour
             || (Collision.Instance.onRightWall && Input.GetButtonDown("WallDetachRight")))
         {
             canGrabWalls = !canGrabWalls;
+            suspendGravity = false;
             StopCoroutine(DisableMovement(0));
             StartCoroutine(DisableMovement(.1f));
         }
@@ -110,9 +115,9 @@ public class Movement : MonoBehaviour
 
         //move in x direction
         if (!Collision.Instance.onGround && Collision.Instance.onLeftWall && xRaw > 0)
-            NewWallJump(Vector2.right);
-        else if (!Collision.Instance.onGround && Collision.Instance.onRightWall && xRaw < 0 )
-            NewWallJump(Vector2.left);
+            wallJumped = true; //NewWallJump(Vector2.right);
+        else if (!Collision.Instance.onGround && Collision.Instance.onRightWall && xRaw < 0)
+            wallJumped = true; //NewWallJump(Vector2.left);
         
         HorizontalMovement();
 
@@ -137,8 +142,18 @@ public class Movement : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce*50);
             jump = false;
         }
-        
-        
+
+        if (wallJumped)
+        {
+            NewWallJump(Collision.Instance.onLeftWall);
+            wallJumped = false;
+        }
+
+        if (suspendGravity)
+            rb.gravityScale = 0;
+        else
+            rb.gravityScale = 3;
+
     }
     
 
@@ -174,6 +189,7 @@ public class Movement : MonoBehaviour
             wallJumped = false;
             wallGrab = false;
             canGrabWalls = true;
+            suspendGravity = false;
         }
         
         //touchdown visuals on ground touch
@@ -215,7 +231,7 @@ public class Movement : MonoBehaviour
         if (onWall && canGrabWalls)
         {
             //set new rigidbody behavior
-            rb.gravityScale = 0;
+            suspendGravity = true;
             if(x > .2f || x < -.2f)
                 rb.velocity = new Vector2(rb.velocity.x, 0);
             
@@ -232,13 +248,13 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = 3;
+            suspendGravity = false;
         }
     }
 
     void HeightBoost()
     {
-        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost && !wallJumped)
+        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost)
         {
             if (yRaw > 0)
             {
@@ -271,33 +287,39 @@ public class Movement : MonoBehaviour
 
         Jump(jumpDir, true);
 
-        wallJumped = true;
 
     }
 
-    void NewWallJump(Vector2 wallDir)
+    void NewWallJump(bool onLeftWall)
     {
         PlayerAudioScript.Instance.JumpSound();
         
         side *= -1;
         anim.Flip(side);
         
-        wallJumped = true;
         
         StopCoroutine(DisableMovement(0));
         StartCoroutine(DisableMovement(.15f));
 
-        rb.bodyType = RigidbodyType2D.Kinematic;
+        Vector2 wallDir = onLeftWall ? Vector2.right : Vector2.left;
+        suspendGravity = true;
         rb.velocity = wallDir * wallForce;
 
         StartCoroutine(WallJumpTimer(.15f));
+        
+        //non-IEnumerator timer
+        float timer = 0;
+        for (float i = timer; i > 0; i -= Time.deltaTime)
+        {
+            
+        }
     }
 
     IEnumerator WallJumpTimer(float time)
     {
         yield return new WaitForSeconds(time);
         rb.velocity = new Vector2(0, 0);
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        suspendGravity = false;
     }
     
     private void Jump(Vector2 dir, bool wall)

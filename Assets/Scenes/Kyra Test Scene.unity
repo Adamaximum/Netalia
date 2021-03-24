@@ -6958,7 +6958,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -6996,6 +6996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  anim: {fileID: 0}
+  canGrabWalls: 0
   speed: 8
   jumpForce: 12
   slideSpeed: 1
@@ -7006,11 +7008,19 @@ MonoBehaviour:
   wallGrab: 0
   wallJumped: 0
   isDashing: 0
+  groundTouch: 0
+  hasDashed: 0
+  checkForBoost: 0
   side: 1
   dashParticle: {fileID: 1419627681}
   jumpParticle: {fileID: 369439875}
   wallJumpParticle: {fileID: 1144321668}
   slideParticle: {fileID: 2098896833}
+  x: 0
+  y: 0
+  xRaw: 0
+  yRaw: 0
+  dir: {x: 0, y: 0}
 --- !u!1 &749800694
 GameObject:
   m_ObjectHideFlags: 0

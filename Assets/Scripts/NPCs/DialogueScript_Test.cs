@@ -124,7 +124,7 @@ public class DialogueScript_Test : MonoBehaviour
    void MoveNetalia(GameObject net)
    {
        //deactivate player scripts
-       net.GetComponent<MovementTest>().enabled = false;
+       net.GetComponent<Movement>().enabled = false;
        net.GetComponentInChildren<AnimationScript>().enabled = false;
        
        //move Netalia into place
