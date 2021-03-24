@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public BoxCollider2D checkpoint;
     public GameObject player;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -25,9 +25,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Debug.Log(Collision.Instance.hit);
-        
+
         if (Collision.Instance.hit)
+        {
             Reset();
+        }
     }
 
     void Reset()

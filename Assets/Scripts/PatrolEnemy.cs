@@ -10,11 +10,37 @@ public class PatrolEnemy : MonoBehaviour
     public float speed;
 
     private Rigidbody2D rb;
+    private Vector2 xBounds, yBounds;
+    private bool startCoordsFirst;
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Unfreeze();
+
+        if (startCoords.x <= endCoords.x)
+        {
+            xBounds.x = startCoords.x;
+            xBounds.y = endCoords.x;
+            startCoordsFirst = true;
+        }
+        else
+        {
+            xBounds.x = endCoords.x;
+            xBounds.y = startCoords.x;
+            startCoordsFirst = false;
+        }
+
+        if (startCoords.y <= endCoords.y)
+        {
+            yBounds.x = startCoords.y;
+            yBounds.y = endCoords.y;
+        }
+        else
+        {
+            yBounds.x = endCoords.y;
+            yBounds.y = startCoords.y;
+        }
     }
 
     
