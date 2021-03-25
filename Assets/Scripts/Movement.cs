@@ -292,7 +292,7 @@ public class Movement : MonoBehaviour
 
     void NewWallJump(bool onLeftWall)
     {
-        PlayerAudioScript.Instance.JumpSound();
+        //PlayerAudioScript.Instance.JumpSound();
         
         side *= -1;
         anim.Flip(side);
