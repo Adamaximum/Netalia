@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationScript : MonoBehaviour
 {
     private Animator anim;
-    private MovementTest move;
+    private Movement move;
     private Collision coll;
     [HideInInspector]
     public SpriteRenderer sr;
@@ -14,7 +14,7 @@ public class AnimationScript : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         coll = GetComponentInParent<Collision>();
-        move = GetComponentInParent<MovementTest>();
+        move = GetComponentInParent<Movement>();
         sr = GetComponent<SpriteRenderer>();
     }
 
@@ -27,7 +27,6 @@ public class AnimationScript : MonoBehaviour
         //anim.SetBool("wallSlide", move.wallSlide);
         anim.SetBool("canMove", move.canMove);
         anim.SetBool("isDashing", move.isDashing);
-
     }
 
     public void SetHorizontalMovement(float x,float y, float yVel)
