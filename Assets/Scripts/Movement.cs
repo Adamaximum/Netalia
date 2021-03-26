@@ -255,7 +255,7 @@ public class Movement : MonoBehaviour
 
         Jump(jumpDir, true);
 
-        wallJumped = true;
+
     }
     
     private void Jump(Vector2 dir, bool wall)
