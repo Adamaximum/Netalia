@@ -12,6 +12,7 @@ public class PatrolEnemy : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 xBounds, yBounds;
     private bool startCoordsFirst;
+    private bool useYValues;
     
     void Start()
     {
@@ -35,11 +36,13 @@ public class PatrolEnemy : MonoBehaviour
         {
             yBounds.x = startCoords.y;
             yBounds.y = endCoords.y;
+            startCoordsFirst = true;
         }
         else
         {
             yBounds.x = endCoords.y;
             yBounds.y = startCoords.y;
+            startCoordsFirst = false;
         }
     }
 

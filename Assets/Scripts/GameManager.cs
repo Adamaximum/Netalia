@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public BoxCollider2D checkpoint;
     public GameObject player;
+
+    public MaskScript mask;
     
     private void Awake()
     {
@@ -28,13 +30,20 @@ public class GameManager : MonoBehaviour
 
         if (Collision.Instance.hit)
         {
+
             Reset();
         }
     }
 
     void Reset()
     {
-        //place player at checkpoint
+        player.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+        Movement.Instance.enabled = false;
+        
+        //place player at checkpoint and freeze it
         player.transform.position = checkpoint.transform.position;
+        
+        //cover screen
+        mask.Transition();
     }
 }
