@@ -123,8 +123,6 @@ public class Movement : MonoBehaviour
         //set sprite direction
         FixAnim();
     }
-    
-    
 
     //version where player sticks to wall unless Y is pressed
     
@@ -255,6 +253,7 @@ public class Movement : MonoBehaviour
 
         Jump(jumpDir, true);
 
+        wallJumped = true;
 
     }
     

@@ -28,6 +28,7 @@
           <e p="GhostTrail.cs" t="Include" />
           <e p="MaskScript.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
+          <e p="MovementTest.cs" t="Include" />
           <e p="NPCs" t="Include">
             <e p="DialogueScript_Test.cs" t="Include" />
             <e p="NetaliaTestDialogue.txt" t="Include" />
