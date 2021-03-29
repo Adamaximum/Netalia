@@ -9,6 +9,7 @@ public class PlayerAudioScript : MonoBehaviour
 
     //audio clips
     public AudioClip jump;
+    public AudioClip land;
     
     void Start()
     {
@@ -21,5 +22,10 @@ public class PlayerAudioScript : MonoBehaviour
     public void JumpSound()
     {
         source.PlayOneShot(jump);
+    }
+
+    public void LandSound()
+    {
+        source.PlayOneShot(land);
     }
 }
