@@ -163,6 +163,7 @@ public class Movement : MonoBehaviour
         {
             GroundTouch();
             groundTouch = true;
+            PlayerAudioScript.Instance.LandSound();
         }
 
         //reset groundTouch bool
