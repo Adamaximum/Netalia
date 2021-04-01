@@ -9,7 +9,8 @@ public class Movement : MonoBehaviour
 
     [HideInInspector]
     public Rigidbody2D rb;
-    private AnimationScript anim;
+    public AnimationScript anim;
+    public AnimationScript silhouetteAnim;
     private bool canGrabWalls;
 
     [Space]
@@ -59,7 +60,9 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<AnimationScript>();
+        
+        //reinstate this later
+        //anim = GetComponentInChildren<AnimationScript>();
     }
 
 
@@ -67,9 +70,8 @@ public class Movement : MonoBehaviour
     {
         //NOTES TO SELF - Kyra
         //wallGrab bool can be edited out, redundant
-        //change to singleton for easier access
         //separate particle effects into self-contained functions
-        //animation controls are inefficient, reduce and simplify
+        //animation controls are inefficient, set bools to check in anim script
         //you're losing readability, take a weekend off to properly edit and comment this sometime
         
         //controller input
@@ -80,6 +82,7 @@ public class Movement : MonoBehaviour
 
         //set animation state
         anim.SetHorizontalMovement(x, y, rb.velocity.y);
+        silhouetteAnim.SetHorizontalMovement(x, y, rb.velocity.y);
         
         //check for wall
         DetectWallCollisions();
@@ -101,6 +104,7 @@ public class Movement : MonoBehaviour
         if (Collision.Instance.onGround && Input.GetButtonDown("Jump"))
         {
             anim.SetTrigger("jump");
+            silhouetteAnim.SetTrigger("jump");
             Jump(Vector2.up, false);
         }
 
@@ -180,7 +184,10 @@ public class Movement : MonoBehaviour
         if (Collision.Instance.onWall && !Collision.Instance.onGround && canMove && canGrabWalls)
         {
             if (side != Collision.Instance.wallSide)
+            {
                 anim.Flip(side * -1);
+                silhouetteAnim.Flip(side*-1);
+            }
 
             wallGrab = true;
             checkForBoost = true;
@@ -245,6 +252,7 @@ public class Movement : MonoBehaviour
         
         side *= -1;
         anim.Flip(side);
+        silhouetteAnim.Flip(side);
 
         StopCoroutine(DisableMovement(0));
         StartCoroutine(DisableMovement(.1f));
@@ -280,11 +288,13 @@ public class Movement : MonoBehaviour
         {
             side = 1;
             anim.Flip(side);
+            silhouetteAnim.Flip(side);
         }
         if (x < 0)
         {
             side = -1;
             anim.Flip(side);
+            silhouetteAnim.Flip(side);
         }
     }
 
