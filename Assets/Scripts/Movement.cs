@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour
     public bool canMove;
     public bool wallGrab;
     public bool wallJumped;
-    //public bool wallSlide;
+    public bool wallSlide;
     public bool isDashing;
 
     [Space]
@@ -329,5 +329,10 @@ public class Movement : MonoBehaviour
     {
         int particleSide = Collision.Instance.onRightWall ? 1 : -1;
         return particleSide;
+    }
+
+    public void PauseAnimation()
+    {
+        
     }
 }

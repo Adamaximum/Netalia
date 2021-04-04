@@ -23,10 +23,10 @@ public class AnimationScript : MonoBehaviour
         anim.SetBool("onGround", coll.onGround);
         anim.SetBool("onWall", coll.onWall);
         anim.SetBool("onRightWall", coll.onRightWall);
-        anim.SetBool("wallGrab", move.wallGrab);
-        //anim.SetBool("wallSlide", move.wallSlide);
-        anim.SetBool("canMove", move.canMove);
-        anim.SetBool("isDashing", move.isDashing);
+        anim.SetBool("wallGrab", coll.onWall);
+        anim.SetBool("wallSlide", move.wallSlide);
+        anim.SetBool("canMove", MovementTest.Instance.canMove);
+        //anim.SetBool("isDashing", move.isDashing);
     }
 
     public void SetHorizontalMovement(float x,float y, float yVel)
@@ -43,7 +43,7 @@ public class AnimationScript : MonoBehaviour
 
     public void Flip(int side)
     {
-        if (move.wallGrab)
+        if (Movement.Instance.wallGrab)
         {
             if (side == -1 && sr.flipX)
                 return;

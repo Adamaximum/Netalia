@@ -59,7 +59,6 @@ public class Collision : MonoBehaviour
         
         else
             onWall = false;
-        
 
         wallSide = onRightWall ? -1 : 1;
         

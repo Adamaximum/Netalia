@@ -26,11 +26,8 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(Collision.Instance.hit);
-
         if (Collision.Instance.hit)
         {
-
             Reset();
         }
     }
