@@ -17,8 +17,7 @@ public class MovementTest : MonoBehaviour
     
     //player bools
     public bool canMove = true;
-    
-    
+
     //physics
     public float speed;
     public float jumpForce;

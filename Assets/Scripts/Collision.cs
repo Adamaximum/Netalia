@@ -23,6 +23,7 @@ public class Collision : MonoBehaviour
     //player interaction
     public bool interact;
     public bool hit;
+    public int roomNum;
     
     [Space]
 
@@ -38,6 +39,8 @@ public class Collision : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+
+        roomNum = 0;
     }
 
     void Start()

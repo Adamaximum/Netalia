@@ -26,6 +26,7 @@ public class AnimationScript : MonoBehaviour
         anim.SetBool("wallGrab", coll.onWall);
         anim.SetBool("wallSlide", move.wallSlide);
         anim.SetBool("canMove", MovementTest.Instance.canMove);
+        anim.SetBool("idle", GameManager.Instance.idle);
         //anim.SetBool("isDashing", move.isDashing);
     }
 
@@ -40,6 +41,7 @@ public class AnimationScript : MonoBehaviour
     {
         anim.SetTrigger(trigger);
     }
+    
 
     public void Flip(int side)
     {
