@@ -14,6 +14,7 @@ public class DialogueScript_Test : MonoBehaviour
    private bool dialogueRunning;
    private int speakerTurn = 0;
    private bool textSlowRevealing;
+   private bool textEmptied;
 
    [Space(10)]
    [Header("Misc")]
@@ -40,6 +41,7 @@ public class DialogueScript_Test : MonoBehaviour
    void Awake()
    {
        dialogueRunning = false;
+       textEmptied = false;
 
        //assign components, set UI as inactive
        player = GameObject.Find("Player");
@@ -106,9 +108,10 @@ public class DialogueScript_Test : MonoBehaviour
        }
 
        //if dialogue is over, disable this script
-       if (speakerTurn >= Dialogue.SpokenLines.Length)
+       if (speakerTurn >= Dialogue.SpokenLines.Length && !textEmptied)
        {
            EmptyDialogue();
+           textEmptied = true;
        }
 
        if (dialogueRunning)

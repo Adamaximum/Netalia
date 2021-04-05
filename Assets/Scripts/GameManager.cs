@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
 
     public void DisablePlayer()
     {
+        //restart enemies
+        rooms[Collision.Instance.roomNum].DeactivateRoom();
+        
         idle = true;
         Movement.Instance.rb.velocity = new Vector2(0, 0);
         Movement.Instance.enabled = false;
@@ -67,10 +70,10 @@ public class GameManager : MonoBehaviour
     {
         //restart enemies
         rooms[Collision.Instance.roomNum].ActivateRoom();
-        Debug.Log("reset room " + Collision.Instance.roomNum);
         
         //turn player back on
         Movement.Instance.enabled = true;
         idle = false;
     }
+
 }

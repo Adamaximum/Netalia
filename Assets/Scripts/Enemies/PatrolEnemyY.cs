@@ -7,6 +7,7 @@ public class PatrolEnemyY : MonoBehaviour
     //NOTE: endCoords value needs a greater y-value than the startCoords
     
     public Vector2 startCoords, endCoords;
+    private Vector2 restartCoords;
     public float speed;
 
     private Rigidbody2D rb;
@@ -15,8 +16,8 @@ public class PatrolEnemyY : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        gameObject.transform.position = startCoords;
+        
+        restartCoords = gameObject.transform.position;
         Unfreeze();
     }
 
@@ -45,11 +46,11 @@ public class PatrolEnemyY : MonoBehaviour
     public void Freeze()
     {
         rb.velocity = new Vector2(0, 0);
+        gameObject.transform.position = restartCoords;
     }
 
     public void Unfreeze()
     {
-        gameObject.transform.position = startCoords;
         rb.velocity = speed * (startCoords - endCoords);
     }
 

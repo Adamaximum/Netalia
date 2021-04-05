@@ -50,7 +50,6 @@ public class RoomTrigger : MonoBehaviour
         for (int i = 0; i < roomPatrolsX.Length; i++)
         {
             roomPatrolsX[i].enabled = true;
-            Debug.Log("unfreeze enemy: " + i + ", null?: " + roomPatrolsX[i]);
             roomPatrolsX[i].Unfreeze();
         }
         
@@ -71,7 +70,6 @@ public class RoomTrigger : MonoBehaviour
         for (int i = 0; i < roomPatrolsX.Length; i++)
         {
             roomPatrolsX[i].Freeze();
-            Debug.Log("freeze enemy: " + i + ", null?: " + roomPatrolsX[i]);
             roomPatrolsX[i].enabled = false;
         }
         
