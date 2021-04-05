@@ -5,7 +5,6 @@ using UnityEngine;
 public class AnimationScript : MonoBehaviour
 {
     private Animator anim;
-    private Movement move;
     private Collision coll;
     [HideInInspector]
     public SpriteRenderer sr;
@@ -14,18 +13,19 @@ public class AnimationScript : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         coll = GetComponentInParent<Collision>();
-        move = GetComponentInParent<Movement>();
         sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        Debug.Log(Movement.Instance);
+        
         anim.SetBool("onGround", coll.onGround);
         anim.SetBool("onWall", coll.onWall);
         anim.SetBool("onRightWall", coll.onRightWall);
         anim.SetBool("wallGrab", coll.onWall);
-        anim.SetBool("wallSlide", move.wallSlide);
-        anim.SetBool("canMove", MovementTest.Instance.canMove);
+        anim.SetBool("wallSlide", Movement.Instance.wallSlide);
+        anim.SetBool("canMove", Movement.Instance.canMove);
         anim.SetBool("idle", GameManager.Instance.idle);
         //anim.SetBool("isDashing", move.isDashing);
     }

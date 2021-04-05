@@ -23,13 +23,10 @@ public class GameManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        
+        rooms = new RoomTrigger[50];
     }
-
-    void Start()
-    {
-        rooms = FindObjectsOfType<RoomTrigger>();
-    }
-
+    
     
     void Update()
     {
@@ -51,9 +48,6 @@ public class GameManager : MonoBehaviour
         
         //cover screen
         mask.Transition();
-        
-        //reset enemies
-        rooms[Collision.Instance.roomNum].DeactivateRoom();
     }
     
     public void EndReset()
@@ -64,6 +58,9 @@ public class GameManager : MonoBehaviour
 
     public void DisablePlayer()
     {
+        //reset enemies
+        rooms[Collision.Instance.roomNum].DeactivateRoom();
+        
         idle = true;
         Movement.Instance.rb.velocity = new Vector2(0, 0);
         Movement.Instance.enabled = false;
@@ -71,8 +68,11 @@ public class GameManager : MonoBehaviour
 
     public void EnablePlayer()
     {
+        //restart enemies
         rooms[Collision.Instance.roomNum].ActivateRoom();
+        Debug.Log("reset room " + Collision.Instance.roomNum);
         
+        //turn player back on
         Movement.Instance.enabled = true;
         idle = false;
     }

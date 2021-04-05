@@ -45,11 +45,11 @@ public class PatrolEnemyY : MonoBehaviour
     public void Freeze()
     {
         rb.velocity = new Vector2(0, 0);
+        gameObject.transform.position = startCoords;
     }
 
     public void Unfreeze()
     {
-        gameObject.transform.position = startCoords;
         rb.velocity = speed * (startCoords - endCoords);
     }
 
