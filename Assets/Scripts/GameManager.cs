@@ -58,9 +58,6 @@ public class GameManager : MonoBehaviour
 
     public void DisablePlayer()
     {
-        //reset enemies
-        rooms[Collision.Instance.roomNum].DeactivateRoom();
-        
         idle = true;
         Movement.Instance.rb.velocity = new Vector2(0, 0);
         Movement.Instance.enabled = false;

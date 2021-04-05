@@ -43,13 +43,12 @@ public class PatrolEnemyX : MonoBehaviour
 
     public void Freeze()
     {
-        Debug.Log("freeze");
         rb.velocity = new Vector2(0, 0);
-        gameObject.transform.position = startCoords;
     }
 
     public void Unfreeze()
     {
+        gameObject.transform.position = startCoords;
         rb.velocity = speed * (startCoords - endCoords);
     }
 
