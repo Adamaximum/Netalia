@@ -119,8 +119,7 @@ public class Movement : MonoBehaviour
         //reset bools and play particle effect on touchdown
         DetectGround();
 
-        //if (Input.GetButton("Jump"))
-            //HeightBoost();
+        HeightBoost();
 
         WallParticle(y);
         
@@ -160,6 +159,7 @@ public class Movement : MonoBehaviour
             wallJumped = false;
             wallGrab = false;
             canGrabWalls = true;
+            checkForBoost = false;
         }
         
         //touchdown visuals on ground touch
@@ -204,6 +204,8 @@ public class Movement : MonoBehaviour
         
         if (onWall && canGrabWalls)
         {
+            checkForBoost = true;
+            
             //set new rigidbody behavior
             rb.gravityScale = 0;
             if(x > .2f || x < -.2f)
@@ -271,6 +273,8 @@ public class Movement : MonoBehaviour
         //set particle values
         slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
+
+        wallJumped = true;
         
         //begin jump
         rb.AddForce(dir * jumpForce*50);
