@@ -5,8 +5,11 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     public CameraManager manager;
-    public PatrolEnemy[] roomPatrols;
+    public PatrolEnemyX[] roomPatrolsX;
+    public PatrolEnemyY[] roomPatrolsY;
     public ProjectileEnemy[] roomProjEnemies;
+
+    public int roomNum;
 
     
     void Start()
@@ -14,20 +17,19 @@ public class RoomTrigger : MonoBehaviour
         manager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
 
         GameObject room = gameObject.transform.parent.gameObject;
-        roomPatrols = room.GetComponentsInChildren<PatrolEnemy>();
+        roomPatrolsX = room.GetComponentsInChildren<PatrolEnemyX>();
+        roomPatrolsY = room.GetComponentsInChildren<PatrolEnemyY>();
         roomProjEnemies = room.GetComponentsInChildren<ProjectileEnemy>();
-    }
 
-   
-    void Update()
-    {
-        
+        GameManager.Instance.rooms[roomNum] = this;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
+            Collision.Instance.roomNum = roomNum;
+            
             ActivateRoom();
             
             manager.currentPosition.transform.position = this.transform.position;
@@ -43,12 +45,18 @@ public class RoomTrigger : MonoBehaviour
         }
     }
 
-    private void ActivateRoom()
+    public void ActivateRoom()
     {
-        for (int i = 0; i < roomPatrols.Length; i++)
+        for (int i = 0; i < roomPatrolsX.Length; i++)
         {
-            roomPatrols[i].enabled = true;
-            roomPatrols[i].Unfreeze();
+            roomPatrolsX[i].enabled = true;
+            roomPatrolsX[i].Unfreeze();
+        }
+        
+        for (int i = 0; i < roomPatrolsY.Length; i++)
+        {
+            roomPatrolsY[i].enabled = true;
+            roomPatrolsY[i].Unfreeze();
         }
         
         for (int i = 0; i < roomProjEnemies.Length; i++)
@@ -57,12 +65,18 @@ public class RoomTrigger : MonoBehaviour
         }
     }
 
-    private void DeactivateRoom()
+    public void DeactivateRoom()
     {
-        for (int i = 0; i < roomPatrols.Length; i++)
+        for (int i = 0; i < roomPatrolsX.Length; i++)
         {
-            roomPatrols[i].Freeze();
-            roomPatrols[i].enabled = false;
+            roomPatrolsX[i].Freeze();
+            roomPatrolsX[i].enabled = false;
+        }
+        
+        for (int i = 0; i < roomPatrolsY.Length; i++)
+        {
+            roomPatrolsY[i].Freeze();
+            roomPatrolsY[i].enabled = false;
         }
         
         for (int i = 0; i < roomProjEnemies.Length; i++)

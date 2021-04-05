@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class DialogueScript_Test : MonoBehaviour
 {
    public GameObject player;
-   public Collision playerColl;
+   public Camera mainCamera;
+   private Vector3 cameraPos;
   
    //keep track of speaker
    private bool dialogueRunning;
    private int speakerTurn = 0;
    private bool textSlowRevealing;
+   private bool textEmptied;
 
    [Space(10)]
    [Header("Misc")]
@@ -39,10 +41,10 @@ public class DialogueScript_Test : MonoBehaviour
    void Awake()
    {
        dialogueRunning = false;
-      
+       textEmptied = false;
+
        //assign components, set UI as inactive
        player = GameObject.Find("Player");
-       playerColl = player.GetComponent<Collision>();
 
        //assign blank inspector components
        if (LeftSpeechBubble == null) 
@@ -73,10 +75,16 @@ public class DialogueScript_Test : MonoBehaviour
        }
    }
 
-  
+   private void Start()
+   {
+       //set dist from Netalia direction
+       distFromNetalia = gameObject.GetComponent<SpriteRenderer>().flipX ? -distFromNetalia : distFromNetalia;
+   }
+
+
    void Update()
    {
-       if (playerColl.interact && !dialogueRunning)
+       if (Collision.Instance.interact && !dialogueRunning)
        {
            //show button prompt
            ButtonPrompt.SetActive(true);
@@ -84,7 +92,7 @@ public class DialogueScript_Test : MonoBehaviour
            //if button is pressed:
            if (Input.GetButtonDown("Submit"))
            {
-               //MoveNetalia(player);
+               MoveNetalia(player);
               
                ZoomIn();
               
@@ -100,9 +108,10 @@ public class DialogueScript_Test : MonoBehaviour
        }
 
        //if dialogue is over, disable this script
-       if (speakerTurn >= Dialogue.SpokenLines.Length)
+       if (speakerTurn >= Dialogue.SpokenLines.Length && !textEmptied)
        {
            EmptyDialogue();
+           textEmptied = true;
        }
 
        if (dialogueRunning)
@@ -124,26 +133,25 @@ public class DialogueScript_Test : MonoBehaviour
    void MoveNetalia(GameObject net)
    {
        //deactivate player scripts
-       net.GetComponent<Movement>().enabled = false;
-       net.GetComponentInChildren<AnimationScript>().enabled = false;
+       GameManager.Instance.DisablePlayer();
        
        //move Netalia into place
-       distFromNetalia = gameObject.GetComponent<SpriteRenderer>().flipX ? distFromNetalia : -distFromNetalia;
-       
+       Vector2 playerPos = new Vector2(gameObject.transform.position.x + distFromNetalia, gameObject.transform.position.y);
+       net.transform.position = playerPos;
+
    }
 
    void ZoomIn()
    {
-       //disable camera movement script
-      
-       //move camera to appropriate spacing
+       cameraPos = mainCamera.transform.position;
+       mainCamera.orthographicSize = 3;
+       mainCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, -10);
    }
 
    void ZoomOut()
    {
-       //enable camera movement script
-      
-       //move camera back to former spacing
+       mainCamera.orthographicSize = mainCamera.GetComponent<CameraManager>().defaultSize;
+       mainCamera.transform.position = cameraPos;
    }
 
    GameObject SetPanel(int lineNum)
@@ -199,9 +207,6 @@ public class DialogueScript_Test : MonoBehaviour
        }
 
        textSlowRevealing = false;
-       
-       Debug.Log(textSlowRevealing);
-       yield break;
    }
 
    void CheckForNextLine(int lineNum)
@@ -215,8 +220,9 @@ public class DialogueScript_Test : MonoBehaviour
 
    void EmptyDialogue()
    {
+       GameManager.Instance.EnablePlayer();
+       ZoomOut();
        DialogueUI.SetActive(false);
-
    }
    
 }
