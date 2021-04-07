@@ -8,7 +8,7 @@ public class PatrolEnemyY : MonoBehaviour
     
     public Vector2 startCoords, endCoords;
     private Vector2 restartCoords;
-    public static float speed;
+    public float speed;
 
     private Rigidbody2D rb;
     private Vector2 xBounds, yBounds;
