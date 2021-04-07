@@ -1,23 +1,27 @@
 {
 "SpeakingOrder":
 [
-	"Netalia",
 	"NPC",
 	"Netalia",
 	"NPC",
 	"Netalia",
-	"NPC"
+	"NPC",
+	"NPC",
+	"NPC",
+	"Netalia"
 ],
 
 
 "SpokenLines":
 [
-	"Testing 1.",
-	"Testing 2.",
-	"Testing 3.",
-	"Testing 4.",
-	"Testing 5.",
-	"Testing 6."
+	"Hey, Talia! Out on a run?",
+	"Hey Arxus. Kinda, yeah. I got a job to do.",
+	"Ooh, exciting! Where is it?",
+	"Uh...the Sewerworks.",
+	"Oh.",
+	"...",
+	"Well, best of luck to you then!",
+	"Thanks, I'm gonna need it. See you later."
 ]
 
 }
