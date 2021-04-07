@@ -220,6 +220,15 @@ public class Movement : MonoBehaviour
             else
             {
                 rb.velocity = new Vector2(0, y * (speed * speedModifier));
+
+                if (y < 0)
+                {
+                    wallSlide = true;
+                }
+                else
+                {
+                    wallSlide = false;
+                }
             }
         }
         else
