@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class PlayerAudioScript : MonoBehaviour
     //audio clips
     public AudioClip jump;
     public AudioClip land;
+    public AudioClip slide;
+
+    private bool playOnce;
     
     void Start()
     {
@@ -17,6 +21,11 @@ public class PlayerAudioScript : MonoBehaviour
             Instance = this;
 
         source = gameObject.GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        //SlideSound();
     }
 
     public void JumpSound()
@@ -27,5 +36,15 @@ public class PlayerAudioScript : MonoBehaviour
     public void LandSound()
     {
         source.PlayOneShot(land);
+    }
+
+    public void SlideSound()
+    {
+        if (Movement.Instance.wallSlide && playOnce)
+        {
+            source.PlayOneShot(slide);
+            playOnce = false;
+        }
+        
     }
 }
