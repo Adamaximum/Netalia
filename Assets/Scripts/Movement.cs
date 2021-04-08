@@ -259,8 +259,6 @@ public class Movement : MonoBehaviour
     }
     private void WallJump(Vector2 wallDir)
     {
-        PlayerAudioScript.Instance.JumpSound();
-        
         side *= -1;
         anim.Flip(side);
         silhouetteAnim.Flip(side);
@@ -284,6 +282,8 @@ public class Movement : MonoBehaviour
         ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
 
         wallJumped = true;
+        
+        PlayerAudioScript.Instance.JumpSound();
         
         //begin jump
         rb.AddForce(dir * jumpForce*50);
