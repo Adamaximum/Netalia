@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
         rooms[Collision.Instance.roomNum].DeactivateRoom();
         
         idle = true;
-        Movement.Instance.rb.velocity = new Vector2(0, 0);
-        Movement.Instance.enabled = false;
+        //MovementTest.Instance.rb.velocity = new Vector2(0, 0);
+        MovementTest.Instance.enabled = false;
     }
 
     public void EnablePlayer()
