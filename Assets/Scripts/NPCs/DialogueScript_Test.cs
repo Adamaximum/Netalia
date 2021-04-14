@@ -83,7 +83,7 @@ public class DialogueScript_Test : MonoBehaviour
 
 
    void Update()
-   {
+   {  
        if (Collision.Instance.interact && !dialogueRunning)
        {
            //show button prompt
@@ -118,13 +118,8 @@ public class DialogueScript_Test : MonoBehaviour
        {
            if (Input.GetButtonDown("Submit"))
            {
-               //find correct line # and speaker
-               //fetch correct panel to display
-               //start slow revealing text
-               //if button is pressed again, show all text at once
-
-               DisplayText(SetPanel(speakerTurn), speakerTurn);
                CheckForNextLine(speakerTurn);
+               DisplayText(SetPanel(speakerTurn), speakerTurn);
            }
        }
        
@@ -157,7 +152,7 @@ public class DialogueScript_Test : MonoBehaviour
    GameObject SetPanel(int lineNum)
    {
        bool isSpeakerLeft;
-       isSpeakerLeft = Dialogue.SpeakingOrder[lineNum] == "NPC";
+       isSpeakerLeft = Dialogue.SpeakingOrder[lineNum] == "Netalia";
        
        //show the correct panel
        GameObject currentPanel;
@@ -199,11 +194,11 @@ public class DialogueScript_Test : MonoBehaviour
        textSlowRevealing = true;
        string revealedText;
 
-       for (int i = 0; i < textToReveal.Length; i++)
+       for (int i = 0; i <= textToReveal.Length; i++)
        {
            revealedText = textToReveal.Substring(0, i);
            textBox.text = revealedText;
-           yield return new WaitForSeconds(0.1f);
+           yield return new WaitForSeconds(0.05f);
        }
 
        textSlowRevealing = false;
