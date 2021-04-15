@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     public CameraManager manager;
+    public TestCamera managerTest;
     public PatrolEnemyX[] roomPatrolsX;
     public PatrolEnemyY[] roomPatrolsY;
     public ProjectileEnemy[] roomProjEnemies;
@@ -15,6 +16,7 @@ public class RoomTrigger : MonoBehaviour
     void Start()
     {
         manager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
+        managerTest = GameObject.Find("Main Camera").GetComponent<TestCamera>();
 
         GameObject room = gameObject.transform.parent.gameObject;
         roomPatrolsX = room.GetComponentsInChildren<PatrolEnemyX>();
@@ -32,8 +34,12 @@ public class RoomTrigger : MonoBehaviour
             
             ActivateRoom();
             
-            manager.currentPosition.transform.position = this.transform.position;
-            manager.Switch();
+            //manager.currentPosition.transform.position = this.transform.position;
+            //manager.Switch();
+            
+            //test camera stuff
+            managerTest.roomPos = this.transform;
+            managerTest.Switch();
         }
     }
     

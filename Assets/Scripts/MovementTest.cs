@@ -74,6 +74,7 @@ public class MovementTest : MonoBehaviour
         if (Collision.Instance.onWall)
         {
             rb.gravityScale = 0;
+            checkForBoost = true;
             
             ClimbWall();
 
@@ -91,6 +92,8 @@ public class MovementTest : MonoBehaviour
             WallJump(Vector2.right);
         else if (Collision.Instance.onRightWall && xRaw < 0 )
             WallJump(Vector2.left);
+        
+        HeightBoost();
 
     }
 
@@ -213,6 +216,18 @@ public class MovementTest : MonoBehaviour
         //animation
         anim.SetTrigger("jump");
         silhouetteAnim.SetTrigger("jump");
+    }
+    
+    void HeightBoost()
+    {
+        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost && !jumped)
+        {
+            if (yRaw > 0)
+            {
+                rb.AddForce(Vector2.up*5, ForceMode2D.Impulse);
+                checkForBoost = false;
+            }
+        }
     }
 
     void ParticlePlay(ParticleSystem particle)

@@ -18,8 +18,6 @@ public class AnimationScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Movement.Instance);
-        
         anim.SetBool("onGround", coll.onGround);
         anim.SetBool("onRightWall", coll.onRightWall);
         anim.SetBool("wallGrab", coll.onWall);
