@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - RoomTrigger
+  - Projectile
+  - Background
   layers:
   - Default
   - TransparentFX

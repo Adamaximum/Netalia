@@ -224,7 +224,7 @@ public class MovementTest : MonoBehaviour
         {
             if (yRaw > 0)
             {
-                rb.AddForce(Vector2.up*5, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up*6, ForceMode2D.Impulse);
                 checkForBoost = false;
             }
         }

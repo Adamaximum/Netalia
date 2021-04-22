@@ -11,8 +11,11 @@ public class RoomTrigger : MonoBehaviour
     public ProjectileEnemy[] roomProjEnemies;
 
     public int roomNum;
+    private ProjectileScript bullet;
+    private bool activated = false;
+    private SpriteRenderer background;
 
-    
+
     void Start()
     {
         manager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
@@ -22,32 +25,48 @@ public class RoomTrigger : MonoBehaviour
         roomPatrolsX = room.GetComponentsInChildren<PatrolEnemyX>();
         roomPatrolsY = room.GetComponentsInChildren<PatrolEnemyY>();
         roomProjEnemies = room.GetComponentsInChildren<ProjectileEnemy>();
+        //background = room.transform.Find("background").GetComponent<SpriteRenderer>();
 
         GameManager.Instance.rooms[roomNum] = this;
+
+        DeactivateRoom();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (Time.frameCount % 5 == 0 && collision.tag == "Player")
         {
             Collision.Instance.roomNum = roomNum;
-            
-            ActivateRoom();
-            
-            //manager.currentPosition.transform.position = this.transform.position;
-            //manager.Switch();
+
+            if (!activated)
+            {
+                ActivateRoom();
+                //background.enabled = true;
+                activated = true;
+            }
+
+            if (manager != null)
+            {
+                manager.currentPosition.transform.position = this.transform.position;
+                manager.Switch();
+            }
             
             //test camera stuff
-            managerTest.roomPos = this.transform;
-            managerTest.Switch();
+            if (managerTest != null)
+            {
+                managerTest.roomPos = this.transform;
+                managerTest.Switch();
+            }
         }
     }
     
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && activated)
         {
             DeactivateRoom();
+            //background.enabled = false;
+            activated = false;
         }
     }
 
@@ -89,5 +108,9 @@ public class RoomTrigger : MonoBehaviour
         {
             roomProjEnemies[i].enabled = false;
         }
+        
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Projectile");
+        foreach(GameObject bullet in bullets)
+            GameObject.Destroy(bullet);
     }
 }

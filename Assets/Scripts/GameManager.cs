@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         rooms[Collision.Instance.roomNum].ActivateRoom();
         
         //turn player back on
-        Movement.Instance.enabled = true;
+        MovementTest.Instance.enabled = true;
         idle = false;
     }
 

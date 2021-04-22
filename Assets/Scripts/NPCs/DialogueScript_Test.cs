@@ -216,8 +216,8 @@ public class DialogueScript_Test : MonoBehaviour
    void EmptyDialogue()
    {
        GameManager.Instance.EnablePlayer();
-       ZoomOut();
        DialogueUI.SetActive(false);
+       ZoomOut();
    }
    
 }
