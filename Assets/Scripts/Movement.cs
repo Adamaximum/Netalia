@@ -342,8 +342,4 @@ public class Movement : MonoBehaviour
         return particleSide;
     }
 
-    public void PauseAnimation()
-    {
-        
-    }
 }

@@ -32,7 +32,6 @@
           </e>
           <e p="GameManager.cs" t="Include" />
           <e p="GhostTrail.cs" t="Include" />
-          <e p="MaskScript.cs" t="Include" />
           <e p="Movement.cs" t="Include" />
           <e p="MovementTest.cs" t="Include" />
           <e p="NPCs" t="Include">
@@ -45,8 +44,12 @@
             <e p="RippleEffect.shader" t="Include" />
           </e>
           <e p="RoomTrigger.cs" t="Include" />
-          <e p="TempResFix.cs" t="Include" />
           <e p="TestCamera.cs" t="Include" />
+          <e p="UIScripts" t="Include">
+            <e p="MaskScript.cs" t="Include" />
+            <e p="MinimapScript.cs" t="Include" />
+            <e p="TempResFix.cs" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
