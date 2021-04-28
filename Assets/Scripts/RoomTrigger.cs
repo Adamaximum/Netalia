@@ -13,7 +13,7 @@ public class RoomTrigger : MonoBehaviour
     public int roomNum;
     private ProjectileScript bullet;
     private bool activated = false;
-    public SpriteRenderer background;
+    //public SpriteRenderer background;
 
 
     void Start()
@@ -30,7 +30,7 @@ public class RoomTrigger : MonoBehaviour
         GameManager.Instance.rooms[roomNum] = this;
 
         DeactivateRoom();
-        background.enabled = false;
+        //background.enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -44,8 +44,8 @@ public class RoomTrigger : MonoBehaviour
                 ActivateRoom();
                 activated = true;
                 
-                if (background != null)
-                    background.enabled = true;
+                //if (background != null)
+                    //background.enabled = true;
             }
 
             if (manager != null)
@@ -70,8 +70,8 @@ public class RoomTrigger : MonoBehaviour
             DeactivateRoom();
             activated = false;
             
-            if (background != null)
-                background.enabled = false;
+            //if (background != null)
+                //background.enabled = false;
         }
     }
 
