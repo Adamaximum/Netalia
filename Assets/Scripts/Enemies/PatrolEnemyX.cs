@@ -34,14 +34,12 @@ public class PatrolEnemyX : MonoBehaviour
     {
         Vector2 dir = startCoords - endCoords;
         rb.velocity = dir * speed;
-        Debug.Log("going to start");
     }
 
     void MoveToEndCoords()
     {
         Vector2 dir = endCoords - startCoords;
         rb.velocity = dir * speed;
-        Debug.Log("going to end");
     }
 
     public void Freeze()

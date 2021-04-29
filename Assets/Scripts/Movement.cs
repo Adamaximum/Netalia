@@ -185,8 +185,8 @@ public class Movement : MonoBehaviour
         {
             if (side != Collision.Instance.wallSide)
             {
-                anim.Flip(side * -1);
-                silhouetteAnim.Flip(side*-1);
+                anim.Flip(Collision.Instance.onLeftWall);
+                silhouetteAnim.Flip(Collision.Instance.onLeftWall);
             }
 
             wallGrab = true;
@@ -259,9 +259,8 @@ public class Movement : MonoBehaviour
     }
     private void WallJump(Vector2 wallDir)
     {
-        side *= -1;
-        anim.Flip(side);
-        silhouetteAnim.Flip(side);
+        anim.Flip(Collision.Instance.onLeftWall);
+        silhouetteAnim.Flip(Collision.Instance.onLeftWall);
 
         StopCoroutine(DisableMovement(0));
         StartCoroutine(DisableMovement(.1f));
@@ -299,15 +298,14 @@ public class Movement : MonoBehaviour
 
         if(x > 0)
         {
-            side = 1;
-            anim.Flip(side);
-            silhouetteAnim.Flip(side);
+            anim.Flip(Collision.Instance.onLeftWall);
+            silhouetteAnim.Flip(Collision.Instance.onLeftWall);
         }
         if (x < 0)
         {
             side = -1;
-            anim.Flip(side);
-            silhouetteAnim.Flip(side);
+            anim.Flip(Collision.Instance.onLeftWall);
+            silhouetteAnim.Flip(Collision.Instance.onLeftWall);
         }
     }
 
@@ -344,8 +342,4 @@ public class Movement : MonoBehaviour
         return particleSide;
     }
 
-    public void PauseAnimation()
-    {
-        
-    }
 }

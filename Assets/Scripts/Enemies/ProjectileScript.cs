@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ProjectileScript : MonoBehaviour
 {
+    public static bool destroyAll = false;
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == 8)
@@ -12,5 +13,11 @@ public class ProjectileScript : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    private void Update()
+    {
+        if (destroyAll)
+            Destroy(gameObject);
     }
 }

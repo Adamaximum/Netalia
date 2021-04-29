@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
     public Transform currentPosition;
     public float defaultSize;
 
-    
+
     void Start()
     {
         currentPosition = GetComponent<Transform>();

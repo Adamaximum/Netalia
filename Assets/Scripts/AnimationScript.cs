@@ -18,14 +18,11 @@ public class AnimationScript : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Movement.Instance);
-        
         anim.SetBool("onGround", coll.onGround);
-        anim.SetBool("onWall", coll.onWall);
         anim.SetBool("onRightWall", coll.onRightWall);
         anim.SetBool("wallGrab", coll.onWall);
-        anim.SetBool("wallSlide", Movement.Instance.wallSlide);
-        anim.SetBool("canMove", Movement.Instance.canMove);
+        anim.SetBool("wallSlide", MovementTest.Instance.wallSlide);
+        anim.SetBool("canMove", MovementTest.Instance.canMove);
         anim.SetBool("idle", GameManager.Instance.idle);
         //anim.SetBool("isDashing", move.isDashing);
     }
@@ -43,20 +40,8 @@ public class AnimationScript : MonoBehaviour
     }
     
 
-    public void Flip(int side)
+    public void Flip(bool side)
     {
-        if (Movement.Instance.wallGrab)
-        {
-            if (side == -1 && sr.flipX)
-                return;
-
-            if (side == 1 && !sr.flipX)
-            {
-                return;
-            }
-        }
-
-        bool state = (side == 1) ? false : true;
-        sr.flipX = state;
+        sr.flipX = side;
     }
 }
