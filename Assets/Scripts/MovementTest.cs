@@ -101,8 +101,6 @@ public class MovementTest : MonoBehaviour
     {
         if (!Collision.Instance.onWall)
             HorizontalMovement();
-        
-        
     }
 
     void UpdateControllerInputs()
@@ -222,11 +220,11 @@ public class MovementTest : MonoBehaviour
     
     void HeightBoost()
     {
-        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost && !jumped)
+        if (Collision.Instance.onWallEdge && checkForBoost)
         {
             if (yRaw > 0)
             {
-                rb.AddForce(Vector2.up*6, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up*8, ForceMode2D.Impulse);
                 checkForBoost = false;
             }
         }
