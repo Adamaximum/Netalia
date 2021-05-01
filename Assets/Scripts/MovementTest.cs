@@ -92,8 +92,8 @@ public class MovementTest : MonoBehaviour
             WallJump(Vector2.right);
         else if (Collision.Instance.onRightWall && xRaw < 0 )
             WallJump(Vector2.left);
-        
-        HeightBoost();
+        else //try to clear edge
+            HeightBoost();
 
     }
 
@@ -101,6 +101,8 @@ public class MovementTest : MonoBehaviour
     {
         if (!Collision.Instance.onWall)
             HorizontalMovement();
+        
+        
     }
 
     void UpdateControllerInputs()
