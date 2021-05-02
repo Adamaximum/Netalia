@@ -55,7 +55,7 @@ public class RoomTrigger : MonoBehaviour
             }
             
             //test camera stuff
-            if (managerTest != null)
+            if (managerTest != null && managerTest.enabled)
             {
                 managerTest.roomPos = this.transform;
                 managerTest.Switch();

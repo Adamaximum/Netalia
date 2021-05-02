@@ -10,12 +10,26 @@ public class ProjectileEnemy : MonoBehaviour
     public float fireRate;
     private bool readyToFire = true;
 
+    //audio
+    private AudioSource audio;
+    private AudioClip fireSound;
+    
+    //anim
+    private Animator anim;
+    private Animation fireAnim;
+
     //for bullet instantiation calculations
     private float radius;
 
     void Start()
     {
         radius = GetComponent<CircleCollider2D>().radius;
+
+        audio = GetComponent<AudioSource>();
+        fireSound = GetComponent<AudioSource>().clip;
+
+        anim = GetComponent<Animator>();
+        
     }
 
     
@@ -39,6 +53,10 @@ public class ProjectileEnemy : MonoBehaviour
         {
             CreateProjectile(FetchBulletCoords(i));
         }
+        
+        PlayFireAnim();
+
+        PlayFireSound();
     }
 
     void CreateProjectile(Vector3 pos)
@@ -60,5 +78,15 @@ public class ProjectileEnemy : MonoBehaviour
         Vector3 finalCoords;
         finalCoords = gameObject.transform.position + distFromCenter;
         return finalCoords;
+    }
+
+    private void PlayFireAnim()
+    {
+        anim.SetTrigger("Fire");
+    }
+
+    void PlayFireSound()
+    {
+        audio.PlayOneShot(fireSound);
     }
 }
