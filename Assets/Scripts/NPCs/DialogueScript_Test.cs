@@ -93,12 +93,13 @@ public class DialogueScript_Test : MonoBehaviour
            if (Input.GetButtonDown("Submit"))
            {
                MoveNetalia(player);
-              
-               ZoomIn();
-              
+
                //start running dialogue
                dialogueRunning = true;
                DialogueUI.SetActive(true);
+               
+               //zoom in camera
+               ZoomIn();
            }
        }
        else
@@ -138,14 +139,22 @@ public class DialogueScript_Test : MonoBehaviour
 
    void ZoomIn()
    {
+       //save original camera position
        cameraPos = mainCamera.transform.position;
-       mainCamera.orthographicSize = 3;
-       mainCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, -10);
+       
+       //disable camera script
+       mainCamera.GetComponent<TestCamera>().enabled = false;
+       
+       //move camera closer
+       mainCamera.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 2, -8);
    }
 
    void ZoomOut()
    {
-       mainCamera.orthographicSize = mainCamera.GetComponent<CameraManager>().defaultSize;
+       //enable camera script
+       mainCamera.GetComponent<TestCamera>().enabled = true;
+       
+       //move camera back
        mainCamera.transform.position = cameraPos;
    }
 

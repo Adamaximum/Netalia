@@ -92,8 +92,8 @@ public class MovementTest : MonoBehaviour
             WallJump(Vector2.right);
         else if (Collision.Instance.onRightWall && xRaw < 0 )
             WallJump(Vector2.left);
-        
-        HeightBoost();
+        else //try to clear edge
+            HeightBoost();
 
     }
 
@@ -220,11 +220,11 @@ public class MovementTest : MonoBehaviour
     
     void HeightBoost()
     {
-        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost && !jumped)
+        if (Collision.Instance.onWallEdge && checkForBoost)
         {
             if (yRaw > 0)
             {
-                rb.AddForce(Vector2.up*6, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up*8, ForceMode2D.Impulse);
                 checkForBoost = false;
             }
         }

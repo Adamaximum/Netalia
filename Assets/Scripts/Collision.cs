@@ -20,6 +20,10 @@ public class Collision : MonoBehaviour
     public bool onLeftWall;
     public int wallSide;
     
+    //edge collisions
+    public bool onWallEdge;
+    private bool leftEdge, rightEdge;
+    
     //player interaction
     public bool interact;
     public bool hit;
@@ -31,6 +35,7 @@ public class Collision : MonoBehaviour
 
     public float collisionRadius = 0.25f;
     public Vector2 bottomOffset, rightOffset, leftOffset;
+    public Vector2 leftEdgeDetector, rightEdgeDetector;
     private Color debugCollisionColor = Color.red;
 
     public static Collision Instance { get; private set; }
@@ -59,11 +64,21 @@ public class Collision : MonoBehaviour
 
         if (onRightWall || onLeftWall)
             onWall = true;
-        
         else
             onWall = false;
 
         wallSide = onRightWall ? -1 : 1;
+        
+        //check to see if player is on wall edge
+        leftEdge = Physics2D.OverlapCircle((Vector2)transform.position + leftEdgeDetector, collisionRadius, groundLayer);
+        rightEdge = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
+
+        if (!leftEdge && onLeftWall)
+            onWallEdge = true;
+        else if (!rightEdge && onRightWall)
+            onWallEdge = true;
+        else
+            onWallEdge = false;
         
         //check for NPC or item interactions
         interact = Physics2D.OverlapCircle((Vector2)transform.position, rightOffset.x, NPCLayer);
@@ -81,6 +96,8 @@ public class Collision : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position  + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + leftEdgeDetector, collisionRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + rightEdgeDetector, collisionRadius);
         
         //interaction sphere
         Gizmos.DrawWireSphere((Vector2)transform.position, rightOffset.x);
