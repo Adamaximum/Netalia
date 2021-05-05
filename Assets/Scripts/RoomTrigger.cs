@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class RoomTrigger : MonoBehaviour
 {
     public CameraManager manager;
     public TestCamera managerTest;
-    public PatrolEnemyX[] roomPatrolsX;
-    public PatrolEnemyY[] roomPatrolsY;
-    public ProjectileEnemy[] roomProjEnemies;
+    public List<PatrolEnemyX> roomPatrolsX;
+    public List<PatrolEnemyY> roomPatrolsY;
+    public List<ProjectileEnemy> roomProjEnemies;
 
     public int roomNum;
     private ProjectileScript bullet;
@@ -21,12 +22,12 @@ public class RoomTrigger : MonoBehaviour
         manager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
         managerTest = GameObject.Find("Main Camera").GetComponent<TestCamera>();
 
-        GameObject room = gameObject.transform.parent.gameObject;
-        roomPatrolsX = room.GetComponentsInChildren<PatrolEnemyX>();
-        roomPatrolsY = room.GetComponentsInChildren<PatrolEnemyY>();
-        roomProjEnemies = room.GetComponentsInChildren<ProjectileEnemy>();
+        //GameObject room = gameObject.transform.parent.gameObject;
+        //roomPatrolsX = room.GetComponentsInChildren<PatrolEnemyX>();
+        //roomPatrolsY = room.GetComponentsInChildren<PatrolEnemyY>();
+        //roomProjEnemies = room.GetComponentsInChildren<ProjectileEnemy>();
         //background = room.transform.Find("background").GetComponent<SpriteRenderer>();
-
+        
         GameManager.Instance.rooms[roomNum] = this;
 
         DeactivateRoom();
@@ -77,19 +78,19 @@ public class RoomTrigger : MonoBehaviour
 
     public void ActivateRoom()
     {
-        for (int i = 0; i < roomPatrolsX.Length; i++)
+        for (int i = 0; i < roomPatrolsX.Count; i++)
         {
             roomPatrolsX[i].enabled = true;
             roomPatrolsX[i].Unfreeze();
         }
         
-        for (int i = 0; i < roomPatrolsY.Length; i++)
+        for (int i = 0; i < roomPatrolsY.Count; i++)
         {
             roomPatrolsY[i].enabled = true;
             roomPatrolsY[i].Unfreeze();
         }
         
-        for (int i = 0; i < roomProjEnemies.Length; i++)
+        for (int i = 0; i < roomProjEnemies.Count; i++)
         {
             roomProjEnemies[i].enabled = true;
         }
@@ -97,19 +98,19 @@ public class RoomTrigger : MonoBehaviour
 
     public void DeactivateRoom()
     {
-        for (int i = 0; i < roomPatrolsX.Length; i++)
+        for (int i = 0; i < roomPatrolsX.Count; i++)
         {
             roomPatrolsX[i].Freeze();
             roomPatrolsX[i].enabled = false;
         }
         
-        for (int i = 0; i < roomPatrolsY.Length; i++)
+        for (int i = 0; i < roomPatrolsY.Count; i++)
         {
             roomPatrolsY[i].Freeze();
             roomPatrolsY[i].enabled = false;
         }
         
-        for (int i = 0; i < roomProjEnemies.Length; i++)
+        for (int i = 0; i < roomProjEnemies.Count; i++)
         {
             roomProjEnemies[i].enabled = false;
         }

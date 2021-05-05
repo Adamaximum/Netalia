@@ -13,6 +13,11 @@ public class PatrolEnemyY : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 xBounds, yBounds;
     
+    void Awake()
+    {
+        DetectRoom();
+    }
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,6 +34,17 @@ public class PatrolEnemyY : MonoBehaviour
         
         else if (gameObject.transform.position.y > endCoords.y)
             MoveToStartCoords();
+    }
+    
+    private void DetectRoom()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, 9);
+
+        if (hit.collider.gameObject.tag == "RoomTrigger")
+        {
+            RoomTrigger room = hit.collider.gameObject.GetComponent<RoomTrigger>();
+            room.roomPatrolsY.Add(this);
+        }
     }
 
     void MoveToStartCoords()
