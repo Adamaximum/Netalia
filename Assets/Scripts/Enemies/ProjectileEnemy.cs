@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ProjectileEnemy : MonoBehaviour
 {
+    //on awake room assignment
+    private bool assignedRoom;
+    
     public GameObject projectile;
     public float bulletSpeed;
     public float fireRate;
@@ -21,6 +24,11 @@ public class ProjectileEnemy : MonoBehaviour
     //for bullet instantiation calculations
     private float radius;
 
+    void Awake()
+    {
+        DetectRoom();
+    }
+    
     void Start()
     {
         radius = GetComponent<CircleCollider2D>().radius;
@@ -37,6 +45,17 @@ public class ProjectileEnemy : MonoBehaviour
     {
         if (readyToFire)
             StartCoroutine(PauseThenFire());
+    }
+
+    private void DetectRoom()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, 9);
+
+        if (hit.collider.gameObject.tag == "RoomTrigger")
+        {
+            RoomTrigger room = hit.collider.gameObject.GetComponent<RoomTrigger>();
+            room.roomProjEnemies.Add(this);
+        }
     }
 
     IEnumerator PauseThenFire()
