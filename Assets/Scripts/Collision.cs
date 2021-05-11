@@ -71,7 +71,7 @@ public class Collision : MonoBehaviour
         
         //check to see if player is on wall edge
         leftEdge = Physics2D.OverlapCircle((Vector2)transform.position + leftEdgeDetector, collisionRadius, groundLayer);
-        rightEdge = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
+        rightEdge = Physics2D.OverlapCircle((Vector2)transform.position + rightEdgeDetector, collisionRadius, groundLayer);
 
         if (!leftEdge && onLeftWall)
             onWallEdge = true;
@@ -79,6 +79,8 @@ public class Collision : MonoBehaviour
             onWallEdge = true;
         else
             onWallEdge = false;
+        
+        Debug.Log(onWallEdge);
         
         //check for NPC or item interactions
         interact = Physics2D.OverlapCircle((Vector2)transform.position, rightOffset.x, NPCLayer);

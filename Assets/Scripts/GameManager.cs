@@ -7,10 +7,18 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public BoxCollider2D checkpoint;
+    public GameObject checkpoint;
     public GameObject player;
 
     public MaskScript mask;
+
+    public bool controllerConnected;
+    
+    //backgrounds
+    public GameObject sewerBG;
+    public GameObject drainPipeBG;
+    public GameObject cityBG;
+    public string currentBG;
 
     //temp fixes, resolve these later
     public bool idle;
@@ -25,6 +33,11 @@ public class GameManager : MonoBehaviour
             Instance = this;
         
         rooms = new RoomTrigger[50];
+        
+        //find better solution for this later
+        sewerBG.SetActive(true);
+        drainPipeBG.SetActive(false);
+        cityBG.SetActive(false);
     }
     
     
@@ -33,6 +46,11 @@ public class GameManager : MonoBehaviour
         if (Collision.Instance.hit)
         {
             Reset();
+        }
+
+        if (Time.frameCount % 10 == 0)
+        {
+            CheckForController();
         }
     }
 
@@ -63,7 +81,7 @@ public class GameManager : MonoBehaviour
         
         idle = true;
         //MovementTest.Instance.rb.velocity = new Vector2(0, 0);
-        MovementTest.Instance.enabled = false;
+        Movement.Instance.enabled = false;
     }
 
     public void EnablePlayer()
@@ -72,8 +90,66 @@ public class GameManager : MonoBehaviour
         rooms[Collision.Instance.roomNum].ActivateRoom();
         
         //turn player back on
-        MovementTest.Instance.enabled = true;
+        Movement.Instance.enabled = true;
         idle = false;
+    }
+
+    public void ChangeBackground(string nextBG)
+    {
+        //deactivate current bg
+        if (currentBG == "Sewer")
+        {
+            sewerBG.SetActive(false);
+        }
+        else if (currentBG == "DrainPipe")
+        {
+            drainPipeBG.SetActive(false);
+        }
+        else if (currentBG == "City")
+        {
+            cityBG.SetActive(false);
+        }
+
+        //activate new bg
+        if (nextBG == "Sewer")
+        {
+            sewerBG.SetActive(true);
+        }
+        else if (nextBG == "DrainPipe")
+        {
+            drainPipeBG.SetActive(true);
+        }
+        else if (nextBG == "City")
+        {
+            cityBG.SetActive(true);
+        }
+        
+        //set new currentBG var
+        currentBG = nextBG;
+    }
+
+    private void CheckForController()
+    {
+        string[] joysticks = Input.GetJoystickNames();
+
+        if (joysticks.Length > 0)
+        {
+            for(int i =0; i < joysticks.Length; ++i)
+            {
+                //Check if the string is empty or not
+                if(!string.IsNullOrEmpty(joysticks[i]))
+                {
+                    //Not empty, controller temp[i] is connected
+                    controllerConnected = true;
+                }
+                else
+                {
+                    //If it is empty, controller i is disconnected
+                    //where i indicates the controller number
+                    controllerConnected = false;
+                }
+            }
+        }
     }
 
 }
