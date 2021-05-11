@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RoomTrigger
   - Projectile
   - Background
+  - Sewer
+  - DrainPipe
+  - City
   layers:
   - Default
   - TransparentFX

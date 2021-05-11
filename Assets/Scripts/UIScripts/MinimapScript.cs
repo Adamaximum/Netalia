@@ -5,12 +5,12 @@ using UnityEngine;
 public class MinimapScript : MonoBehaviour
 {
 
-    private float scaleFactor;
+    private Vector2 scaleFactor;
     private Canvas map;
 
     void Start()
     {
-        scaleFactor = .45f;
+        scaleFactor = new Vector2(.3f, .18f);
         map = GameObject.Find("Minimap").GetComponent<Canvas>();
     }
 
@@ -22,7 +22,7 @@ public class MinimapScript : MonoBehaviour
             RepositionMarker();
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetButtonDown("Minimap"))
         {
             ToggleMap();
         }
@@ -31,14 +31,14 @@ public class MinimapScript : MonoBehaviour
     Vector3 TranslatePlayerPos(Vector3 playerPos)
     {
         Vector3 scaledPos;
-        scaledPos = new Vector3(playerPos.x*scaleFactor, playerPos.y*scaleFactor, 1);
+        scaledPos = new Vector3(playerPos.x*scaleFactor.x, playerPos.y*scaleFactor.x, 1);
 
         return scaledPos;
     }
 
     void RepositionMarker()
     {
-        gameObject.transform.localPosition = TranslatePlayerPos(MovementTest.Instance.gameObject.transform.position);
+        gameObject.transform.localPosition = TranslatePlayerPos(Movement.Instance.gameObject.transform.position);
     }
 
     void ToggleMap()

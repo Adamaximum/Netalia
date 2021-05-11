@@ -11,7 +11,10 @@ public class ProjectileEnemy : MonoBehaviour
     public GameObject projectile;
     public float bulletSpeed;
     public float fireRate;
+    public float delayStart;
+    
     private bool readyToFire = true;
+    private bool startDelayed = false;
 
     //audio
     private AudioSource audio;
@@ -32,30 +35,42 @@ public class ProjectileEnemy : MonoBehaviour
     void Start()
     {
         radius = GetComponent<CircleCollider2D>().radius;
-
         audio = GetComponent<AudioSource>();
         fireSound = GetComponent<AudioSource>().clip;
-
         anim = GetComponent<Animator>();
-        
+
+        startDelayed = false;
     }
 
     
     void Update()
     {
+        if (!startDelayed)
+        {
+            StartCoroutine(DelayStart());
+            startDelayed = true;
+        }
+
         if (readyToFire)
             StartCoroutine(PauseThenFire());
     }
 
     private void DetectRoom()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, 9);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, LayerMask.GetMask("Rooms"));
 
-        if (hit.collider.gameObject.tag == "RoomTrigger")
+        if (hit != null)
         {
             RoomTrigger room = hit.collider.gameObject.GetComponent<RoomTrigger>();
             room.roomProjEnemies.Add(this);
         }
+    }
+
+    IEnumerator DelayStart()
+    {
+        readyToFire = false;
+        yield return new WaitForSeconds(delayStart);
+        readyToFire = true;
     }
 
     IEnumerator PauseThenFire()

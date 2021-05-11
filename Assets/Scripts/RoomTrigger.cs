@@ -14,7 +14,8 @@ public class RoomTrigger : MonoBehaviour
     public int roomNum;
     private ProjectileScript bullet;
     private bool activated = false;
-    public SpriteRenderer background;
+
+    public CheckpointScript checkpoint;
 
 
     void Start()
@@ -31,35 +32,41 @@ public class RoomTrigger : MonoBehaviour
         GameManager.Instance.rooms[roomNum] = this;
 
         DeactivateRoom();
-        background.enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Time.frameCount % 5 == 0 && collision.tag == "Player")
+        if (Time.frameCount % 5 == 0 && collision.gameObject.tag == "Player")
         {
             Collision.Instance.roomNum = roomNum;
 
+            //activate room
             if (!activated)
             {
                 ActivateRoom();
                 activated = true;
-                
-                if (background != null)
-                    background.enabled = true;
             }
 
+            //old camra method
+            /*
             if (manager != null)
             {
                 manager.currentPosition.transform.position = this.transform.position;
                 manager.Switch();
             }
+            */
             
-            //test camera stuff
+            //camera
             if (managerTest != null && managerTest.enabled)
             {
                 managerTest.roomPos = this.transform;
                 managerTest.Switch();
+            }
+            
+            //background
+            if (GameManager.Instance.currentBG != gameObject.tag)
+            {
+                GameManager.Instance.ChangeBackground(gameObject.tag);
             }
         }
     }
@@ -68,11 +75,9 @@ public class RoomTrigger : MonoBehaviour
     {
         if (collision.tag == "Player" && activated)
         {
+            //deactivate room
             DeactivateRoom();
             activated = false;
-            
-            if (background != null)
-                background.enabled = false;
         }
     }
 

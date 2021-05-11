@@ -3,148 +3,126 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Experimental.PlayerLoop;
+using UnityEngine.XR;
 
 public class Movement : MonoBehaviour
 {
-
-    [HideInInspector]
-    public Rigidbody2D rb;
-    public AnimationScript anim;
-    public AnimationScript silhouetteAnim;
-    private bool canGrabWalls;
-
-    [Space]
-    [Header("Stats")]
-    public float speed = 10;
-    public float jumpForce = 50;
-    public float slideSpeed = 5;
-    public float wallJumpLerp = 10;
-    public float dashSpeed = 20;
-    public Vector2 wallJumpForce = new Vector2 (1.5f, 1.5f);
-
-    [Space]
-    [Header("Booleans")]
-    public bool canMove;
-    public bool wallGrab;
-    public bool wallJumped;
-    public bool wallSlide;
-    public bool isDashing;
-
-    [Space]
-
-    private bool groundTouch;
-    private bool hasDashed;
-    private bool checkForBoost;
-
-    public int side = 1;
-
-    [Space]
-    [Header("Polish")]
-    public ParticleSystem dashParticle;
+    //player components
+    private Rigidbody2D rb;
+    
+    //particle systems
     public ParticleSystem jumpParticle;
     public ParticleSystem wallJumpParticle;
     public ParticleSystem slideParticle;
     
-    //input controls
-    float x, y, xRaw, yRaw;
-    Vector2 dir;
+    //player bools
+    public bool canMove = true;
 
-    //singleton
+    //physics
+    public float speed;
+    public float jumpForce;
+    public Vector2 wallJumpForce;
+    private bool jumped;
+    private bool checkForBoost;
+    private bool groundTouch;
+
+    //controller inputs
+    private float x, y, xRaw, yRaw;
+    private Vector2 dir;
+    
+    //animation
+    public AnimationScript anim;
+    public AnimationScript silhouetteAnim;
+    public bool wallGrab;
+    public bool wallSlide;
+
     public static Movement Instance { get; private set; }
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
     }
-
+    
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        
-        //reinstate this later
-        //anim = GetComponentInChildren<AnimationScript>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
-
 
     void Update()
     {
-        //NOTES TO SELF - Kyra
-        //wallGrab bool can be edited out, redundant
-        //separate particle effects into self-contained functions
-        //animation controls are inefficient, set bools to check in anim script
-        //you're losing readability, take a weekend off to properly edit and comment this sometime
-        
-        //controller input
-        FetchInputs();
+        //NOTES:
+        //find better way to handle gravity changes
+        //wall jump is short boost. wall jump + jump key is long boost.
+        //assign particle effects and anim through script in v4
+
+        UpdateControllerInputs();
 
         if (!canMove)
             return;
 
-        //set animation state
-        anim.SetHorizontalMovement(x, y, rb.velocity.y);
-        silhouetteAnim.SetHorizontalMovement(x, y, rb.velocity.y);
-        
-        //check for wall
-        DetectWallCollisions();
-        
-        //KYRA c'mon man this is embarrassing, fix this ASAP
-        //detach from wall if wall-facing key is pressed
-        if ((Collision.Instance.onLeftWall && Input.GetButtonDown("WallDetachLeft"))
-            || (Collision.Instance.onRightWall && Input.GetButtonDown("WallDetachRight")))
-        {
-            canGrabWalls = !canGrabWalls;
-            StartCoroutine(DisableMovement(.1f));
-        }
-        else
-        {
-            SetClimbingState(Collision.Instance.onWall);
-        }
-
-        //jump
-        if (Collision.Instance.onGround && Input.GetButtonDown("Jump"))
-        {
-            anim.SetTrigger("jump");
-            silhouetteAnim.SetTrigger("jump");
-            Jump(Vector2.up, false);
-        }
-
-        //move in x direction
-        if (!Collision.Instance.onGround && Collision.Instance.onLeftWall && xRaw > 0)
-            WallJump(Vector2.right);
-        else if (!Collision.Instance.onGround && Collision.Instance.onRightWall && xRaw < 0 )
-            WallJump(Vector2.left);
-        
-        HorizontalMovement();
-
-        //reset bools and play particle effect on touchdown
         DetectGround();
-
-        HeightBoost();
-
-        WallParticle(y);
         
-        //set sprite direction
-        FixAnim();
-    }
+        //control animation
+        AnimationState();
 
-    //version where player sticks to wall unless Y is pressed
-    
-    void HorizontalMovement()
-    {
-        if (Collision.Instance.onGround)
+        //allow player to jump when not on wall
+        if (Collision.Instance.onGround && Input.GetButtonDown("Jump"))
+            Jump();
+
+        //if player is on wall, allow climb
+        if (Collision.Instance.onWall)
         {
-            Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
-            rb.velocity = test;
+            rb.gravityScale = 0;
+            
+            ClimbWall();
+
+            if (yRaw < 0)
+                ParticlePlay(slideParticle);
         }
         else
         {
-            rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
+            rb.gravityScale = 3;
         }
+
+        //check for wall jump, and what type
+        if (!GameManager.Instance.controllerConnected)
+        {
+            if (Collision.Instance.onLeftWall && xRaw > 0)
+                WallJump(Vector2.right);
+            else if (Collision.Instance.onRightWall && xRaw < 0 )
+                WallJump(Vector2.left);
+        }
+        else
+        {
+            if (Collision.Instance.onLeftWall && Input.GetButtonDown("Jump"))
+                WallJump(Vector2.right);
+            else if (Collision.Instance.onRightWall  && Input.GetButtonDown("Jump"))
+                WallJump(Vector2.left);
+        }
+
+
+        if (Collision.Instance.onWallEdge)
+        {
+            checkForBoost = true;
+            Debug.Log("on wall edge");
+        }
+        if (yRaw > 0)
+        {
+            HeightBoost();
+        }
+
     }
 
-    void FetchInputs()
+    void FixedUpdate()
     {
-        //note: streamline later
+        if (!Collision.Instance.onWall)
+            HorizontalMovement();
+    }
+
+
+    void UpdateControllerInputs()
+    {
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
         xRaw = Input.GetAxisRaw("Horizontal");
@@ -152,162 +130,128 @@ public class Movement : MonoBehaviour
         dir = new Vector2(xRaw, yRaw);
     }
 
+
+    void ClimbWall()
+    {
+        //flip player sprite
+        anim.Flip(Collision.Instance.onRightWall);
+        silhouetteAnim.Flip(Collision.Instance.onRightWall);
+        
+        //control climbing physics
+        float speedModifier = y > 0 ? .5f : 1;
+        rb.velocity = new Vector2(0, y * (speed * speedModifier));
+
+    }
+
+    void AnimationState()
+    {
+        anim.SetHorizontalMovement(x, y, rb.velocity.y);
+        silhouetteAnim.SetHorizontalMovement(x, y, rb.velocity.y);
+
+        
+        if (xRaw < 0)
+        {
+            anim.Flip(true);
+            silhouetteAnim.Flip(true);
+        }
+
+        if (xRaw > 0)
+        {
+            anim.Flip(false);
+            silhouetteAnim.Flip(false);
+        }
+    }
+
+    void HorizontalMovement()
+    {
+        Vector2 test = new Vector2(dir.x * speed, rb.velocity.y);
+        rb.velocity = test;
+    }
+
     void DetectGround()
     {
+        //reset bools
         if (Collision.Instance.onGround)
         {
-            wallJumped = false;
+            jumped = false;
             wallGrab = false;
-            canGrabWalls = true;
             checkForBoost = false;
         }
         
-        //touchdown visuals on ground touch
+        //particles and sound on landing
         if (Collision.Instance.onGround && !groundTouch)
         {
-            GroundTouch();
-            groundTouch = true;
+            //play landing particles
+            jumpParticle.Play();
+            
+            //landing audio
             PlayerAudioScript.Instance.LandSound();
+            
+            groundTouch = true;
         }
 
         //reset groundTouch bool
-        else if(!Collision.Instance.onGround && groundTouch)
+        else if (!Collision.Instance.onGround && groundTouch)
         {
             groundTouch = false;
         }
     }
-    
-    void DetectWallCollisions()
+
+    void WallJump(Vector2 dir)
     {
-        //this is pretty much exclusively animation controls now. Can delete in V3
-        
-        if (Collision.Instance.onWall && !Collision.Instance.onGround && canMove && canGrabWalls)
-        {
-            if (side != Collision.Instance.wallSide)
-            {
-                anim.Flip(Collision.Instance.onLeftWall);
-                silhouetteAnim.Flip(Collision.Instance.onLeftWall);
-            }
-
-            wallGrab = true;
-            checkForBoost = true;
-        }
-        else
-        {
-            wallGrab = false;
-        }
-    }
-
-    void SetClimbingState(bool onWall)
-    {
-        //create separate handler for rigidbody controls, separate out animation controls
-        
-        if (onWall && canGrabWalls)
-        {
-            checkForBoost = true;
-            
-            //set new rigidbody behavior
-            rb.gravityScale = 0;
-            if(x > .2f || x < -.2f)
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-            
-            //
-            float speedModifier = y > 0 ? .5f : 1;
-            if (Collision.Instance.wallSide == 1 && Input.GetAxis("Horizontal") > 0 || Collision.Instance.wallSide == -1 && Input.GetAxis("Horizontal") < 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, y * (speed * speedModifier));
-            }
-            else
-            {
-                rb.velocity = new Vector2(0, y * (speed * speedModifier));
-
-                if (y < 0)
-                {
-                    wallSlide = true;
-                }
-                else
-                {
-                    wallSlide = false;
-                }
-            }
-        }
-        else
-        {
-            rb.gravityScale = 3;
-        }
-    }
-
-    void HeightBoost()
-    {
-        if (!Collision.Instance.onWall && !Collision.Instance.onGround && checkForBoost && !wallJumped)
-        {
-            if (yRaw > 0)
-            {
-                rb.AddForce(Vector2.up*5, ForceMode2D.Impulse);
-                checkForBoost = false;
-            }
-        }
-    }
-
-    void GroundTouch()
-    {
-        //fix sprite direction
-        side = anim.sr.flipX ? -1 : 1;
-
-        //particle effect - landing
-        jumpParticle.Play();
-    }
-    private void WallJump(Vector2 wallDir)
-    {
-        anim.Flip(Collision.Instance.onLeftWall);
-        silhouetteAnim.Flip(Collision.Instance.onLeftWall);
-
-        StopCoroutine(DisableMovement(0));
-        StartCoroutine(DisableMovement(.1f));
-
-        Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + (wallDir / wallJumpForce.x);
-        //Vector2 jumpDir = (Vector2.up) + (wallDir);
-
-        Jump(jumpDir, true);
-
-        wallJumped = true;
-
-    }
-    
-    private void Jump(Vector2 dir, bool wall)
-    {
-        //set particle values
-        slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
-        ParticleSystem particle = wall ? wallJumpParticle : jumpParticle;
-
-        wallJumped = true;
-        
+        //play jump sound
         PlayerAudioScript.Instance.JumpSound();
         
-        //begin jump
-        rb.AddForce(dir * jumpForce*50);
+        //temp disable movement
+        StopCoroutine(DisableMovement(0));
+        StartCoroutine(DisableMovement(.1f));
         
-        particle.Play();
+        //play particle effect
+        ParticlePlay(wallJumpParticle);
         
+        //animate
+        JumpAnim();
+        
+        //jump
+        Vector2 jumpDir = (Vector2.up / wallJumpForce.y) + (dir / wallJumpForce.x);
+        rb.AddForce(jumpDir*jumpForce, ForceMode2D.Impulse);
+
     }
 
-    void FixAnim()
+    void Jump()
     {
-        if (wallGrab || !canMove)
-            return;
+        JumpAnim();
+        
+        //signal that player has jumped
+        jumped = true;
 
-        if(x > 0)
+        //add force
+        rb.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse);
+    }
+
+    void JumpAnim()
+    {
+        //animation
+        anim.SetTrigger("jump");
+        silhouetteAnim.SetTrigger("jump");
+    }
+    
+    void HeightBoost()
+    {
+        if (checkForBoost)
         {
-            anim.Flip(Collision.Instance.onLeftWall);
-            silhouetteAnim.Flip(Collision.Instance.onLeftWall);
-        }
-        if (x < 0)
-        {
-            side = -1;
-            anim.Flip(Collision.Instance.onLeftWall);
-            silhouetteAnim.Flip(Collision.Instance.onLeftWall);
+            rb.AddForce(Vector2.up*4, ForceMode2D.Impulse);
+            checkForBoost = false;
         }
     }
+
+    void ParticlePlay(ParticleSystem particle)
+    {
+        int particleSide = Collision.Instance.onRightWall ? 1 : -1;
+        particle.transform.parent.localScale = new Vector3(particleSide, 1, 1);
+        particle.Play();
+    }
+
 
     IEnumerator DisableMovement(float time)
     {
@@ -315,31 +259,4 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(time);
         canMove = true;
     }
-
-    void RigidbodyDrag(float x)
-    {
-        rb.drag = x;
-    }
-
-    void WallParticle(float vertical)
-    {
-        var main = slideParticle.main;
-
-        if (wallGrab && vertical < 0)
-        {
-            slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
-            main.startColor = Color.white;
-        }
-        else
-        {
-            main.startColor = Color.clear;
-        }
-    }
-
-    int ParticleSide()
-    {
-        int particleSide = Collision.Instance.onRightWall ? 1 : -1;
-        return particleSide;
-    }
-
 }

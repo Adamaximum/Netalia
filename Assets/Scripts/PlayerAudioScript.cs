@@ -35,7 +35,8 @@ public class PlayerAudioScript : MonoBehaviour
 
     public void LandSound()
     {
-        source.PlayOneShot(land);
+        if (!source.isPlaying)
+            source.PlayOneShot(land);
     }
 
     public void SlideSound()

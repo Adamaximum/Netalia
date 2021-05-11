@@ -21,8 +21,8 @@ public class AnimationScript : MonoBehaviour
         anim.SetBool("onGround", coll.onGround);
         anim.SetBool("onRightWall", coll.onRightWall);
         anim.SetBool("wallGrab", coll.onWall);
-        anim.SetBool("wallSlide", MovementTest.Instance.wallSlide);
-        anim.SetBool("canMove", MovementTest.Instance.canMove);
+        anim.SetBool("wallSlide", Movement.Instance.wallSlide);
+        anim.SetBool("canMove", Movement.Instance.canMove);
         anim.SetBool("idle", GameManager.Instance.idle);
         //anim.SetBool("isDashing", move.isDashing);
     }

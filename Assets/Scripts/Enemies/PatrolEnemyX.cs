@@ -37,13 +37,11 @@ public class PatrolEnemyX : MonoBehaviour
     
     private void DetectRoom()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, 9);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, LayerMask.GetMask("Rooms"));
 
-        if (hit.collider.gameObject.tag == "RoomTrigger")
-        {
-            RoomTrigger room = hit.collider.gameObject.GetComponent<RoomTrigger>();
-            room.roomPatrolsX.Add(this);
-        }
+        Debug.Log(hit.collider.name);
+        RoomTrigger room = hit.transform.gameObject.GetComponent<RoomTrigger>();
+        room.roomPatrolsX.Add(this);
     }
 
     void MoveToStartCoords()

@@ -29,6 +29,8 @@ public class PatrolEnemyY : MonoBehaviour
     
     void Update()
     {
+        Debug.DrawRay(transform.position, Vector2.down*0.25f, Color.red);
+        
         if (gameObject.transform.position.y < startCoords.y)
             MoveToEndCoords();
         
@@ -38,13 +40,11 @@ public class PatrolEnemyY : MonoBehaviour
     
     private void DetectRoom()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, 9);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, LayerMask.GetMask("Rooms"));
 
-        if (hit.collider.gameObject.tag == "RoomTrigger")
-        {
-            RoomTrigger room = hit.collider.gameObject.GetComponent<RoomTrigger>();
-            room.roomPatrolsY.Add(this);
-        }
+        RoomTrigger room = hit.collider.gameObject.GetComponent<RoomTrigger>();
+        room.roomPatrolsY.Add(this);
+        
     }
 
     void MoveToStartCoords()
