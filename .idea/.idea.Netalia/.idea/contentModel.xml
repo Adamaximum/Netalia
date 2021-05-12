@@ -21,6 +21,7 @@
         <e p="Scripts" t="Include">
           <e p="AnimationScript.cs" t="Include" />
           <e p="BetterJumping.cs" t="Include" />
+          <e p="BGMusicScript.cs" t="Include" />
           <e p="CameraManager.cs" t="Include" />
           <e p="CheckpointScript.cs" t="Include" />
           <e p="Collision.cs" t="Include" />

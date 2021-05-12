@@ -9,6 +9,7 @@ TagManager:
   - Sewer
   - DrainPipe
   - City
+  - FirstRoom
   layers:
   - Default
   - TransparentFX
