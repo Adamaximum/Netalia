@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject sewerBG;
     public GameObject drainPipeBG;
     public GameObject cityBG;
+    public GameObject firstRoomBG;
     public string currentBG;
 
     //temp fixes, resolve these later
@@ -35,19 +36,22 @@ public class GameManager : MonoBehaviour
         rooms = new RoomTrigger[50];
         
         //find better solution for this later
-        sewerBG.SetActive(true);
+        sewerBG.SetActive(false);
         drainPipeBG.SetActive(false);
         cityBG.SetActive(false);
+        firstRoomBG.SetActive(true);
     }
     
     
     void Update()
     {
+        //if player has been hit, launch death scene
         if (Collision.Instance.hit)
         {
             Reset();
         }
 
+        //check if controller is plugged in every 10 frames
         if (Time.frameCount % 10 == 0)
         {
             CheckForController();
@@ -109,6 +113,10 @@ public class GameManager : MonoBehaviour
         {
             cityBG.SetActive(false);
         }
+        else if (currentBG == "FirstRoom")
+        {
+            firstRoomBG.SetActive(false);
+        }
 
         //activate new bg
         if (nextBG == "Sewer")
@@ -122,6 +130,10 @@ public class GameManager : MonoBehaviour
         else if (nextBG == "City")
         {
             cityBG.SetActive(true);
+        }
+        else if (nextBG == "FirstRoom")
+        {
+            firstRoomBG.SetActive(true);
         }
         
         //set new currentBG var
