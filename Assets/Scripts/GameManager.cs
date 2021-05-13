@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         sewerBG.SetActive(false);
         drainPipeBG.SetActive(false);
         cityBG.SetActive(false);
+        crowdBG.SetActive(false);
         pillarsBG.SetActive(true);
     }
     
