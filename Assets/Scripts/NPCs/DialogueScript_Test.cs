@@ -9,6 +9,7 @@ public class DialogueScript_Test : MonoBehaviour
    public GameObject player;
    public Camera mainCamera;
    private Vector3 cameraPos;
+   private bool interact;
   
    //keep track of speaker
    private bool dialogueRunning;
@@ -104,7 +105,7 @@ public class DialogueScript_Test : MonoBehaviour
 
    void Update()
    {  
-       if (Collision.Instance.interact && !dialogueRunning)
+       if (interact && !dialogueRunning)
        {
            //show button prompt
            ButtonPrompt.SetActive(true);
@@ -135,15 +136,17 @@ public class DialogueScript_Test : MonoBehaviour
            textEmptied = true;
        }
 
-       if (dialogueRunning)
+       if (dialogueRunning && Input.GetButtonDown("Submit"))
        {
-           if (Input.GetButtonDown("Submit"))
-           {
-               CheckForNextLine(speakerTurn);
-               DisplayText(SetPanel(speakerTurn), speakerTurn);
-           }
+           CheckForNextLine(speakerTurn);
+           DisplayText(SetPanel(speakerTurn), speakerTurn);
        }
        
+   }
+
+   private void FixedUpdate()
+   {
+       interact = Physics2D.OverlapCircle(transform.position, 2f, LayerMask.GetMask("Player"));
    }
 
    void MoveNetalia(GameObject net)
@@ -240,6 +243,8 @@ public class DialogueScript_Test : MonoBehaviour
 
        if (displayedText == Dialogue.SpokenLines[lineNum])
            speakerTurn++;
+       
+       Debug.Log(speakerTurn);
    }
 
    void EmptyDialogue()
