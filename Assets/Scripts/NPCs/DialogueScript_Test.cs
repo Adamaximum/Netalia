@@ -26,6 +26,10 @@ public class DialogueScript_Test : MonoBehaviour
    private GameObject LeftSpeechBubble;
    private GameObject RightSpeechBubble;
    private GameObject ButtonPrompt;
+   private Image leftImage;
+   private Image rightImage;
+   public Sprite NPCImage;
+   public Sprite playerImage;
   
    [Space(10)]
    [Header("JSON Assets")]
@@ -47,19 +51,16 @@ public class DialogueScript_Test : MonoBehaviour
        player = GameObject.Find("Player");
 
        //assign blank inspector components
-       if (LeftSpeechBubble == null) 
+       if (LeftSpeechBubble == null)
            LeftSpeechBubble = GameObject.Find("LeftCharacter");
-       LeftSpeechBubble.SetActive(false);
 
        if (RightSpeechBubble == null) 
            RightSpeechBubble = GameObject.Find("RightCharacter");
-       RightSpeechBubble.SetActive(false);
-       
+
        if (DialogueUI == null)
            DialogueUI = GameObject.Find("DialoguePanel");
-       DialogueUI.SetActive(false);
 
-       ButtonPrompt = GameObject.Find("ButtonPrompt");
+       ButtonPrompt = gameObject.transform.Find("ButtonPrompt").gameObject;
       
        //deserialize JSON
        Dialogue = JsonUtility.FromJson<DialogueSystem>(JsonFile.text);
@@ -73,12 +74,31 @@ public class DialogueScript_Test : MonoBehaviour
        {
            ButtonPrompt.GetComponentInChildren<Text>().text = "Press Enter";
        }
+       
+       //assign images
+       leftImage = LeftSpeechBubble.GetComponentInChildren<Image>();
+       rightImage = RightSpeechBubble.GetComponentInChildren<Image>();
+       if (GetComponent<SpriteRenderer>().flipX)
+       {
+           leftImage.sprite = NPCImage;
+           rightImage.sprite = playerImage;
+       }
+       else
+       {
+           leftImage.sprite = playerImage;
+           rightImage.sprite = NPCImage;
+       }
    }
 
    private void Start()
    {
        //set dist from Netalia direction
-       distFromNetalia = gameObject.GetComponent<SpriteRenderer>().flipX ? -distFromNetalia : distFromNetalia;
+       distFromNetalia = gameObject.GetComponent<SpriteRenderer>().flipX ? distFromNetalia : -distFromNetalia;
+       
+       //deactivate panels
+       LeftSpeechBubble.SetActive(false);
+       RightSpeechBubble.SetActive(false);
+       DialogueUI.SetActive(false);
    }
 
 
@@ -99,7 +119,7 @@ public class DialogueScript_Test : MonoBehaviour
                DialogueUI.SetActive(true);
                
                //zoom in camera
-               ZoomIn();
+               //ZoomIn();
            }
        }
        else
@@ -226,7 +246,7 @@ public class DialogueScript_Test : MonoBehaviour
    {
        GameManager.Instance.EnablePlayer();
        DialogueUI.SetActive(false);
-       ZoomOut();
+       //ZoomOut();
    }
    
 }

@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject sewerBG;
     public GameObject drainPipeBG;
     public GameObject cityBG;
-    public GameObject firstRoomBG;
+    public GameObject pillarsBG;
+    public GameObject crowdBG;
     public string currentBG;
 
     //temp fixes, resolve these later
@@ -39,7 +40,8 @@ public class GameManager : MonoBehaviour
         sewerBG.SetActive(false);
         drainPipeBG.SetActive(false);
         cityBG.SetActive(false);
-        firstRoomBG.SetActive(true);
+        crowdBG.SetActive(false);
+        pillarsBG.SetActive(true);
     }
     
     
@@ -113,9 +115,13 @@ public class GameManager : MonoBehaviour
         {
             cityBG.SetActive(false);
         }
-        else if (currentBG == "FirstRoom")
+        else if (currentBG == "Pillars")
         {
-            firstRoomBG.SetActive(false);
+            pillarsBG.SetActive(false);
+        }
+        else if (currentBG == "Crowd")
+        {
+            crowdBG.SetActive(false);
         }
 
         //activate new bg
@@ -131,9 +137,13 @@ public class GameManager : MonoBehaviour
         {
             cityBG.SetActive(true);
         }
-        else if (nextBG == "FirstRoom")
+        else if (nextBG == "Pillars")
         {
-            firstRoomBG.SetActive(true);
+            pillarsBG.SetActive(true);
+        }
+        else if (nextBG == "Crowd")
+        {
+            crowdBG.SetActive(true);
         }
         
         //set new currentBG var
