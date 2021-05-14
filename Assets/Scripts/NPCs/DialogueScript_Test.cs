@@ -135,13 +135,10 @@ public class DialogueScript_Test : MonoBehaviour
            textEmptied = true;
        }
 
-       if (dialogueRunning)
+       if (dialogueRunning && Input.GetButtonDown("Submit"))
        {
-           if (Input.GetButtonDown("Submit"))
-           {
-               CheckForNextLine(speakerTurn);
-               DisplayText(SetPanel(speakerTurn), speakerTurn);
-           }
+           CheckForNextLine(speakerTurn);
+           DisplayText(SetPanel(speakerTurn), speakerTurn);
        }
        
    }
@@ -240,6 +237,8 @@ public class DialogueScript_Test : MonoBehaviour
 
        if (displayedText == Dialogue.SpokenLines[lineNum])
            speakerTurn++;
+       
+       Debug.Log(speakerTurn);
    }
 
    void EmptyDialogue()
