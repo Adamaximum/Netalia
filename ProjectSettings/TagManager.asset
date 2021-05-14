@@ -9,7 +9,8 @@ TagManager:
   - Sewer
   - DrainPipe
   - City
-  - FirstRoom
+  - Pillars
+  - Crowd
   layers:
   - Default
   - TransparentFX
