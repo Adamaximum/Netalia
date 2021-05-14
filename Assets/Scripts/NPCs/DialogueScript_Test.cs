@@ -9,6 +9,7 @@ public class DialogueScript_Test : MonoBehaviour
    public GameObject player;
    public Camera mainCamera;
    private Vector3 cameraPos;
+   private bool interact;
   
    //keep track of speaker
    private bool dialogueRunning;
@@ -104,7 +105,7 @@ public class DialogueScript_Test : MonoBehaviour
 
    void Update()
    {  
-       if (Collision.Instance.interact && !dialogueRunning)
+       if (interact && !dialogueRunning)
        {
            //show button prompt
            ButtonPrompt.SetActive(true);
@@ -141,6 +142,11 @@ public class DialogueScript_Test : MonoBehaviour
            DisplayText(SetPanel(speakerTurn), speakerTurn);
        }
        
+   }
+
+   private void FixedUpdate()
+   {
+       interact = Physics2D.OverlapCircle(transform.position, 2f, LayerMask.GetMask("Player"));
    }
 
    void MoveNetalia(GameObject net)
