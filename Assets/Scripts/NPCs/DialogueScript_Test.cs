@@ -79,16 +79,6 @@ public class DialogueScript_Test : MonoBehaviour
        //assign images
        leftImage = LeftSpeechBubble.GetComponentInChildren<Image>();
        rightImage = RightSpeechBubble.GetComponentInChildren<Image>();
-       if (GetComponent<SpriteRenderer>().flipX)
-       {
-           leftImage.sprite = NPCImage;
-           rightImage.sprite = playerImage;
-       }
-       else
-       {
-           leftImage.sprite = playerImage;
-           rightImage.sprite = NPCImage;
-       }
    }
 
    private void Start()
@@ -121,6 +111,18 @@ public class DialogueScript_Test : MonoBehaviour
                
                //zoom in camera
                //ZoomIn();
+               
+               //dialogue images
+               if (GetComponent<SpriteRenderer>().flipX)
+               {
+                   leftImage.sprite = NPCImage;
+                   rightImage.sprite = playerImage;
+               }
+               else
+               {
+                   leftImage.sprite = playerImage;
+                   rightImage.sprite = NPCImage;
+               }
            }
        }
        else
