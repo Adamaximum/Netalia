@@ -1,0 +1,13 @@
+{
+"SpeakingOrder":
+[
+	"NPC"
+],
+
+
+"SpokenLines":
+[
+	"Hello, Talia. We've heard a lot about you, and what you can do. And we're interested in offering you a special assignment..."
+]
+
+}
