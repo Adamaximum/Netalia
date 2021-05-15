@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 4
+  chargeSpeed: 6
   chargeDist: 4
 --- !u!50 &2847112355680560248
 Rigidbody2D:
