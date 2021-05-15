@@ -79,16 +79,6 @@ public class DialogueScript_Test : MonoBehaviour
        //assign images
        leftImage = LeftSpeechBubble.GetComponentInChildren<Image>();
        rightImage = RightSpeechBubble.GetComponentInChildren<Image>();
-       if (GetComponent<SpriteRenderer>().flipX)
-       {
-           leftImage.sprite = NPCImage;
-           rightImage.sprite = playerImage;
-       }
-       else
-       {
-           leftImage.sprite = playerImage;
-           rightImage.sprite = NPCImage;
-       }
    }
 
    private void Start()
@@ -121,6 +111,18 @@ public class DialogueScript_Test : MonoBehaviour
                
                //zoom in camera
                //ZoomIn();
+               
+               //dialogue images
+               if (GetComponent<SpriteRenderer>().flipX)
+               {
+                   leftImage.sprite = NPCImage;
+                   rightImage.sprite = playerImage;
+               }
+               else
+               {
+                   leftImage.sprite = playerImage;
+                   rightImage.sprite = NPCImage;
+               }
            }
        }
        else
@@ -144,9 +146,27 @@ public class DialogueScript_Test : MonoBehaviour
        
    }
 
+   /*
    private void FixedUpdate()
    {
        interact = Physics2D.OverlapCircle(transform.position, 2f, LayerMask.GetMask("Player"));
+   }
+   */
+   
+   private void OnTriggerStay2D(Collider2D other)
+   {
+       if (other.gameObject.tag == "Player")
+       {
+           interact = true;
+       }
+   }
+
+   private void OnTriggerExit(Collider other)
+   {
+       if (other.gameObject.tag == "Player")
+       {
+           interact = false;
+       }
    }
 
    void MoveNetalia(GameObject net)

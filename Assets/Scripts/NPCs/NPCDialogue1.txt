@@ -1,0 +1,29 @@
+{
+"SpeakingOrder":
+[
+	"NPC",
+	"Netalia",
+	"NPC",
+	"Netalia",
+	"NPC",
+	"NPC",
+	"Netalia",
+	"NPC",
+	"Netalia"
+],
+
+
+"SpokenLines":
+[
+	"Hey, Talia! Out on a run?",
+	"Hey Arxus. Kinda, yeah. I got a job to do.",
+	"Nice. What is it?",
+	"Not sure yet. Gonna meet Mathias in the shrine.",
+	"Oh, that's a couple levels up, right? I get lost so easily...I really need to remember to press M to view my map more often.",
+	"But I'm sure that you never have to do that! You've been all over the city.",
+	"Haha, I've been to a lot of places, but even I haven't been everywhere. And I certainly need my map every so often.",
+	"Well, good luck with that job. Stay safe!",
+	"Thanks, I will!"
+]
+
+}
