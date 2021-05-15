@@ -27,12 +27,12 @@ public class ProjectileEnemy : MonoBehaviour
     //for bullet instantiation calculations
     private float radius;
 
-    void Awake()
+    private void Awake()
     {
         DetectRoom();
     }
     
-    void Start()
+    private void Start()
     {
         radius = GetComponent<CircleCollider2D>().radius;
         audio = GetComponent<AudioSource>();
@@ -43,7 +43,7 @@ public class ProjectileEnemy : MonoBehaviour
     }
 
     
-    void Update()
+    private void Update()
     {
         if (!startDelayed)
         {
@@ -66,34 +66,34 @@ public class ProjectileEnemy : MonoBehaviour
         }
     }
 
-    IEnumerator DelayStart()
+    private IEnumerator DelayStart()
     {
         readyToFire = false;
         yield return new WaitForSeconds(delayStart);
         readyToFire = true;
     }
 
-    IEnumerator PauseThenFire()
+    private IEnumerator PauseThenFire()
     {
         readyToFire = false;
         yield return new WaitForSeconds(fireRate);
-        Fire();
+        anim.SetTrigger("Fire");
+        //yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length+anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        //Fire();
         readyToFire = true;
     }
 
-    void Fire()
+    public void Fire()
     {
         for (int i = 0; i < 5; i++)
         {
             CreateProjectile(FetchBulletCoords(i));
         }
-        
-        PlayFireAnim();
 
         PlayFireSound();
     }
 
-    void CreateProjectile(Vector3 pos)
+    private void CreateProjectile(Vector3 pos)
     {
         GameObject bullet = Instantiate(projectile, pos, Quaternion.identity);
         
@@ -101,7 +101,7 @@ public class ProjectileEnemy : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = dir*bulletSpeed;
     }
 
-    Vector3 FetchBulletCoords(int bulletNum)
+    private Vector3 FetchBulletCoords(int bulletNum)
     {
         Vector3 distFromCenter;
         float degreesToRadians;

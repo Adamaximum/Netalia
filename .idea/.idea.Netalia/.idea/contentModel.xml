@@ -25,6 +25,7 @@
           <e p="CheckpointScript.cs" t="Include" />
           <e p="Collision.cs" t="Include" />
           <e p="Enemies" t="Include">
+            <e p="FireScript.cs" t="Include" />
             <e p="PatrolEnemyX.cs" t="Include" />
             <e p="PatrolEnemyY.cs" t="Include" />
             <e p="ProjectileEnemy.cs" t="Include" />
@@ -35,7 +36,9 @@
           <e p="Movement.cs" t="Include" />
           <e p="NPCs" t="Include">
             <e p="DialogueScript_Test.cs" t="Include" />
-            <e p="NetaliaTestDialogue.txt" t="Include" />
+            <e p="NPCDialogue1.txt" t="Include" />
+            <e p="NPCDialogue2.txt" t="Include" />
+            <e p="TrailerDialogue.txt" t="Include" />
           </e>
           <e p="OldMovement.cs" t="Include" />
           <e p="PlayerAudioScript.cs" t="Include" />
