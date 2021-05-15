@@ -57,11 +57,9 @@ public class ChargingEnemyScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(startCoords, dir, detectionRange, LayerMask.GetMask("Player"));
         Debug.DrawRay(startCoords, dir*detectionRange, Color.red);
 
-        if (hit != null && hit.collider.tag == "Player")
+        if (hit != null && hit.collider.tag == "Player" && !charging && !retreating)
         {
             rb.velocity = dir * chargeSpeed;
-            Debug.Log("dir: " + dir);
-            Debug.Log("chargeSpeed: " + chargeSpeed);
             charging = true;
         }
     }
