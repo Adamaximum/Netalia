@@ -10,7 +10,7 @@ public class DialogueScript_Test : MonoBehaviour
    public Camera mainCamera;
    private Vector3 cameraPos;
    private bool interact;
-  
+
    //keep track of speaker
    private bool dialogueRunning;
    private int speakerTurn = 0;
@@ -272,6 +272,9 @@ public class DialogueScript_Test : MonoBehaviour
        GameManager.Instance.EnablePlayer();
        DialogueUI.SetActive(false);
        //ZoomOut();
+
+       NPCMinimapTracker tracker = gameObject.GetComponentInChildren<NPCMinimapTracker>();
+       tracker.SpokeToPlayer();
    }
    
 }
