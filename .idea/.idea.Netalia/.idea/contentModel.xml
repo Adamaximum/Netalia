@@ -25,6 +25,7 @@
           <e p="CheckpointScript.cs" t="Include" />
           <e p="Collision.cs" t="Include" />
           <e p="Enemies" t="Include">
+            <e p="ChargingEnemyScript.cs" t="Include" />
             <e p="PatrolEnemyX.cs" t="Include" />
             <e p="PatrolEnemyY.cs" t="Include" />
             <e p="ProjectileEnemy.cs" t="Include" />

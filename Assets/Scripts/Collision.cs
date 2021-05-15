@@ -79,9 +79,7 @@ public class Collision : MonoBehaviour
             onWallEdge = true;
         else
             onWallEdge = false;
-        
-        Debug.Log(onWallEdge);
-        
+
         //check for NPC or item interactions
         interact = Physics2D.OverlapCircle((Vector2)transform.position, rightOffset.x, NPCLayer);
         
