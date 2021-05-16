@@ -274,7 +274,10 @@ public class DialogueScript_Test : MonoBehaviour
        //ZoomOut();
 
        NPCMinimapTracker tracker = gameObject.GetComponentInChildren<NPCMinimapTracker>();
+       SpriteRenderer minimapMarker = tracker.minimapMarker;
        tracker.SpokeToPlayer();
+       tracker.enabled = false;
+       minimapMarker.color  = new Color(1, 1, 1, 0);
    }
    
 }
