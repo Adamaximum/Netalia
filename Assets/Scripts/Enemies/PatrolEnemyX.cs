@@ -39,7 +39,6 @@ public class PatrolEnemyX : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.25f, LayerMask.GetMask("Rooms"));
 
-        Debug.Log(hit.collider.name);
         RoomTrigger room = hit.transform.gameObject.GetComponent<RoomTrigger>();
         room.roomPatrolsX.Add(this);
     }

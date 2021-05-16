@@ -4,77 +4,42 @@ using UnityEngine;
 
 public class MaskScript : MonoBehaviour
 {
-    public float maxSize;
-    private bool shrink;
-    public bool grow;
-
-    public float growOrShrinkSize = 30;
+    private SpriteRenderer sprite;
+    public float secondsToFlash;
+    private float flashIncrements;
     
-    void Start()
+    void Awake()
     {
+        sprite = gameObject.GetComponent<SpriteRenderer>();
+
+        secondsToFlash = secondsToFlash*Time.deltaTime;
+        flashIncrements = secondsToFlash / 100;
+
+        gameObject.transform.localScale = new Vector3(Screen.width, Screen.height);
+        sprite.color = new Color(1, 1, 1, 0);
+    }
+
+    
+    public void Flash()
+    {
+        StartCoroutine(FlashCoroutine());
+    }
+
+    IEnumerator FlashCoroutine()
+    {
+        for (float i = 0; i < 1; i += .05f)
+        {
+            yield return new WaitForSeconds(.01f);
+            sprite.color = new Color(1, 1, 1, i);
+        }
         
-    }
-
-    
-    void Update()
-    {
-        /*
-        if (grow)
+        for (float i = 1; i > 0; i -= .05f)
         {
-            while (gameObject.transform.localScale.y < maxSize)
-            {
-                gameObject.transform.localScale += new Vector3(growOrShrinkSize, growOrShrinkSize, 0);
-            }
-
-            if (gameObject.transform.localScale.y >= maxSize)
-            {
-                grow = false;
-                shrink = true;
-            }
+            yield return new WaitForSeconds(.01f);
+            sprite.color = new Color(1, 1, 1, i);
         }
-
-        if (shrink)
-        {
-            while (gameObject.transform.localScale.y > 0)
-            {
-                gameObject.transform.localScale -= new Vector3(growOrShrinkSize, growOrShrinkSize, 0);
-            }
-
-            if (gameObject.transform.localScale.y == 0)
-            {
-                
-            }
-        }
-        */
-    }
-
-    public void Transition()
-    {
-        StartCoroutine(GrowCoroutine());
-    }
-
-    IEnumerator ShrinkCoroutine()
-    {
-        while (gameObject.transform.localScale.y > 0)
-        {
-            gameObject.transform.localScale -= new Vector3(growOrShrinkSize, growOrShrinkSize, 0);
-            yield return null;
-        }
-
-        gameObject.transform.localScale = new Vector3(0, 0, 0);
-        GameManager.Instance.EnablePlayer();
-        GameManager.Instance.EnablePlayer();
-    }
-
-    IEnumerator GrowCoroutine()
-    {
-        while (gameObject.transform.localScale.y < maxSize)
-        {
-            gameObject.transform.localScale += new Vector3(growOrShrinkSize, growOrShrinkSize, 0);
-            yield return null;
-        }
-
+        
         GameManager.Instance.EndReset();
-        StartCoroutine(ShrinkCoroutine());
+        GameManager.Instance.EnablePlayer();
     }
 }
