@@ -6,7 +6,7 @@ using UnityEngine;
 public class NPCMinimapTracker : MonoBehaviour
 {
     public int orderInGame;
-    private SpriteRenderer minimapMarker;
+    public SpriteRenderer minimapMarker;
 
     private void Awake()
     {
