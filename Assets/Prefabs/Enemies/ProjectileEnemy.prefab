@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5252887028298871823}
   - component: {fileID: -6639680616520439729}
   m_Layer: 10
-  m_Name: TestEnemy1
+  m_Name: ProjectileEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 15
   fireRate: 2
+  delayStart: 0
 --- !u!58 &1759727947859187009
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
