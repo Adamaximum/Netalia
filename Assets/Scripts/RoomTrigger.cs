@@ -47,7 +47,7 @@ public class RoomTrigger : MonoBehaviour
                 activated = true;
             }
 
-            //old camra method
+            //old camera method
             /*
             if (manager != null)
             {
@@ -66,7 +66,11 @@ public class RoomTrigger : MonoBehaviour
             //background
             if (GameManager.Instance.currentBG != gameObject.tag)
             {
+                //change background
                 GameManager.Instance.ChangeBackground(gameObject.tag);
+                
+                //change music
+                MusicManager.Instance.ChangeTracks(gameObject.tag);
             }
         }
     }
