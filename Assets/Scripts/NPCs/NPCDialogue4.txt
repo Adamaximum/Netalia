@@ -12,8 +12,8 @@
 
 "SpokenLines":
 [
-	"Hello. Are you one of the operatives I'm supposed to meet?",
-	"Nah, I just hanging out in dangerous automated facilities for fun. You might call it a hobby of mine.",
+	"Oh, good. You're here. I thought I'd be waiting in this place for a few more hours.",
+	"Yeah, I imagine waiting here for any extended period ",
 	"A simple 'yes' would have sufficed.",
 	"Ah, but where's the fun in that?",
 	"Anyway, here's your softkey. Make sure you have the other before you take off for the Commerce District.",
