@@ -21,7 +21,6 @@
         <e p="Scripts" t="Include">
           <e p="CameraManager.cs" t="Include" />
           <e p="CheckpointScript.cs" t="Include" />
-          <e p="CrowdAmbientNoise.cs" t="Include" />
           <e p="DoorScript.cs" t="Include" />
           <e p="Enemies" t="Include">
             <e p="ChargingEnemyScript.cs" t="Include" />
@@ -32,6 +31,7 @@
           </e>
           <e p="FadeMixerGroup.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="MusicAssignments.cs" t="Include" />
           <e p="MusicManager.cs" t="Include" />
           <e p="NPCs" t="Include">
             <e p="DialogueScript_Test.cs" t="Include" />

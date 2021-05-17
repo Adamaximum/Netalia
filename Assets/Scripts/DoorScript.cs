@@ -27,12 +27,18 @@ public class DoorScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(detectionOrigin, Vector2.right, detectionRange, LayerMask.GetMask("Player"));
         Debug.DrawRay(detectionOrigin, Vector2.right*detectionRange, Color.red);
 
-        if (hit != null && hit.collider.tag == "Player")
+        if (hit != null)
         {
-            Debug.Log("player raycast");
-            if (UnlockConditions())
+            try
             {
-                UnlockDoor();
+                if (hit.collider.tag == "Player" && UnlockConditions())
+                {
+                    UnlockDoor();
+                }
+            }
+            catch (NullReferenceException error)
+            {
+                
             }
         }
     }

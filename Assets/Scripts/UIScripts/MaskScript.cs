@@ -5,27 +5,17 @@ using UnityEngine;
 public class MaskScript : MonoBehaviour
 {
     private SpriteRenderer sprite;
-    public float secondsToFlash;
-    private float flashIncrements;
     
     void Awake()
     {
         sprite = gameObject.GetComponent<SpriteRenderer>();
 
-        secondsToFlash = secondsToFlash*Time.deltaTime;
-        flashIncrements = secondsToFlash / 100;
-
         gameObject.transform.localScale = new Vector3(Screen.width, Screen.height);
         sprite.color = new Color(1, 1, 1, 0);
     }
-
     
-    public void Flash()
-    {
-        StartCoroutine(FlashCoroutine());
-    }
 
-    IEnumerator FlashCoroutine()
+    public IEnumerator Flash()
     {
         for (float i = 0; i < 1; i += .05f)
         {
@@ -41,5 +31,16 @@ public class MaskScript : MonoBehaviour
         
         GameManager.Instance.EndReset();
         GameManager.Instance.EnablePlayer();
+    }
+
+    public IEnumerator FadeToTitle()
+    {
+        for (float i = 0; i < 1; i += .01f)
+        {
+            yield return new WaitForSeconds(.001f);
+            sprite.color = new Color(0, 0, 0, i);
+        }
+        
+        //load main menu
     }
 }
