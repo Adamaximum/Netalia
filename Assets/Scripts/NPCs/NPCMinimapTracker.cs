@@ -22,10 +22,9 @@ public class NPCMinimapTracker : MonoBehaviour
     {
         if (Time.frameCount % 15 == 0)
         {
-            if (orderInGame != 0)
+            if (!PlayerConditionTracker.Instance.spokeToNPCs[orderInGame-1])
             {
-                if (!PlayerConditionTracker.Instance.spokeToNPCs[orderInGame-1])
-                    minimapMarker.color = new Color(1, 1, 1, 0);
+                minimapMarker.color = new Color(1, 1, 1, 0);
             }
             else if (orderInGame == 0 && PlayerConditionTracker.Instance.spokeToNPCs[orderInGame])
             {

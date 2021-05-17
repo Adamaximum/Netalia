@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -6,14 +7,7 @@ using UnityEngine.Audio;
 public class MusicManager : MonoBehaviour
 {
     private AudioSource audio;
-
-    [Header("Music Tracks")]
-    public AudioClip sewerMusic;
-    public AudioClip cityMusic;
-
- 
-    [Header("Mixer Values")]
-    public AudioMixer mixer;
+    public AudioClip currentClip;
 
     public static MusicManager Instance { get; private set; }
 
@@ -28,18 +22,52 @@ public class MusicManager : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
-    
+    private void Start()
+    {
+        audio.clip = currentClip;
+        audio.Play();
+    }
+
+
     public void ChangeTracks(AudioClip music)
     {
-        StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f)); 
-        StartCoroutine(StartNewTrack(music));
+        currentClip = music;
+        StartCoroutine(FadeOut());
     }
-    private IEnumerator StartNewTrack(AudioClip nextTrack)
+    
+    private IEnumerator FadeOut()
     {
-        yield return new WaitForSeconds(2.5f);
-        StopCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
-        audio.clip = nextTrack;
+        float fadeDuration = 6;
+        float currentTime = fadeDuration;
+        while (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            audio.volume -= Mathf.Lerp(audio.volume, 0, currentTime / fadeDuration);
+            yield return null;
+        }
+        
+        CallFadeIn(currentClip);
+        yield break;
+    }
+
+    private void CallFadeIn(AudioClip music)
+    {
+        StartCoroutine(FadeIn(music));
+    }
+
+    private IEnumerator FadeIn(AudioClip music)
+    {
+        audio.clip = music;
         audio.Play();
-        mixer.SetFloat("MusicVolume", 0);
+        
+        float fadeDuration = 6;
+        float currentTime = fadeDuration;
+        while (currentTime > 0)
+        {
+            currentTime -= Time.deltaTime;
+            audio.volume += Mathf.Lerp(audio.volume, 1, currentTime / fadeDuration);
+            yield return null;
+        }
+        yield break;
     }
 }

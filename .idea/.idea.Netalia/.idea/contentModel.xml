@@ -29,7 +29,6 @@
             <e p="ProjectileEnemy.cs" t="Include" />
             <e p="ProjectileScript.cs" t="Include" />
           </e>
-          <e p="FadeMixerGroup.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="MusicAssignments.cs" t="Include" />
           <e p="MusicManager.cs" t="Include" />
@@ -37,6 +36,8 @@
             <e p="DialogueScript_Test.cs" t="Include" />
             <e p="NPCDialogue1.txt" t="Include" />
             <e p="NPCDialogue2.txt" t="Include" />
+            <e p="NPCDialogue3.txt" t="Include" />
+            <e p="NPCDialogue4.txt" t="Include" />
             <e p="NPCMinimapTracker.cs" t="Include" />
             <e p="TrailerDialogue.txt" t="Include" />
           </e>
@@ -50,6 +51,7 @@
             <e p="PlayerAudioScript.cs" t="Include" />
             <e p="PlayerConditionTracker.cs" t="Include" />
           </e>
+          <e p="QuitPanelScript.cs" t="Include" />
           <e p="RippleEffect" t="Include">
             <e p="RippleEffect.cs" t="Include" />
             <e p="RippleEffect.shader" t="Include" />

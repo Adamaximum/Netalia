@@ -260,7 +260,7 @@ public class DialogueScript_Test : MonoBehaviour
        {
            revealedText = textToReveal.Substring(0, i);
            textBox.text = revealedText;
-           yield return new WaitForSeconds(0.05f);
+           yield return new WaitForSeconds(0.01f);
        }
 
        textSlowRevealing = false;

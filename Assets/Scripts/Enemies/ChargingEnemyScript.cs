@@ -46,9 +46,6 @@ public class ChargingEnemyScript : MonoBehaviour
         
         if (retreating)
             CheckStop();
-        
-        Debug.Log("charging: " + charging);
-        Debug.Log("retreating: " + retreating);
     }
 
 
@@ -57,10 +54,20 @@ public class ChargingEnemyScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(startCoords, dir, detectionRange, LayerMask.GetMask("Player"));
         Debug.DrawRay(startCoords, dir*detectionRange, Color.red);
 
-        if (hit != null && hit.collider.tag == "Player" && !charging && !retreating)
+        if (hit != null)
         {
-            rb.velocity = dir * chargeSpeed;
-            charging = true;
+            try
+            {
+                if (hit.collider.tag == "Player" && !charging && !retreating)
+                {
+                    rb.velocity = dir * chargeSpeed;
+                    charging = true;
+                }
+            }
+            catch (NullReferenceException error)
+            {
+                
+            }
         }
     }
 
