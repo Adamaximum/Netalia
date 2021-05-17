@@ -36,7 +36,7 @@ public class ChargingEnemyScript : MonoBehaviour
             endCoords = new Vector2(startCoords.x + chargeDist, startCoords.y);
         }
 
-        retreatSpeed = chargeSpeed / 4;
+        retreatSpeed = chargeSpeed / 3;
     }
 
     private void Update()
@@ -76,7 +76,7 @@ public class ChargingEnemyScript : MonoBehaviour
         if (dir == Vector2.right && gameObject.transform.position.x > endCoords.x
             || dir == Vector2.left && gameObject.transform.position.x < endCoords.x)
         {
-            rb.velocity = -dir * chargeDist;
+            rb.velocity = -dir * retreatSpeed;
             charging = false;
             retreating = true;
         }
