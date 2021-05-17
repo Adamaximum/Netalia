@@ -220,6 +220,9 @@ public class Movement : MonoBehaviour
 
     void Jump()
     {
+        //play jump sound
+        PlayerAudioScript.Instance.JumpSound();
+        
         JumpAnim();
         
         //signal that player has jumped
