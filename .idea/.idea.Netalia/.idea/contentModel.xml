@@ -52,6 +52,7 @@
             <e p="PlayerAudioScript.cs" t="Include" />
             <e p="PlayerConditionTracker.cs" t="Include" />
           </e>
+          <e p="QuitPanelScript.cs" t="Include" />
           <e p="RippleEffect" t="Include">
             <e p="RippleEffect.cs" t="Include" />
             <e p="RippleEffect.shader" t="Include" />

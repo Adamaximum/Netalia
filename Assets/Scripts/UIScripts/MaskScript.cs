@@ -33,11 +33,16 @@ public class MaskScript : MonoBehaviour
         GameManager.Instance.EnablePlayer();
     }
 
-    public IEnumerator FadeToTitle()
+    public void QuitToMainMenu()
+    {
+        StartCoroutine(FadeToTitle());
+    }
+    
+    private IEnumerator FadeToTitle()
     {
         for (float i = 0; i < 1; i += .01f)
         {
-            yield return new WaitForSeconds(.001f);
+            yield return new WaitForSeconds(.005f);
             sprite.color = new Color(0, 0, 0, i);
         }
         

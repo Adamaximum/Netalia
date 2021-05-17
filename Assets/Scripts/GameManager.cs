@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public MaskScript mask;
 
     public bool controllerConnected;
+
+    public Canvas QuitPanel;
     
     //backgrounds
     public GameObject sewerBG;
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
         cityBG.SetActive(false);
         crowdBG.SetActive(false);
         pillarsBG.SetActive(true);
+
+        QuitPanel.enabled = false;
     }
     
     
@@ -59,6 +63,18 @@ public class GameManager : MonoBehaviour
             CheckForController();
         }
         
+        if (Input.GetButtonDown("Cancel"))
+        {
+            QuitPanel.enabled = true;
+        }
+
+        
+        if (PlayerConditionTracker.Instance.spokeToNPCs[PlayerConditionTracker.Instance.spokeToNPCs.Length-1])
+        {
+            mask.QuitToMainMenu();
+        }
+
+
     }
 
     void Reset()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -24,7 +25,13 @@ public class MusicManager : MonoBehaviour
         audio = GetComponent<AudioSource>();
     }
 
-    
+    private void Start()
+    {
+        audio.clip = currentClip;
+        audio.Play();
+    }
+
+
     public void ChangeTracks(AudioClip music)
     {
         StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f)); 
