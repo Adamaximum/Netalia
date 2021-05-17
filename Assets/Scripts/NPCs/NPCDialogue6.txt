@@ -15,9 +15,12 @@
 	"Netalia",
 	"NPC",
 	"Netalia",
+	"Netalia",
 	"NPC",
 	"Netalia",
 	"NPC",
+	"Netalia",
+	"NPC"
 ],
 
 
@@ -40,7 +43,9 @@
 	"I'm listening.",
 	"Scattered across the city, there are eight government buildings that secretly house a specialized datachip in each. I need you to steal all of them for me.",
 	"Government buildings? I've never broken into those before, mostly just warehouses and minor facilities. Won't security be extremely tight?",
-	"Undoubtedly. But I believe that someone of your caliber of skill is more than capable of handling it."
+	"Undoubtedly. But I believe that someone of your caliber of skill is more than capable of handling it. And you will be greatly rewarded for you efforts.",
+	"...",
+	"So...what do you say, Netalia? Do we have a deal?"
 ]
 
 }

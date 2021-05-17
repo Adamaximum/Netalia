@@ -17,7 +17,7 @@
 	"Netalia",
 	"NPC",
 	"Netalia",
-	"NPC",
+	"NPC"
 ],
 
 
