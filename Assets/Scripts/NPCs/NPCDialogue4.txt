@@ -1,10 +1,10 @@
 {
 "SpeakingOrder":
 [
-	"Netalia",
 	"NPC",
 	"Netalia",
 	"NPC",
+	"Netalia",
 	"NPC",
 	"Netalia"
 ],
@@ -12,12 +12,12 @@
 
 "SpokenLines":
 [
-	"Oh, good. You're here. I thought I'd be waiting in this place for a few more hours.",
-	"Yeah, I imagine waiting here for any extended period ",
-	"A simple 'yes' would have sufficed.",
-	"Ah, but where's the fun in that?",
-	"Anyway, here's your softkey. Make sure you have the other before you take off for the Commerce District.",
-	"Will do, thanks. Take care."
+	"Oh, thank god you're here. I thought I'd be waiting in this stinkhole for a few more hours.",
+	"I'd imagine that wouldn't be very pleasant. The smell in here is pretty awful.",
+	"Well, here's your softkey. See it safely to our contact in the Commerce District, assuming you have the second one as well.",
+	"Thanks. Are you gonna get out of here too?",
+	"Soon enough. I've got some investigating to do around here first. Don't wait up, I'd just slow you down.",
+	"If you say so. See you later."
 ]
 
 }
