@@ -20,7 +20,7 @@
 	"Mathias.",
 	"Doing well, I hope?",
 	"Splendid. If you don't mind, though, I'd like you to tell me about the job you got for me. Rent is due soon.",
-	"Fair enough. This job requires you travel to the Sewerworks Processing Facility. There, you will meet with two operatives who will each give you a softkey.",
+	"Straight to business, alright. This job requires you travel to the Sewerworks Processing Facility. There, you will meet with two operatives who will each give you a softkey.",
 	"Sewerworks? Ugh, this job better pay well, Mathias.",
 	"I'm sure it will. After you obtain the two softkeys, proceed to the Commerce District. You'll hand the keys over to a contact, and they will compensate you.",
 	"Meet operatives in Sewerworks, get keys, meet contact in Commerce, get paid. Got it.",

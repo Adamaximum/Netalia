@@ -12,11 +12,11 @@
 
 "SpokenLines":
 [
-	"Oh, thank god you're here. I thought I'd be waiting in this stinkhole for a few more hours.",
-	"I'd imagine that wouldn't be very pleasant. The smell in here is pretty awful.",
+	"Oh, thank god you're here. I thought I'd be waiting in this stinkhole for several more hours.",
+	"I imagine that wouldn't be very pleasant. The smell in here is awful.",
 	"Well, here's your softkey. See it safely to our contact in the Commerce District, assuming you have the second one as well.",
 	"Thanks. Are you gonna get out of here too?",
-	"Soon enough. I've got some investigating to do around here first. Don't wait up, I'd just slow you down.",
+	"Soon enough. I've got some investigating to do in this place first. Don't wait up, I'd just slow you down.",
 	"If you say so. See you later."
 ]
 

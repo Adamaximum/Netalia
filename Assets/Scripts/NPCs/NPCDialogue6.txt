@@ -20,6 +20,7 @@
 	"NPC",
 	"Netalia",
 	"NPC",
+	"NPC",
 	"Netalia",
 	"NPC"
 ],
@@ -40,12 +41,13 @@
 	"I manage.",
 	"Wouldn't you rather live, instead of just...surviving?",
 	"With all due respect, that's never really been an option for someone like me.",
-	"Well, it is now. I'm prepared to pay you enough credits so that you will never have to smuggle again. If you do this last job for me.",
+	"Well, it is now. I'm prepared to pay you enough credits so that you will never have to smuggle again. If you do this one last job for me.",
 	"...",
 	"I'm listening.",
 	"Scattered across the city, there are eight government buildings that secretly house a specialized datachip in each. I need you to steal each one of them for me.",
 	"Government buildings? I've never broken into those before, mostly just warehouses and minor facilities. Won't security be extremely tight?",
 	"Undoubtedly. But I believe that someone of your caliber of skill is more than capable of handling it. And you will be greatly rewarded for you efforts.",
+	"Do this for me, and your life will be changed for the better.",
 	"...",
 	"So...what do you say, Netalia? Do we have a deal?"
 ]
