@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class MusicManager : MonoBehaviour
     [Header("Music Tracks")]
     public AudioClip sewerMusic;
     public AudioClip cityMusic;
+
+ 
+    [Header("Mixer Values")]
+    public AudioMixer mixer;
 
     public static MusicManager Instance { get; private set; }
 
@@ -26,12 +31,15 @@ public class MusicManager : MonoBehaviour
         crowdAmbience = GameObject.FindObjectOfType<CrowdAmbientNoise>();
     }
 
+   
+
     public void ChangeTracks(string roomTag)
     {
         if (roomTag == "Sewer")
         {
-            audio.clip = sewerMusic;
+            StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
             crowdAmbience.NoiseOff();
+            StartCoroutine(StartNewTrack(sewerMusic));
         }
         else if (roomTag == "Crowd")
         {
@@ -41,5 +49,18 @@ public class MusicManager : MonoBehaviour
         {
             crowdAmbience.NoiseOff();
         }
+        else if (roomTag == "City")
+        {
+            StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
+            StartCoroutine(StartNewTrack(cityMusic));
+        }
+    }
+    private IEnumerator StartNewTrack(AudioClip nextTrack)
+    {
+        yield return new WaitForSeconds(2.5f);
+        StopCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
+        audio.clip = nextTrack;
+        audio.Play();
+        mixer.SetFloat("MusicVolume", 0);
     }
 }
