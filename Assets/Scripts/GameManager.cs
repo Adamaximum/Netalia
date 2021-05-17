@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         {
             CheckForController();
         }
+        
     }
 
     void Reset()

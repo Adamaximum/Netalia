@@ -6,12 +6,8 @@ using UnityEngine.Audio;
 public class MusicManager : MonoBehaviour
 {
     private AudioSource audio;
+    public AudioClip currentClip;
 
-    [Header("Music Tracks")]
-    public AudioClip sewerMusic;
-    public AudioClip cityMusic;
-
- 
     [Header("Mixer Values")]
     public AudioMixer mixer;
 
@@ -33,11 +29,11 @@ public class MusicManager : MonoBehaviour
     {
         StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f)); 
         StartCoroutine(StartNewTrack(music));
+        currentClip = music;
     }
     private IEnumerator StartNewTrack(AudioClip nextTrack)
     {
         yield return new WaitForSeconds(2.5f);
-        StopCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
         audio.clip = nextTrack;
         audio.Play();
         mixer.SetFloat("MusicVolume", 0);

@@ -37,6 +37,8 @@
             <e p="DialogueScript_Test.cs" t="Include" />
             <e p="NPCDialogue1.txt" t="Include" />
             <e p="NPCDialogue2.txt" t="Include" />
+            <e p="NPCDialogue3.txt" t="Include" />
+            <e p="NPCDialogue4.txt" t="Include" />
             <e p="NPCMinimapTracker.cs" t="Include" />
             <e p="TrailerDialogue.txt" t="Include" />
           </e>
