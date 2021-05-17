@@ -1,0 +1,23 @@
+{
+"SpeakingOrder":
+[
+	"Netalia",
+	"NPC",
+	"Netalia",
+	"NPC",
+	"NPC",
+	"Netalia"
+],
+
+
+"SpokenLines":
+[
+	"Oh, good. You're here. I thought I'd be waiting in this place for a few more hours.",
+	"Yeah, I imagine waiting here for any extended period ",
+	"A simple 'yes' would have sufficed.",
+	"Ah, but where's the fun in that?",
+	"Anyway, here's your softkey. Make sure you have the other before you take off for the Commerce District.",
+	"Will do, thanks. Take care."
+]
+
+}
