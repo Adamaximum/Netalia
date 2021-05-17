@@ -32,14 +32,14 @@
 	"It's a talent of mine, just as smuggling is a talent of yours. You have a unique set of useful skills. And so, I have a proposition for you.",
 	"Hold on, now. Are you going to pay me?",
 	"Relax. I've already transferred the credits to your handler. The two of you can split the money in whatever way you want.",
-	"Okay, sorry. What's this proposition of yours?",
+	"Okay, sorry. Go on.",
 	"I work for a very powerful man who has an interest in your abilities. You've proven useful in this task. We're prepared to offer you even more money for another. Are you interested?",
 	"Depends on the job.",
 	"Fair enough. My employer is waiting at the top of the abandoned Meerin Tower, at the end of the block. If you'd like to hear the details, go there and meet with him.",
 	"You can't just give the job description to Mathias?",
 	"He prefers to do his most important business face-to-face. Meerin Tower is a long climb up, and some of its old robotic security is still intact. But that shouldn't be a problem for you.",
 	"...",
-	"Give it some thought. If you help him,  he will find a way to return the favor. Good luck, Talia."
+	"Give it some thought. If you help him, he will find a way to return the favor. Good luck, Talia."
 ]
 
 }
