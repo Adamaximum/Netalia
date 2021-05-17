@@ -85,6 +85,9 @@ public class Collision : MonoBehaviour
         
         //enemy contact
         hit = Physics2D.OverlapCircle((Vector2)transform.position, rightOffset.x, enemyLayer);
+        
+        //check for when to swap music
+        
     }
 
     void OnDrawGizmos()
