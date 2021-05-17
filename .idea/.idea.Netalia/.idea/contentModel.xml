@@ -59,6 +59,7 @@
           <e p="RoomTrigger.cs" t="Include" />
           <e p="TestCamera.cs" t="Include" />
           <e p="UIScripts" t="Include">
+            <e p="MainMenuFade.cs" t="Include" />
             <e p="MaskScript.cs" t="Include" />
             <e p="MinimapScript.cs" t="Include" />
             <e p="TempResFix.cs" t="Include" />
