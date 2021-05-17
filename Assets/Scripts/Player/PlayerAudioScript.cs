@@ -23,11 +23,6 @@ public class PlayerAudioScript : MonoBehaviour
         source = gameObject.GetComponent<AudioSource>();
     }
 
-    private void Update()
-    {
-        //SlideSound();
-    }
-
     public void JumpSound()
     {
         source.PlayOneShot(jump);

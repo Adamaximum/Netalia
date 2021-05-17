@@ -46,9 +46,6 @@ public class ChargingEnemyScript : MonoBehaviour
         
         if (retreating)
             CheckStop();
-        
-        Debug.Log("charging: " + charging);
-        Debug.Log("retreating: " + retreating);
     }
 
 

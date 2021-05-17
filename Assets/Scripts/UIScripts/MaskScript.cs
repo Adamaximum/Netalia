@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MaskScript : MonoBehaviour
 {
@@ -47,5 +48,6 @@ public class MaskScript : MonoBehaviour
         }
         
         //load main menu
+        SceneManager.LoadScene("Main Menu");
     }
 }
