@@ -14,7 +14,6 @@ public class ChargingEnemyScript : MonoBehaviour
     //charging
     public float chargeSpeed;
     private float retreatSpeed;
-    public float chargeDist;
     private Vector2 endCoords;
     private Vector2 startCoords;
     private bool charging;
@@ -29,11 +28,11 @@ public class ChargingEnemyScript : MonoBehaviour
 
         if (!gameObject.GetComponent<SpriteRenderer>().flipX)
         {
-            endCoords = new Vector2(startCoords.x - chargeDist, startCoords.y);
+            endCoords = new Vector2(startCoords.x - detectionRange	, startCoords.y);
         }
         else
         {
-            endCoords = new Vector2(startCoords.x + chargeDist, startCoords.y);
+            endCoords = new Vector2(startCoords.x + detectionRange	, startCoords.y);
         }
 
         retreatSpeed = chargeSpeed / 3;
