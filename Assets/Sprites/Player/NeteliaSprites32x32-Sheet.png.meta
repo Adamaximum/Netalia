@@ -1,7 +1,127 @@
 fileFormatVersion: 2
 guid: 4157f38627eca15488289bdf7943a948
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 2348900890921366987
+    second: NeteliaSprites32x32-Sheet_0
+  - first:
+      213: -1064219354490621003
+    second: NeteliaSprites32x32-Sheet_1
+  - first:
+      213: -5307081425442414047
+    second: NeteliaSprites32x32-Sheet_2
+  - first:
+      213: -1227921151686584206
+    second: NeteliaSprites32x32-Sheet_3
+  - first:
+      213: 2346156786958015604
+    second: NeteliaSprites32x32-Sheet_4
+  - first:
+      213: 2791852257694315053
+    second: NeteliaSprites32x32-Sheet_5
+  - first:
+      213: -7864723696389226600
+    second: NeteliaSprites32x32-Sheet_6
+  - first:
+      213: -1788925536297309181
+    second: NeteliaSprites32x32-Sheet_7
+  - first:
+      213: 2819357000630301772
+    second: NeteliaSprites32x32-Sheet_8
+  - first:
+      213: -4003032737866586021
+    second: NeteliaSprites32x32-Sheet_9
+  - first:
+      213: -5379308525089445606
+    second: NeteliaSprites32x32-Sheet_10
+  - first:
+      213: -308214754451861280
+    second: NeteliaSprites32x32-Sheet_11
+  - first:
+      213: -8180160893947131270
+    second: NeteliaSprites32x32-Sheet_12
+  - first:
+      213: -1203073664185023874
+    second: NeteliaSprites32x32-Sheet_13
+  - first:
+      213: -308586813505788107
+    second: NeteliaSprites32x32-Sheet_14
+  - first:
+      213: -7118814794912002975
+    second: NeteliaSprites32x32-Sheet_15
+  - first:
+      213: 3490276638836730056
+    second: NeteliaSprites32x32-Sheet_16
+  - first:
+      213: 8524832552401783634
+    second: NeteliaSprites32x32-Sheet_17
+  - first:
+      213: 181570580054058589
+    second: NeteliaSprites32x32-Sheet_18
+  - first:
+      213: -2126273451823809473
+    second: NeteliaSprites32x32-Sheet_19
+  - first:
+      213: 7690243449458794627
+    second: NeteliaSprites32x32-Sheet_20
+  - first:
+      213: 679496424163872395
+    second: NeteliaSprites32x32-Sheet_21
+  - first:
+      213: -3664031100928997148
+    second: NeteliaSprites32x32-Sheet_22
+  - first:
+      213: -6135708748212953680
+    second: NeteliaSprites32x32-Sheet_23
+  - first:
+      213: -1231834746558205325
+    second: NeteliaSprites32x32-Sheet_24
+  - first:
+      213: 1698286343790307901
+    second: NeteliaSprites32x32-Sheet_25
+  - first:
+      213: 4151544471184771106
+    second: NeteliaSprites32x32-Sheet_26
+  - first:
+      213: -8845139923255918683
+    second: NeteliaSprites32x32-Sheet_27
+  - first:
+      213: 3070912130227441658
+    second: NeteliaSprites32x32-Sheet_28
+  - first:
+      213: 2535273662496975339
+    second: NeteliaSprites32x32-Sheet_29
+  - first:
+      213: 875595472755413190
+    second: NeteliaSprites32x32-Sheet_30
+  - first:
+      213: -2404772370458321482
+    second: NeteliaSprites32x32-Sheet_31
+  - first:
+      213: 684333086628510436
+    second: NeteliaSprites32x32-Sheet_32
+  - first:
+      213: 2806032001152542172
+    second: NeteliaSprites32x32-Sheet_33
+  - first:
+      213: 5089229986679937698
+    second: NeteliaSprites32x32-Sheet_34
+  - first:
+      213: -6802332683697302964
+    second: NeteliaSprites32x32-Sheet_35
+  - first:
+      213: -3263127337415466423
+    second: NeteliaSprites32x32-Sheet_36
+  - first:
+      213: -2859026315061059468
+    second: NeteliaSprites32x32-Sheet_37
+  - first:
+      213: -7888999893542195793
+    second: NeteliaSprites32x32-Sheet_38
+  - first:
+      213: -348208214759140187
+    second: NeteliaSprites32x32-Sheet_39
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,14 +160,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -104,7 +224,847 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 556dd7031f74bd443b8d20d6b43df85a
+      internalID: 2348900890921366987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 134
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c5b79c2b6ed03f4ba0010cd98728052
+      internalID: -1064219354490621003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83ad0930140f5044d867efbc3e21688d
+      internalID: -5307081425442414047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1b4c01c5d7bcfc499190621ce49c6f0
+      internalID: -1227921151686584206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99f99b78b9de48b4eb68ed47b4154337
+      internalID: 2346156786958015604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b821ca6554c527840b72e1e03a37d94d
+      internalID: 2791852257694315053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe39d471540a4e64f9c7a6981e6c2ffa
+      internalID: -7864723696389226600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 133.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d57c6b22c7a59b643bfa9bd78c4dfdac
+      internalID: -1788925536297309181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9e742c2944398540836cae24a449739
+      internalID: 2819357000630301772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84684b533f340f84c9eb61e81fff282e
+      internalID: -4003032737866586021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f14ceba21a306145a1e03dd5fb5bcf1
+      internalID: -5379308525089445606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 405e9acf750f25841b08bece3ee64819
+      internalID: -308214754451861280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8633fca275164a84ea46c070a19f17b4
+      internalID: -8180160893947131270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3146426fab319941a7f578aecae74bd
+      internalID: -1203073664185023874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b819b4d010ffa4a49b59e59f869c4332
+      internalID: -308586813505788107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 100.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c789973965f0d40448044882ccae93db
+      internalID: -7118814794912002975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5af90206d3daf740a9ce4088b80ee0e
+      internalID: 3490276638836730056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3208e41c77e712749b87c8305a1c23f4
+      internalID: 8524832552401783634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950521399071bfd47b22c847b963a118
+      internalID: 181570580054058589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b71c67776216f674789355751f143276
+      internalID: -2126273451823809473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1aa3583d6de01140946f0c5499b6168
+      internalID: 7690243449458794627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12574b1c5758ff54486a7d4c38f5a168
+      internalID: 679496424163872395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 971e310ac60b6954c90ee76f733523e9
+      internalID: -3664031100928997148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 67.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f82780d19537dce4fbe449981aac60ca
+      internalID: -6135708748212953680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cf180c28e175ec4eac4f83b18eac36d
+      internalID: -1231834746558205325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e85f6cade82ddb44899e553ad1561e97
+      internalID: 1698286343790307901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d36ae680d74d374cad3fa3b12d51dfb
+      internalID: 4151544471184771106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c66d86abd5e79e4fb06c4660cf4dd68
+      internalID: -8845139923255918683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50efa179dad7ebf4a84e48b7bd6b32f5
+      internalID: 3070912130227441658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c8a5ae01bc52544a90253fa3df4cc8f
+      internalID: 2535273662496975339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a967fde15c11e264b9c4a1c386ddf05f
+      internalID: 875595472755413190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 34.6
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f70634bc63046ef4e88e72ab94ce501d
+      internalID: -2404772370458321482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9de42a7631877b43a372ad2df141c2c
+      internalID: 684333086628510436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50376572b87803b42804f2024061618e
+      internalID: 2806032001152542172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ddd3f50360a594419ce511529d1b8dc
+      internalID: 5089229986679937698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: effd9e4406b2d0f43bc2933d48f64e0c
+      internalID: -6802332683697302964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7374a7cb7149b934ba33b88b7d076e4a
+      internalID: -3263127337415466423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 862bfea97903df447b33c0cbfcde194b
+      internalID: -2859026315061059468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 852201bc4c4b2cb4e95aa6fe857bb772
+      internalID: -7888999893542195793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NeteliaSprites32x32-Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1.5999985
+        width: 32.375
+        height: 33.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 537b0bb1314cee54dba530711e6d0e39
+      internalID: -348208214759140187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
