@@ -37,7 +37,7 @@ public class MusicManager : MonoBehaviour
     
     private IEnumerator FadeOut()
     {
-        float fadeDuration = 6;
+        float fadeDuration = 3;
         float currentTime = fadeDuration;
         while (currentTime > 0)
         {
@@ -60,7 +60,7 @@ public class MusicManager : MonoBehaviour
         audio.clip = music;
         audio.Play();
         
-        float fadeDuration = 6;
+        float fadeDuration = 3;
         float currentTime = fadeDuration;
         while (currentTime > 0)
         {

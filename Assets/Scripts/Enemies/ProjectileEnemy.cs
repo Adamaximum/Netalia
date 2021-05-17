@@ -107,7 +107,8 @@ public class ProjectileEnemy : MonoBehaviour
         float degreesToRadians;
 
         degreesToRadians = (float)(bulletNum*72 * (Math.PI / 180));
-        distFromCenter = new Vector3(radius*Mathf.Cos(degreesToRadians), radius*Mathf.Sin(degreesToRadians), 0);
+        Debug.Log(degreesToRadians);
+        distFromCenter = new Vector3(radius*Mathf.Sin(degreesToRadians), radius*Mathf.Cos(degreesToRadians), 0);
 
         Vector3 finalCoords;
         finalCoords = gameObject.transform.position + distFromCenter;
