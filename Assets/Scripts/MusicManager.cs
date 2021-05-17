@@ -6,7 +6,6 @@ using UnityEngine.Audio;
 public class MusicManager : MonoBehaviour
 {
     private AudioSource audio;
-    private CrowdAmbientNoise crowdAmbience;
 
     [Header("Music Tracks")]
     public AudioClip sewerMusic;
@@ -24,36 +23,16 @@ public class MusicManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         audio = GetComponent<AudioSource>();
-        crowdAmbience = GameObject.FindObjectOfType<CrowdAmbientNoise>();
     }
 
-   
-
-    public void ChangeTracks(string roomTag)
+    
+    public void ChangeTracks(AudioClip music)
     {
-        if (roomTag == "Sewer")
-        {
-            StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
-            crowdAmbience.NoiseOff();
-            StartCoroutine(StartNewTrack(sewerMusic));
-        }
-        else if (roomTag == "Crowd")
-        {
-            crowdAmbience.NoiseOn();
-        }
-        else if (roomTag == "Pillars")
-        {
-            crowdAmbience.NoiseOff();
-        }
-        else if (roomTag == "City")
-        {
-            StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f));
-            StartCoroutine(StartNewTrack(cityMusic));
-        }
+        StartCoroutine(FadeMixerGroup.StartFade(mixer, "MusicVolume", 2, -80f)); 
+        StartCoroutine(StartNewTrack(music));
     }
     private IEnumerator StartNewTrack(AudioClip nextTrack)
     {

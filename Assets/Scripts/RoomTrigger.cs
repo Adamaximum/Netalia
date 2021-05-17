@@ -68,9 +68,6 @@ public class RoomTrigger : MonoBehaviour
             {
                 //change background
                 GameManager.Instance.ChangeBackground(gameObject.tag);
-                
-                //change music
-                MusicManager.Instance.ChangeTracks(gameObject.tag);
             }
         }
     }

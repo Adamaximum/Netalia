@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         player.transform.position = checkpoint.transform.position;
         
         //cover screen
-        mask.Flash();
+        StartCoroutine(mask.Flash());
     }
     
     public void EndReset()

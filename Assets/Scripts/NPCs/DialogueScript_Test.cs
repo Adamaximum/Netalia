@@ -16,6 +16,7 @@ public class DialogueScript_Test : MonoBehaviour
    private int speakerTurn = 0;
    private bool textSlowRevealing;
    private bool textEmptied;
+   private string leftSpeaker;
 
    [Space(10)]
    [Header("Misc")]
@@ -79,6 +80,8 @@ public class DialogueScript_Test : MonoBehaviour
        //assign images
        leftImage = LeftSpeechBubble.GetComponentInChildren<Image>();
        rightImage = RightSpeechBubble.GetComponentInChildren<Image>();
+
+       leftSpeaker = GetComponent<SpriteRenderer>().flipX ? "NPC" : "Netalia";
    }
 
    private void Start()
@@ -140,10 +143,17 @@ public class DialogueScript_Test : MonoBehaviour
 
        if (dialogueRunning && Input.GetButtonDown("Submit"))
        {
-           CheckForNextLine(speakerTurn);
-           DisplayText(SetPanel(speakerTurn), speakerTurn);
+           try
+           {
+               CheckForNextLine(speakerTurn);
+               DisplayText(SetPanel(speakerTurn), speakerTurn);
+           }
+           catch (IndexOutOfRangeException error)
+           {
+               Debug.Log("end of dialogue");
+           }
        }
-       
+
    }
 
    /*
@@ -204,7 +214,7 @@ public class DialogueScript_Test : MonoBehaviour
    GameObject SetPanel(int lineNum)
    {
        bool isSpeakerLeft;
-       isSpeakerLeft = Dialogue.SpeakingOrder[lineNum] == "Netalia";
+       isSpeakerLeft = Dialogue.SpeakingOrder[lineNum] == leftSpeaker;
        
        //show the correct panel
        GameObject currentPanel;
