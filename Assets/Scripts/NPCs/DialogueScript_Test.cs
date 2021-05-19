@@ -98,6 +98,8 @@ public class DialogueScript_Test : MonoBehaviour
 
    void Update()
    {  
+       
+       Debug.Log(interact);
        if (interact && !dialogueRunning)
        {
            //show button prompt
@@ -156,12 +158,30 @@ public class DialogueScript_Test : MonoBehaviour
 
    }
 
-   /*
+   
    private void FixedUpdate()
    {
-       interact = Physics2D.OverlapCircle(transform.position, 2f, LayerMask.GetMask("Player"));
+       RaycastHit2D hit = Physics2D.CircleCast(transform.position, 2f, Vector2.up, LayerMask.GetMask("Player"));
+
+       if (hit != null)
+       {
+           if (hit.collider.tag == "Player")
+           {
+               interact = true;
+           }
+           else
+           {
+               interact = false;
+           }
+       }
+       else
+       {
+           interact = false;
+       }
    }
-   */
+   
+   
+   /*
    
    private void OnTriggerStay2D(Collider2D other)
    {
@@ -178,6 +198,7 @@ public class DialogueScript_Test : MonoBehaviour
            interact = false;
        }
    }
+   */
 
    void MoveNetalia(GameObject net)
    {
@@ -189,6 +210,7 @@ public class DialogueScript_Test : MonoBehaviour
        net.transform.position = playerPos;
 
    }
+
 
    void ZoomIn()
    {

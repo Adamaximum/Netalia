@@ -66,7 +66,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: fc240ff7065da834c93ba32523db4c84, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -110,11 +110,11 @@ RectTransform:
   m_Children:
   - {fileID: 1492379634}
   m_Father: {fileID: 1264295320770224538}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.06, y: 0.845}
+  m_AnchoredPosition: {x: 0.06, y: 1.393}
   m_SizeDelta: {x: 4.034, y: 1.176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1725688525
@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 1264295320770224533}
   - component: {fileID: 1264295320770224539}
   - component: {fileID: 1264295320770224532}
+  - component: {fileID: 297559943}
   m_Layer: 9
   m_Name: NPC_template
   m_TagString: Untagged
@@ -190,6 +191,7 @@ Transform:
   m_LocalPosition: {x: 1.69, y: 0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5667398814716796641}
   - {fileID: 1725688523}
   - {fileID: 7906878088480395503}
   m_Father: {fileID: 0}
@@ -232,13 +234,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7464468400030163059, guid: 9b4a8cd55e7c4f2499ae2e19bb517ecc,
+  m_Sprite: {fileID: -425530811694294101, guid: 12d2debcce4aac64a966b068f5830d85,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.2857144, y: 1.5238096}
+  m_Size: {x: 1.3, y: 1.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -258,9 +260,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   mainCamera: {fileID: 0}
-  distFromNetalia: 0
-  NPCImage: {fileID: 0}
-  playerImage: {fileID: 0}
+  distFromNetalia: 1
+  NPCImage: {fileID: 21300000, guid: bdafa47f19baf0e489f2b324e3762952, type: 3}
+  playerImage: {fileID: 21300000, guid: 8909be6bead443d40965284d5c895a2b, type: 3}
   JsonFile: {fileID: 4900000, guid: a05545bd90946a347b0da7e45891b8a5, type: 3}
 --- !u!70 &1264295320770224532
 CapsuleCollider2D:
@@ -275,9 +277,28 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0024784803, y: -0.2672627}
-  m_Size: {x: 1.3869402, y: 1.3869402}
-  m_Direction: 0
+  m_Offset: {x: 0.05696776, y: 0.16360636}
+  m_Size: {x: 2.5312822, y: 1.7884082}
+  m_Direction: 1
+--- !u!95 &297559943
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264295320770224535}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5053b9a3073f4be48aeae003a49d83c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2275898347558836671
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +329,7 @@ Transform:
   m_LocalScale: {x: 12, y: 12, z: 1}
   m_Children: []
   m_Father: {fileID: 1264295320770224538}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1296068714731799872
 SpriteRenderer:
@@ -344,8 +365,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1839599795
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 60e942bc9c7179c4eacd5b3e67dd4ff2, type: 3}
   m_Color: {r: 0, g: 0.95253134, b: 1, a: 1}
@@ -371,3 +392,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderInGame: 0
+  minimapMarker: {fileID: 0}
+--- !u!1 &5885236278673653581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5667398814716796641}
+  m_Layer: 9
+  m_Name: SilhouetteAnim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5667398814716796641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5885236278673653581}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1264295320770224538}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
