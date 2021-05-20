@@ -39,7 +39,8 @@ public class DoorScript : MonoBehaviour
             {
                 if (hit.collider.tag == "Player" && UnlockConditions())
                 {
-                    UnlockDoor();
+                    anim.SetTrigger("Unlock");
+                    StartCoroutine(UnlockDoor());
                 }
             }
             catch (NullReferenceException error)
@@ -62,9 +63,9 @@ public class DoorScript : MonoBehaviour
         return true;
     }
 
-    private void UnlockDoor()
+    private IEnumerator UnlockDoor()
     {
-       anim.SetTrigger("Unlock");
+       yield return new WaitForSeconds(1);
        collider.enabled = false;
     }
 }
