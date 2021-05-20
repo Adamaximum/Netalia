@@ -12,35 +12,36 @@ public class DoorScript : MonoBehaviour
 
     private float detectionRange;
     private Vector2 detectionOrigin;
-    private Vector2 detectionCastSize;
+    private AudioSource audio;
+    private bool unlock;
     
     void Start()
     {
         collider = gameObject.GetComponent<Collider2D>();
         anim = gameObject.GetComponent<Animator>();
+        audio = gameObject.GetComponent<AudioSource>();
 
         detectionRange = 5;
         float castHeight = transform.position.y - transform.localScale.y + (Collision.Instance.gameObject.transform.localScale.y/2);
         detectionOrigin = new Vector2(transform.position.x - (detectionRange/2), castHeight);
-        detectionCastSize = new Vector2(detectionRange*2, gameObject.transform.localScale.y);
+        unlock = false;
     }
 
     private void FixedUpdate()
     {
         RaycastHit2D hit = Physics2D.Raycast(detectionOrigin, Vector2.right, detectionRange, LayerMask.GetMask("Player"));
-        //RaycastHit2D hit = Physics2D.BoxCast(transform.position, detectionCastSize, 0, Vector2.up);
         Debug.DrawRay(detectionOrigin, Vector2.right*detectionRange, Color.red);
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawCube(transform.position, detectionCastSize);
 
         if (hit != null)
         {
             try
             {
-                if (hit.collider.tag == "Player" && UnlockConditions())
+                if (hit.collider.tag == "Player" && UnlockConditions() && !unlock)
                 {
                     anim.SetTrigger("Unlock");
+                    audio.PlayOneShot(audio.clip);
                     StartCoroutine(UnlockDoor());
+                    unlock = true;
                 }
             }
             catch (NullReferenceException error)
