@@ -35,4 +35,14 @@ public class MainMenuFade : MonoBehaviour
         }
         SceneManager.LoadScene(1);
     }
+
+    public IEnumerator QuitFadeOut()
+    {
+        for (float i = 0; i < 1; i += .01f)
+        {
+            yield return new WaitForSeconds(.005f);
+            fadeImg.color = new Color(0, 0, 0, i);
+        }
+        Application.Quit();
+    }
 }

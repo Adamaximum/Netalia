@@ -54,7 +54,7 @@ public class MenuScript : MonoBehaviour
     void Quit()
     {
         Debug.Log("Quitting game");
-        Application.Quit();
+        StartCoroutine(fader.QuitFadeOut());
     }
 
     void Back()
