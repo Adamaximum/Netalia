@@ -25,7 +25,7 @@ public class MainMenuFade : MonoBehaviour
     }
     
     //Adam - change this to public if you need to
-    private IEnumerator FadeOut()
+    public IEnumerator FadeOut()
     {
         for (float i = 0; i < 1; i += .01f)
         {
