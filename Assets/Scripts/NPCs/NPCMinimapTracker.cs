@@ -22,17 +22,13 @@ public class NPCMinimapTracker : MonoBehaviour
     {
         if (Time.frameCount % 15 == 0)
         {
-            if (!PlayerConditionTracker.Instance.spokeToNPCs[orderInGame-1])
+            if (PlayerConditionTracker.Instance.showMarker[orderInGame])
             {
-                minimapMarker.color = new Color(1, 1, 1, 0);
-            }
-            else if (orderInGame == 0 && PlayerConditionTracker.Instance.spokeToNPCs[orderInGame])
-            {
-                minimapMarker.color = new Color(1, 1, 1, 0);
+                minimapMarker.color = new Color(0, 1, 1, 1);
             }
             else
             {
-                minimapMarker.color = new Color(0, 1, 1, 1);
+                minimapMarker.color = new Color(0, 1, 1, 0);
             }
         }
     }
@@ -40,5 +36,33 @@ public class NPCMinimapTracker : MonoBehaviour
     public void SpokeToPlayer()
     {
         PlayerConditionTracker.Instance.spokeToNPCs[orderInGame] = true;
+        PlayerConditionTracker.Instance.UpdateMarkers();
     }
+    
+    /*
+     *  if (orderInGame == 0 && (PlayerConditionTracker.Instance.spokeToNPCs[0] || PlayerConditionTracker.Instance.spokeToNPCs[1]))
+            {
+                minimapMarker.color = new Color(1, 1, 1, 0);
+            }
+            
+            if (!PlayerConditionTracker.Instance.spokeToNPCs[orderInGame-1])
+            {
+                minimapMarker.color = new Color(1, 1, 1, 0);
+            }
+            else if (PlayerConditionTracker.Instance.spokeToNPCs[orderInGame])
+            {
+                minimapMarker.color = new Color(1, 1, 1, 0);
+            }
+            else
+            {
+                minimapMarker.color = new Color(0, 1, 1, 1);
+            }
+            
+            //toggle on minimap marker #3 manually
+            if (orderInGame == 3 && PlayerConditionTracker.Instance.spokeToNPCs[1] &&
+                !PlayerConditionTracker.Instance.spokeToNPCs[3])
+            {
+                minimapMarker.color = new Color(0, 1, 1, 1);
+            }
+     */
 }

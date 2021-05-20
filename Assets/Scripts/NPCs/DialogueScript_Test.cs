@@ -305,11 +305,12 @@ public class DialogueScript_Test : MonoBehaviour
        DialogueUI.SetActive(false);
        //ZoomOut();
 
+       //spoke to player
        NPCMinimapTracker tracker = gameObject.GetComponentInChildren<NPCMinimapTracker>();
-       SpriteRenderer minimapMarker = tracker.minimapMarker;
+       //SpriteRenderer minimapMarker = tracker.minimapMarker;
        tracker.SpokeToPlayer();
-       tracker.enabled = false;
-       minimapMarker.color  = new Color(1, 1, 1, 0);
+       //tracker.enabled = false;
+       //minimapMarker.color  = new Color(1, 1, 1, 0);
    }
    
 }
