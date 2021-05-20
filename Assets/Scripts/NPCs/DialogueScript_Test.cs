@@ -98,6 +98,8 @@ public class DialogueScript_Test : MonoBehaviour
 
    void Update()
    {  
+       
+       Debug.Log(interact);
        if (interact && !dialogueRunning)
        {
            //show button prompt
@@ -119,12 +121,16 @@ public class DialogueScript_Test : MonoBehaviour
                if (GetComponent<SpriteRenderer>().flipX)
                {
                    leftImage.sprite = NPCImage;
+                   leftImage.rectTransform.localScale = new Vector3(-1, 1, 1);
                    rightImage.sprite = playerImage;
+                   rightImage.rectTransform.localScale = new Vector3(-1, 1, 1);
                }
                else
                {
                    leftImage.sprite = playerImage;
+                   leftImage.rectTransform.localScale = new Vector3(1, 1, 1);
                    rightImage.sprite = NPCImage;
+                   rightImage.rectTransform.localScale = new Vector3(1, 1, 1);
                }
            }
        }
@@ -156,12 +162,30 @@ public class DialogueScript_Test : MonoBehaviour
 
    }
 
-   /*
+   
    private void FixedUpdate()
    {
-       interact = Physics2D.OverlapCircle(transform.position, 2f, LayerMask.GetMask("Player"));
+       RaycastHit2D hit = Physics2D.CircleCast(transform.position, 2f, Vector2.up, LayerMask.GetMask("Player"));
+
+       if (hit != null)
+       {
+           if (hit.collider.tag == "Player")
+           {
+               interact = true;
+           }
+           else
+           {
+               interact = false;
+           }
+       }
+       else
+       {
+           interact = false;
+       }
    }
-   */
+   
+   
+   /*
    
    private void OnTriggerStay2D(Collider2D other)
    {
@@ -178,6 +202,7 @@ public class DialogueScript_Test : MonoBehaviour
            interact = false;
        }
    }
+   */
 
    void MoveNetalia(GameObject net)
    {
@@ -189,6 +214,7 @@ public class DialogueScript_Test : MonoBehaviour
        net.transform.position = playerPos;
 
    }
+
 
    void ZoomIn()
    {
@@ -283,11 +309,12 @@ public class DialogueScript_Test : MonoBehaviour
        DialogueUI.SetActive(false);
        //ZoomOut();
 
+       //spoke to player
        NPCMinimapTracker tracker = gameObject.GetComponentInChildren<NPCMinimapTracker>();
-       SpriteRenderer minimapMarker = tracker.minimapMarker;
+       //SpriteRenderer minimapMarker = tracker.minimapMarker;
        tracker.SpokeToPlayer();
-       tracker.enabled = false;
-       minimapMarker.color  = new Color(1, 1, 1, 0);
+       //tracker.enabled = false;
+       //minimapMarker.color  = new Color(1, 1, 1, 0);
    }
    
 }

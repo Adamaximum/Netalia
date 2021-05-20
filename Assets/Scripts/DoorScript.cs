@@ -12,20 +12,26 @@ public class DoorScript : MonoBehaviour
 
     private float detectionRange;
     private Vector2 detectionOrigin;
+    private Vector2 detectionCastSize;
     
     void Start()
     {
         collider = gameObject.GetComponent<Collider2D>();
         anim = gameObject.GetComponent<Animator>();
 
-        detectionRange = 4;
-        detectionOrigin = new Vector2(transform.position.x - (detectionRange/2), transform.position.y - 0.4f);
+        detectionRange = 5;
+        float castHeight = transform.position.y - transform.localScale.y + (Collision.Instance.gameObject.transform.localScale.y/2);
+        detectionOrigin = new Vector2(transform.position.x - (detectionRange/2), castHeight);
+        detectionCastSize = new Vector2(detectionRange*2, gameObject.transform.localScale.y);
     }
 
     private void FixedUpdate()
     {
         RaycastHit2D hit = Physics2D.Raycast(detectionOrigin, Vector2.right, detectionRange, LayerMask.GetMask("Player"));
+        //RaycastHit2D hit = Physics2D.BoxCast(transform.position, detectionCastSize, 0, Vector2.up);
         Debug.DrawRay(detectionOrigin, Vector2.right*detectionRange, Color.red);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawCube(transform.position, detectionCastSize);
 
         if (hit != null)
         {
@@ -33,7 +39,8 @@ public class DoorScript : MonoBehaviour
             {
                 if (hit.collider.tag == "Player" && UnlockConditions())
                 {
-                    UnlockDoor();
+                    anim.SetTrigger("Unlock");
+                    StartCoroutine(UnlockDoor());
                 }
             }
             catch (NullReferenceException error)
@@ -56,9 +63,9 @@ public class DoorScript : MonoBehaviour
         return true;
     }
 
-    private void UnlockDoor()
+    private IEnumerator UnlockDoor()
     {
-       anim.SetTrigger("Unlock");
+       yield return new WaitForSeconds(1);
        collider.enabled = false;
     }
 }

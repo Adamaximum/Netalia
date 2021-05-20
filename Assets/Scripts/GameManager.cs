@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
 
         QuitPanel.enabled = false;
     }
+
+    private void Start()
+    {
+        StartCoroutine(mask.FadeIn());
+    }
     
     
     void Update()

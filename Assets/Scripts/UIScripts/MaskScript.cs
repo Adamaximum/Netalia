@@ -50,4 +50,15 @@ public class MaskScript : MonoBehaviour
         //load main menu
         SceneManager.LoadScene("Main Menu");
     }
+    
+    public IEnumerator FadeIn()
+    {
+        sprite.color = new Color(0, 0, 0, 1);
+        
+        for (float i = 1; i > 0; i -= .01f)
+        {
+            yield return new WaitForSeconds(.005f);
+            sprite.color = new Color(0, 0, 0, i);
+        }
+    }
 }

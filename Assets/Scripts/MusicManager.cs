@@ -6,8 +6,9 @@ using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
-    private AudioSource audio;
+    public AudioSource currentAudio;
     public AudioClip currentClip;
+    public float fadeDuration;
 
     public static MusicManager Instance { get; private set; }
 
@@ -18,26 +19,25 @@ public class MusicManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        audio = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
-        audio.clip = currentClip;
-        audio.Play();
+        currentAudio.clip = currentClip;
+        currentAudio.Play();
     }
 
 
-    public void ChangeTracks(AudioClip music)
+    public void ChangeTracks(AudioSource audio, AudioClip music)
     {
+        StartCoroutine(FadeOut(currentAudio));
+        StartCoroutine(FadeIn(audio, music));
+        currentAudio = audio;
         currentClip = music;
-        StartCoroutine(FadeOut());
     }
     
-    private IEnumerator FadeOut()
+    private IEnumerator FadeOut(AudioSource audio)
     {
-        float fadeDuration = 3;
         float currentTime = fadeDuration;
         while (currentTime > 0)
         {
@@ -45,22 +45,14 @@ public class MusicManager : MonoBehaviour
             audio.volume -= Mathf.Lerp(audio.volume, 0, currentTime / fadeDuration);
             yield return null;
         }
-        
-        CallFadeIn(currentClip);
         yield break;
     }
 
-    private void CallFadeIn(AudioClip music)
-    {
-        StartCoroutine(FadeIn(music));
-    }
-
-    private IEnumerator FadeIn(AudioClip music)
+    private IEnumerator FadeIn(AudioSource audio, AudioClip music)
     {
         audio.clip = music;
         audio.Play();
         
-        float fadeDuration = 3;
         float currentTime = fadeDuration;
         while (currentTime > 0)
         {
