@@ -32,6 +32,10 @@ public class MenuScript : MonoBehaviour
     void Play()
     {
         Debug.Log("Starting game");
+        playButton.enabled = false;
+        controlsButton.enabled = false;
+        creditsButton.enabled = false;
+        quitButton.enabled = false;
         StartCoroutine(fader.FadeOut());
     }
 
@@ -54,6 +58,10 @@ public class MenuScript : MonoBehaviour
     void Quit()
     {
         Debug.Log("Quitting game");
+        playButton.enabled = false;
+        controlsButton.enabled = false;
+        creditsButton.enabled = false;
+        quitButton.enabled = false;
         StartCoroutine(fader.QuitFadeOut());
     }
 
