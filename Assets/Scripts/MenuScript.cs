@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    //public MainMenuFade fader;
+    public MainMenuFade fader;
 
     public Canvas canvas1;
     public Canvas canvas2;
@@ -32,8 +32,7 @@ public class MenuScript : MonoBehaviour
     void Play()
     {
         Debug.Log("Starting game");
-        //StartCoroutine(fader.FadeOut());
-        SceneManager.LoadScene("Main Scene");
+        StartCoroutine(fader.FadeOut());
     }
 
     void Controls()

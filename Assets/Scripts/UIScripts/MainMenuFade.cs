@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuFade : MonoBehaviour
 {
@@ -32,5 +33,6 @@ public class MainMenuFade : MonoBehaviour
             yield return new WaitForSeconds(.005f);
             fadeImg.color = new Color(0, 0, 0, i);
         }
+        SceneManager.LoadScene(1);
     }
 }
