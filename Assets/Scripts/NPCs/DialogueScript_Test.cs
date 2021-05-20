@@ -165,7 +165,7 @@ public class DialogueScript_Test : MonoBehaviour
    
    private void FixedUpdate()
    {
-       RaycastHit2D hit = Physics2D.CircleCast(transform.position, 2f, Vector2.up, LayerMask.GetMask("Player"));
+       RaycastHit2D hit = Physics2D.CircleCast(transform.position, 2f, Vector2.up);
 
        if (hit != null)
        {
@@ -182,9 +182,17 @@ public class DialogueScript_Test : MonoBehaviour
        {
            interact = false;
        }
+       
+       Debug.Log(interact);
    }
-   
-   
+
+   private void OnDrawGizmos()
+   {
+       Gizmos.color = Color.cyan;
+       Gizmos.DrawWireSphere(transform.position, 2f);
+   }
+
+
    /*
    
    private void OnTriggerStay2D(Collider2D other)
