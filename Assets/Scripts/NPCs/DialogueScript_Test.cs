@@ -121,12 +121,16 @@ public class DialogueScript_Test : MonoBehaviour
                if (GetComponent<SpriteRenderer>().flipX)
                {
                    leftImage.sprite = NPCImage;
+                   leftImage.rectTransform.localScale = new Vector3(-1, 1, 1);
                    rightImage.sprite = playerImage;
+                   rightImage.rectTransform.localScale = new Vector3(-1, 1, 1);
                }
                else
                {
                    leftImage.sprite = playerImage;
+                   leftImage.rectTransform.localScale = new Vector3(1, 1, 1);
                    rightImage.sprite = NPCImage;
+                   rightImage.rectTransform.localScale = new Vector3(1, 1, 1);
                }
            }
        }
